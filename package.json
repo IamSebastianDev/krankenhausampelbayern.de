@@ -1,0 +1,21 @@
+{
+  "name": "ampeldashboardbayern",
+  "version": "1.0.0",
+  "description": "Covid 19 trafficlight dashboard for bavaria",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "nodemon server.mjs",
+    "compile": "node ./service/compile.mjs"
+  },
+  "author": "Sebastian Heinz",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-html-parser": "^4.1.4",
+    "puppeteer": "^10.2.0"
+  }
+}

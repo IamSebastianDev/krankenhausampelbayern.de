@@ -1,0 +1,433 @@
+/** @format */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&family=Roboto:wght@200;400&display=swap');
+
+:root {
+	--ui-color-light: rgba(255, 255, 255, 1);
+	--ui-color-light-shade: rgba(200, 200, 200, 1);
+	--ui-color-dark: rgba(24, 24, 30, 1);
+	--ui-color-dark-shade: rgba(20, 20, 26, 1);
+	--ui-color-accent-blue: rgba(57, 160, 237, 1);
+	--ui-color-accent-teal: rgba(19, 196, 163, 1);
+	--ui-color-accent-contrast: rgba(255, 90, 95, 1);
+
+	--z-index-nav: 100;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+
+	box-sizing: border-box;
+}
+
+body {
+	background: var(--ui-color-dark);
+	color: var(--ui-color-light);
+
+	/* setting the font size to 10px allows easy conversion to em and rem units */
+
+	font-size: 10px;
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen,
+		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-weight: 200;
+
+	overflow-x: hidden;
+}
+
+a {
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen,
+		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-weight: 200;
+	text-decoration: none;
+
+	cursor: pointer;
+}
+
+/* section @nav */
+
+nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	display: flex;
+	flex-direction: row;
+
+	font-size: 1.4em;
+
+	padding: 1em;
+
+	background: var(--ui-color-dark);
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+
+	z-index: var(--z-index-nav);
+}
+
+nav ul {
+	margin: 0;
+	padding: 0.4em 0;
+
+	width: 100vw;
+	max-width: 1366px;
+	margin: auto;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+
+	list-style-type: none;
+}
+
+.nav-link:first-child {
+	margin-right: auto;
+}
+
+.nav-link {
+	padding: 0 1.2em;
+}
+
+.nav-link a {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 1.4em;
+	font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+	color: var(--ui-color-light);
+
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+.nav-link a:hover {
+	color: var(--ui-color-accent-contrast);
+}
+
+#nav-mobile-button {
+	display: none;
+}
+
+/* section @main */
+
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/* section @data-display */
+
+#data-display {
+	position: relative;
+
+	min-height: 50vh;
+	margin: 10em auto;
+
+	width: 90vw;
+	max-width: 1366px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#data-widgets {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.data-display-timestamp {
+	font-size: 1.2em;
+	padding: 0.5em;
+	margin: 4em 0 -4em;
+	color: var(--ui-color-light-shade);
+}
+
+.data-display-timestamp a {
+	color: var(--ui-color-light);
+	text-decoration: underline;
+}
+
+/*
+
+	widget
+
+*/
+
+.widget {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	width: 340px;
+	height: 340px;
+
+	border: 2px solid var(--ui-color-dark-shade);
+	border-radius: 2.5em;
+	font-size: 1.6em;
+
+	padding: 1.3em 2em;
+	margin: 1.5em;
+
+	box-shadow: 0px 0px 4px 4px rgba(32, 32, 42, 1);
+	box-sizing: border-box;
+}
+
+.widget h3 {
+	font-size: 1.15em;
+	font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.widget hr {
+	width: 100%;
+}
+
+.widget p {
+	color: var(--ui-color-light-shade);
+	font-weight: 200;
+	margin: 0.2em 0;
+	padding: 0.2em 0;
+	font-size: 0.8em;
+	margin-bottom: auto;
+}
+
+.widget-values {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+
+	margin: 1em 0;
+}
+
+.widget-values span {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 5em;
+	font-weight: 400;
+	font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.widget-trend svg {
+	transform: scale(4);
+}
+
+.widget-trend-positive {
+	color: var(--ui-color-accent-contrast);
+}
+
+.widget-trend-negative {
+	color: var(--ui-color-accent-teal);
+}
+
+.widget-details {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-content: center;
+	justify-items: center;
+
+	padding: 0 0.5em;
+	margin: 0.5em 0;
+
+	font-size: 0.8em;
+	letter-spacing: 0.1em;
+}
+
+#trafficlight .widget-values {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+}
+
+#trafficlight .widget-values span {
+	margin-left: 0.6em;
+	font-size: 0.9em;
+}
+
+.widget-tl-ring {
+	width: 65px;
+	height: 65px;
+
+	margin: 10px;
+
+	border-radius: 50%;
+	background: var(--color-tl);
+	border: 5px solid var(--ui-color-light);
+	box-shadow: 0px 0px 0px 5px var(--color-tl);
+}
+
+.widget-link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--ui-color-light-shade);
+
+	padding: 0 0.5em;
+	margin: 0.5em 0;
+
+	font-size: 0.8em;
+	letter-spacing: 0.1em;
+}
+
+.widget-link a {
+	color: var(--ui-color-light-shade);
+	text-decoration: underline;
+}
+
+/* section @incidences */
+
+#widget-display {
+	background: var(--ui-color-dark-shade);
+	min-height: 50vh;
+}
+
+/* section @footer */
+
+footer {
+	background: var(--ui-color-dark-shade);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-size: 1.2em;
+	font-weight: 200;
+	letter-spacing: 0.1em;
+	color: var(--ui-color-light-shade);
+	text-align: center;
+
+	padding: 2.4em 5vw;
+	margin-top: 2.4em;
+}
+
+footer > * {
+	max-width: 768px;
+}
+
+footer a {
+	color: var(--ui-color-light);
+	text-decoration: underline;
+}
+
+footer a:hover {
+	color: var(--ui-color-accent-contrast);
+}
+
+/* section @loader */
+
+.loader {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+
+	background: var(--ui-color-dark);
+
+	font-size: 10px;
+}
+
+.loader span {
+	display: block;
+
+	position: absolute;
+
+	width: 10em;
+	height: 10em;
+
+	margin: 0;
+	padding: 0;
+
+	border-top: 0.5em solid var(--ui-color-accent-teal);
+
+	border-radius: 50%;
+
+	animation: loaderSpin 2s 0s ease-in-out infinite;
+
+	box-shadow: 0px 0px 5px 5px rgba(255, 255, 255, 0.2);
+}
+
+.loader span:nth-child(2) {
+	animation-duration: 2s;
+	animation-delay: 0.25s;
+	border-left: 0.5em solid var(--ui-color-accent-blue);
+}
+
+.loader span:nth-child(3) {
+	animation-duration: 2s;
+	animation-delay: 0.5s;
+	border-bottom: 0.5em solid var(--ui-color-accent-contrast);
+}
+
+@keyframes loaderSpin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* section @error */
+
+.message-error {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	margin: 0.4em auto;
+	padding: 0.4em 1.5em;
+
+	font-size: 1.5em;
+
+	border: 1px solid var(--ui-color-accent-contrast);
+}
+
+.message-close {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	margin: 0 0 0 1em;
+	padding: 0;
+
+	background: none;
+	border: none;
+	color: var(--ui-color-accent-contrast);
+
+	cursor: pointer;
+}
+
+.message-close:hover {
+	color: var(--ui-color-light);
+}
+
+@media (max-width: 1366px) {
+	#data-widgets {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
