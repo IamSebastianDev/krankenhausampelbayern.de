@@ -16,6 +16,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "node-html-parser": "^4.1.4",
-    "puppeteer": "^10.2.0"
+    "puppeteer": "^10.2.0",
+    "ssl-express-www": "^3.0.8"
   }
 }
