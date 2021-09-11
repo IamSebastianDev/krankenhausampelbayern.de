@@ -7,9 +7,17 @@
 */
 
 import Express from 'express';
-import sslRedirect from 'heroku-ssl-redirect';
 
 const App = Express();
+
+App.enable('trust proxy');
+App.use(function (req, res, next) {
+	if (req.secure) {
+		next();
+	} else {
+		res.redirect('https://' + req.headers.host + req.url);
+	}
+});
 
 /*
 
@@ -18,8 +26,6 @@ const App = Express();
 */
 
 App.use(Express.static('./public'));
-
-App.use(sslRedirect());
 
 /*
 
