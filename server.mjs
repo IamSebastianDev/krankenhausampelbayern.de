@@ -7,7 +7,6 @@
 */
 
 import Express from 'express';
-import secure from 'ssl-express-www';
 
 const App = Express();
 
@@ -17,7 +16,6 @@ const App = Express();
 
 */
 
-App.use(secure);
 App.use(Express.static('./public'));
 
 /*
