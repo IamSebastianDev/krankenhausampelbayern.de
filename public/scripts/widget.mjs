@@ -38,10 +38,10 @@ const renderWidget = (data) => {
 	const trend = document.createElement('span');
 	trend.innerHTML =
 		data.trend == -1
-			? Pangolicons.icons.arrowRightDown.toString({ 'stroke-width': 1 })
+			? Pangolicons.icons.arrowRightDown.toString({ 'stroke-width': 2 })
 			: data.trend == 0
-			? Pangolicons.icons.arrowRight.toString({ 'stroke-width': 1 })
-			: Pangolicons.icons.arrowRightUp.toString({ 'stroke-width': 1 });
+			? Pangolicons.icons.arrowRight.toString({ 'stroke-width': 2 })
+			: Pangolicons.icons.arrowRightUp.toString({ 'stroke-width': 2 });
 
 	trend.className = `widget-trend ${
 		data.trend == -1 ? 'widget-trend-negative' : 'widget-trend-positive'

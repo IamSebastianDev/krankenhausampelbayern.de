@@ -124,8 +124,6 @@ const extractData = (nodeData, nodeTime, lastDataSet) => {
 		lastDataSet.history[lastDataSet.history.length - 1].meta.dataCurrentAsOf
 	).getDay();
 
-	console.log({ newDate, oldDate });
-
 	let mod = newDate == oldDate ? 2 : 1;
 
 	/*

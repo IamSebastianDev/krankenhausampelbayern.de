@@ -10,7 +10,14 @@ import Express from 'express';
 
 const App = Express();
 
+/*
+
+    Create a automatic redirect to https
+
+*/
+
 App.enable('trust proxy');
+
 App.use(function (req, res, next) {
 	if (req.secure) {
 		next();

@@ -28,11 +28,11 @@ class Schema {
 			title: {
 				german: {
 					full: 'Inzidenz (Hospitalisierungen)',
-					short: 'Inzidenz (Hospi)',
+					short: 'Inzidenz (Hospi.)',
 				},
 				english: {
 					full: 'Incidence (Hospitalizations)',
-					short: 'Incidence (Hospi)',
+					short: 'Incidence (Hospi.)',
 				},
 			},
 			description: {
@@ -57,8 +57,8 @@ class Schema {
 		this.hospitalization = {
 			id: 'hospitalization',
 			title: {
-				german: { full: 'Hospitalisierungen', short: 'Hospi' },
-				english: { full: 'Hospitalizations', short: 'Hospi' },
+				german: { full: 'Hospitalisierungen', short: 'Hospi.' },
+				english: { full: 'Hospitalizations', short: 'Hospi.' },
 			},
 			description: {
 				german: 'Gesamte Anzahl der Hospitalisierungen aufgrund Covid-19 in den letzten 7 Tage:',
@@ -102,7 +102,7 @@ class Schema {
 		this.vaccination = {
 			id: 'vaccinations',
 			title: {
-				german: { full: 'Impfquotee', short: 'Impfq..' },
+				german: { full: 'Impfquote', short: 'Impfq.' },
 				english: {
 					full: 'Vaccination rate',
 					short: 'Vaccinations',
@@ -115,7 +115,10 @@ class Schema {
 			value: vaccinationCurrentValue,
 			currentValue: vaccinationCurrentValue,
 			lastValue: vaccinationLastValue,
-			newCases: undefined,
+			newCases: this.#calculateNewCases(
+				vaccinationCurrentValue,
+				vaccinationLastValue
+			),
 			trend: this.#calculateTrend(
 				vaccinationCurrentValue,
 				vaccinationLastValue
