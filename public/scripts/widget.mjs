@@ -72,7 +72,7 @@ const renderWidget = (data) => {
 		? data.newCases
 		: data.newCases.toFixed(2);
 
-	change.textContent = `${fixed >= 0 ? `+${fixed}` : `-${fixed}`}`;
+	change.textContent = `${fixed >= 0 ? `+${fixed}` : `${fixed}`}`;
 	change.style.color =
 		fixed > 0
 			? 'var(--ui-color-accent-contrast)'

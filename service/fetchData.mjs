@@ -117,16 +117,35 @@ const extractData = (nodeData, nodeTime, lastDataSet) => {
 		.replace('3) Stand:', '')
 		.replace('Uhr. https://www.intensivregister.de', '');
 
+	// check which historyObject to use
+
+	const newDate = new Date(dataCurrentAsOf).getDay();
+	const oldDate = new Date(
+		lastDataSet.history[lastDataSet.history.length - 1].meta.dataCurrentAsOf
+	).getDay();
+
+	console.log({ newDate, oldDate });
+
+	let mod = newDate == oldDate ? 2 : 1;
+
 	/*
 
 		Gather thee last Values and provide a fallback to zero if data is missing or corrupted 
 
 	*/
 
-	const incidenceLastValue = lastDataSet?.incidence?.value || 0;
-	const hospitalizationLastValue = lastDataSet?.hospitalization?.value || 0;
-	const icuLastValue = lastDataSet?.icuOccupancy?.value || 0;
-	const vaccinationLastValue = lastDataSet?.vaccination?.value || 0;
+	const incidenceLastValue =
+		lastDataSet.history[lastDataSet.history.length - mod]?.incidence
+			?.value || 0;
+	const hospitalizationLastValue =
+		lastDataSet.history[lastDataSet.history.length - mod]?.hospitalization
+			?.value || 0;
+	const icuLastValue =
+		lastDataSet.history[lastDataSet.history.length - mod]?.icuOccupancy
+			?.value || 0;
+	const vaccinationLastValue =
+		lastDataSet.history[lastDataSet.history.length - mod]?.vaccination
+			?.value || 0;
 
 	/*
 
@@ -194,7 +213,7 @@ const fetchDataFromSource = async ({ forcerefresh = 'false' } = {}) => {
     */
 
 	if (
-		!forcerefresh ||
+		forcerefresh != 'true' &&
 		requestTimestamp - timeToRefresh < lastDataSet?.meta?.timeStamp
 	) {
 		return lastDataSet;
@@ -239,11 +258,7 @@ const fetchDataFromSource = async ({ forcerefresh = 'false' } = {}) => {
 
 	*/
 
-	const newData = extractData(
-		nodeData,
-		nodeTime,
-		history.history[history.history.length - 2]
-	);
+	const newData = extractData(nodeData, nodeTime, history);
 
 	// console.log(newDataSet);
 
