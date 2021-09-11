@@ -100,7 +100,9 @@ const fetchDataFromSource = async () => {
 
 		*/
 
-		const timeStamp = new Date(data.meta.dataCurrentAsOf).toLocaleString();
+		const timeStamp = new Date(data.meta.dataCurrentAsOf).toLocaleString(
+			window.navigator.language
+		);
 
 		const linkContainer = document.createElement('span');
 		linkContainer.className = 'data-display-timestamp';

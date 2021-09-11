@@ -195,7 +195,7 @@ const fetchDataFromSource = async ({ forcerefresh = 'false' } = {}) => {
 
 	if (
 		!forcerefresh ||
-		requestTimestamp - timeToRefresh > lastDataSet?.meta?.timeStamp
+		requestTimestamp - timeToRefresh < lastDataSet?.meta?.timeStamp
 	) {
 		return lastDataSet;
 	}
@@ -242,7 +242,7 @@ const fetchDataFromSource = async ({ forcerefresh = 'false' } = {}) => {
 	const newData = extractData(
 		nodeData,
 		nodeTime,
-		history.history[history.history.length - 1]
+		history.history[history.history.length - 2]
 	);
 
 	// console.log(newDataSet);
