@@ -17,8 +17,9 @@ const App = Express();
 
 */
 
-App.use(sslRedirect());
 App.use(Express.static('./public'));
+
+App.use(sslRedirect());
 
 /*
 
