@@ -7,6 +7,7 @@
 */
 
 import Express from 'express';
+import sslRedirect from 'heroku-ssl-redirect';
 
 const App = Express();
 
@@ -16,6 +17,7 @@ const App = Express();
 
 */
 
+App.use(sslRedirect());
 App.use(Express.static('./public'));
 
 /*
