@@ -119,6 +119,20 @@ nav ul {
 
 #nav-mobile-button {
 	display: none;
+
+	background: none;
+	color: var(--ui-color-light);
+	border: none;
+
+	justify-content: center;
+	align-items: center;
+
+	padding: 0.2em;
+	margin: 0.2em;
+}
+
+#nav-mobile-button svg {
+	transform: scale(1.4);
 }
 
 /* section @main */
@@ -326,8 +340,45 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
+	#nav-mobile-button {
+		display: flex;
+		z-index: 1000;
+	}
+
 	nav {
+		justify-content: flex-end;
+	}
+
+	nav ul {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		background: var(--ui-color-dark);
+		transition: 0.4s ease-out;
+	}
+
+	nav ul[state='false'] {
+		transform: translateY(-100%);
+	}
+
+	nav ul[state='true'] {
+		transform: translateY(-0%);
+	}
+
+	li.nav-link:first-child {
 		display: none;
+	}
+
+	li.nav-link {
+		margin: 1.4em 0;
 	}
 
 	#data-widgets {

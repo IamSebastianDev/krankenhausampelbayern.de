@@ -1,5 +1,31 @@
 /** @format */
 
+const mobileNav = {
+	nav: document.querySelector('nav ul'),
+	state: false,
+	toggle() {
+		!this.state
+			? this.nav.setAttribute('state', true)
+			: this.nav.setAttribute('state', false);
+
+		this.state = !this.state;
+	},
+	init() {
+		this.nav.setAttribute('state', false);
+
+		window.addEventListener('click', (ev) => {
+			if (ev.target.closest('#nav-mobile-button')) {
+				this.toggle();
+			}
+			if (ev.target.closest('.nav-link')) {
+				this.toggle();
+			}
+		});
+	},
+};
+
+mobileNav.init();
+
 /*
 
 	The following code block handles all loaders. 

@@ -199,7 +199,7 @@ class TrafficLightWidget extends Widget {
 				<a
 					class="widget-link"
 					style="grid-column: 1 / 5;"
-					href="https://www.stmgp.bayern.de/coronavirus/_kh-ampel"
+					href="https://www.stmgp.bayern.de/coronavirus/#kh-ampel"
 					target="_blank"
 					rel="norefferer noopener"
 					>&rarr; Aktuell geltende Regelungen</a
