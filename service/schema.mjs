@@ -109,7 +109,7 @@ class Schema {
 				},
 			},
 			description: {
-				german: 'Anzahl der vollständig geimpften Personen',
+				german: 'Anteil der vollständig geimpften Personen.',
 				english: 'Amount of fully vaccinated citizens.',
 			},
 			value: vaccinationCurrentValue,

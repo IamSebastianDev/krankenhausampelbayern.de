@@ -1,0 +1,121 @@
+.widget {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	width: 21em;
+	height: 21em;
+
+	background: var(--ui-color-dark-shade);
+	background: var(--ui-gradient-widget);
+	border: 3px solid var(--ui-color-dark);
+	border-radius: 2em;
+	font-size: 1.6em;
+
+	padding: 1.3em 2em;
+	margin: 1.2em;
+
+	box-shadow: 2px 0px 4px 4px rgba(110, 110, 120, 0.1),
+		-2px 0px 4px 4px rgba(110, 110, 120, 0.1);
+	box-sizing: border-box;
+}
+
+.widget h3 {
+	margin: 0.3em 0;
+	font-size: 1.2em;
+	font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.widget p {
+	color: var(--ui-color-light-shade);
+	font-weight: 200;
+	margin: 0.2em 0;
+	padding: 0.2em 0;
+	font-size: 0.8em;
+}
+
+
+.widget-values {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+
+	margin: 1em 0;
+}
+
+.widget-cases {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 5em;
+	font-weight: 400;
+	font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.widget-trend {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.widget-trend svg {
+	transform: scale(5);
+}
+
+.widget-details {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-content: center;
+	justify-items: center;
+
+	padding: 0 0.5em;
+	margin: 0.5em 0;
+
+	font-size: 0.8em;
+	letter-spacing: 0.1em;
+}
+
+.widget-link {
+	color: var(--ui-color-light-shade);
+    text-decoration: underline;
+
+	padding: 0 0.5em;
+	margin: 0.5em 0;
+
+	font-size: 1.1em;
+	letter-spacing: 0.1em;
+}
+
+.widget-link:hover {
+    color: var(--ui-color-light); 
+}
+
+.widget-trafficLight {
+	width: 65px;
+	height: 65px;
+
+	margin: 10px;
+
+	border-radius: 50%;
+	background: var(--color-tl);
+	border: 5px solid var(--ui-color-light);
+	box-shadow: 0px 0px 0px 5px var(--color-tl);
+
+	flex-shrink: 0;
+}
+
+.widget-trafficText {
+	display: flex; 
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 0.9em;
+	margin-left: 1em; 
+}

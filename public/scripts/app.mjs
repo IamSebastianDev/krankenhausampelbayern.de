@@ -58,13 +58,12 @@ const RenderError = (error, target) => {
 	target.appendChild(container);
 };
 
+import { ValueWidget, TrafficLightWidget } from './widget.mjs';
 /*
 
     Fetch the Data from the backend
 
 */
-
-import { renderWidget, renderTrafficLight } from './widget.mjs';
 
 const fetchDataFromSource = async () => {
 	try {
@@ -78,21 +77,15 @@ const fetchDataFromSource = async () => {
 
 		/*
 
-			Create the trafficlight widget
-
-		*/
-
-		dataLayer.appendChild(renderTrafficLight(data));
-
-		/*
-
 			Create the 3 main display widgets
 
 		*/
 
-		dataLayer.appendChild(renderWidget(data.incidence));
-		dataLayer.appendChild(renderWidget(data.hospitalization));
-		dataLayer.appendChild(renderWidget(data.icuOccupancy));
+		dataLayer.appendChild(new TrafficLightWidget(data));
+		dataLayer.appendChild(new ValueWidget(data.incidence));
+		dataLayer.appendChild(new ValueWidget(data.hospitalization));
+		dataLayer.appendChild(new ValueWidget(data.icuOccupancy));
+		dataLayer.appendChild(new ValueWidget(data.vaccination));
 
 		/*
 
