@@ -17,9 +17,9 @@ const parseHTMLFromString = (string) =>
 
 */
 class Widget {
-	#widgetSize;
+	_widgetSize;
 	constructor({ widgetTitle, widgetDescription, widgetSize }) {
-		this.#widgetSize = widgetSize;
+		this._widgetSize = widgetSize;
 		this.widgetTitle = widgetTitle;
 		this.widgetDescription = widgetDescription;
 	}
@@ -28,7 +28,7 @@ class Widget {
 			<div
 				class="widget"
 				id="${this.widgetTitle.replace(' ', '').toLowerCase()}"
-				${this.#getGridSize(this.#widgetSize)}
+				${this._getGridSize(this._widgetSize)}
 			>
 				<div class="widget-text">
 					<h3 class="widget-title">${this.widgetTitle}</h3>
@@ -41,7 +41,7 @@ class Widget {
 
 		return parseHTMLFromString(string);
 	}
-	#getGridSize(widgetSize) {
+	_getGridSize(widgetSize) {
 		switch (widgetSize) {
 			case 'small':
 				return ``;
@@ -80,7 +80,7 @@ class ValueWidget extends Widget {
 						: this.data.trend == 0
 						? ''
 						: `style="color: var(--ui-color-accent-teal)";`
-				} >${this.#calculateTrend()}</span>
+				} >${this._calculateTrend()}</span>
 				<span class="widget-cases" ${
 					this.data.threshold != undefined
 						? this.data.value > this.data.threshold
@@ -108,7 +108,7 @@ class ValueWidget extends Widget {
 				<span class="widget-value-percentage">
 					${
 						this.data.threshold != undefined
-							? `${this.#calculatePercentage(
+							? `${this._calculatePercentage(
 									this.data.value,
 									this.data.threshold
 							  )}`
@@ -141,11 +141,11 @@ class ValueWidget extends Widget {
 		return widget;
 	}
 
-	#calculatePercentage(value, threshold) {
+	_calculatePercentage(value, threshold) {
 		return `(${((100 * value) / threshold).toFixed(2)}%)`;
 	}
 
-	#calculateTrend() {
+	_calculateTrend() {
 		return this.data.trend > 0
 			? Pangolicons.icons.arrowRightUp.toString({ 'stroke-width': 2 })
 			: this.data.trend == 0
@@ -176,7 +176,7 @@ class TrafficLightWidget extends Widget {
 		const shell = this.renderShell();
 		const widget = shell.querySelector('.widget');
 
-		const stage = this.#calculateCurrentStage(this.data);
+		const stage = this._calculateCurrentStage(this.data);
 
 		const content = `
 			<div class="widget-values">
@@ -199,7 +199,7 @@ class TrafficLightWidget extends Widget {
 				<a
 					class="widget-link"
 					style="grid-column: 1 / 5;"
-					href="https://www.stmgp.bayern.de/coronavirus/#kh-ampel"
+					href="https://www.stmgp.bayern.de/coronavirus/_kh-ampel"
 					target="_blank"
 					rel="norefferer noopener"
 					>&rarr; Aktuell geltende Regelungen</a
@@ -211,7 +211,7 @@ class TrafficLightWidget extends Widget {
 		return widget;
 	}
 
-	#calculateCurrentStage(data) {
+	_calculateCurrentStage(data) {
 		if (data.icuOccupancy.value > data.icuOccupancy.threshold) {
 			return 2;
 		} else if (
@@ -234,7 +234,7 @@ class HistoryWidget extends Widget {
 	}
 
 	render() {}
-	#constructLineGraph() {}
+	_constructLineGraph() {}
 }
 
 export { ValueWidget, TrafficLightWidget, HistoryWidget };
