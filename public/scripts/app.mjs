@@ -112,9 +112,9 @@ const fetchDataFromSource = async () => {
 		dataLayer.appendChild(new ValueWidget(data.hospitalization).render());
 		dataLayer.appendChild(new ValueWidget(data.icuOccupancy).render());
 
-		// const history = new HistoryWidget(data);
-		// dataLayer.appendChild(history.render());
-		// history._constructLineGraph();
+		const history = new HistoryWidget(data);
+		dataLayer.appendChild(history.render());
+		history._constructLineGraph();
 
 		// dataLayer.appendChild(new ValueWidget(data.vaccination).render());
 
