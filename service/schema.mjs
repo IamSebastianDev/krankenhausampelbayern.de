@@ -126,8 +126,41 @@ class Schema {
 		};
 	}
 
-	#parseDate(date) {
-		return new Date(date.trim());
+	#parseDate(dateString) {
+		/*
+
+        trim the string 
+
+    */
+
+		dateString.trim();
+
+		/*
+
+        Split the string on comma, to seperate time and date
+
+    */
+
+		const [date, time] = dateString.split(',');
+
+		/*
+
+        Split the date string on dots, to sepereate, days, month and year
+
+    */
+
+		const [day, month, year] = date.split('.');
+		const [hour, minutes] = time.split(':');
+
+		/*
+
+			Construct a new correct date
+
+		*/
+
+		const constructedDate = new Date(year, month - 1, day, hour, minutes);
+
+		return constructedDate;
 	}
 	#calculateNewCases(currentValue, oldValue) {
 		return currentValue - oldValue;

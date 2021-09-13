@@ -46,9 +46,9 @@ class Widget {
 			case 'small':
 				return ``;
 			case 'medium':
-				return `style="grid-column: 1 / 3; width: unset;"`;
+				return `style="grid-column: span 2; width: unset;"`;
 			case 'large':
-				return `style="grid-column: 1 / 5; width: unset;"`;
+				return `style="grid-column: span 3; width: unset;"`;
 			default:
 				return ``;
 		}
@@ -64,8 +64,6 @@ class ValueWidget extends Widget {
 		});
 
 		this.data = data;
-
-		return this.render();
 	}
 
 	render() {
@@ -168,8 +166,6 @@ class TrafficLightWidget extends Widget {
 		});
 
 		this.data = data;
-
-		return this.render();
 	}
 
 	render() {
@@ -231,10 +227,26 @@ class HistoryWidget extends Widget {
 			widgetDescription: '',
 			widgetSize: 'medium',
 		});
+
+		this.data = data;
 	}
 
-	render() {}
-	_constructLineGraph() {}
+	render() {
+		const shell = this.renderShell();
+		const widget = shell.querySelector('.widget');
+
+		const content = `<canvas id="linegraph"></canvas>`;
+
+		widget.querySelector('.widget-content').innerHTML = content;
+		return widget;
+	}
+	_constructLineGraph() {
+		const canvas = document.querySelector('#linegraph');
+		const ctx = canvas.getContext('2d');
+
+		ctx.fillStyle = 'rgba(255,255,255,1)';
+		ctx.fillRect(0, 0, 50, 50);
+	}
 }
 
 export { ValueWidget, TrafficLightWidget, HistoryWidget };

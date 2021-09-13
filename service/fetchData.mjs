@@ -303,4 +303,16 @@ const fetchDataFromSource = async ({ forcerefresh = 'false' } = {}) => {
 	return newData;
 };
 
-export { fetchDataFromSource };
+const fetchHistory = async ({ timeframe = 7 }) => {
+	// gather the history object
+
+	const history = await fs.readFile(Paths.history);
+
+	/*
+
+		Shorten or Pad the retrieved array to it's supposed length. 
+
+	*/
+};
+
+export { fetchDataFromSource, fetchHistory };
