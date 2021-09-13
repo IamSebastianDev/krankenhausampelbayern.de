@@ -18,13 +18,13 @@ const App = Express();
 
 App.enable('trust proxy');
 
-// App.use(function (req, res, next) {
-// 	if (req.secure) {
-// 		next();
-// 	} else {
-// 		res.redirect('https://' + req.headers.host + req.url);
-// 	}
-// });
+App.use(function (req, res, next) {
+	if (req.secure) {
+		next();
+	} else {
+		res.redirect('https://' + req.headers.host + req.url);
+	}
+});
 
 /*
 
