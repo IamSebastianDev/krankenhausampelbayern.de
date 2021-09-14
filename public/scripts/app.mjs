@@ -100,6 +100,8 @@ const fetchDataFromSource = async () => {
 	try {
 		const res = await fetch('/api/data');
 		const data = await res.json();
+		const his = await fetch('/api/history?timeframe=7');
+		const hisData = await his.json();
 
 		console.log(data);
 
@@ -116,9 +118,6 @@ const fetchDataFromSource = async () => {
 		dataLayer.appendChild(new ValueWidget(data.incidence).render());
 		dataLayer.appendChild(new ValueWidget(data.hospitalization).render());
 		dataLayer.appendChild(new ValueWidget(data.icuOccupancy).render());
-
-		const his = await fetch('/api/history?timeframe=7');
-		const hisData = await his.json();
 
 		const history = new HistoryWidget(hisData);
 		dataLayer.appendChild(history.render());

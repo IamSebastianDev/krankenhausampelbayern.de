@@ -191,8 +191,10 @@ class VaccWidget extends Widget {
 					}
 					>${this._calculateTrend()}</span
 				>
-				<span class="widget-cases"
-					>${this.data.value}</span
+				<span class="widget-cases" style="display: block;"
+					>${this.data.value.toString().split('.')[0]}<span style="font-size: 0.3em;">.${
+			this.data.value.toString().split('.')[1]
+		}%</span></span
 				>
 			</div>
 			<div class="widget-details">
