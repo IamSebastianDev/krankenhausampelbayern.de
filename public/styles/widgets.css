@@ -3,11 +3,12 @@
 	flex-direction: column;
 	justify-content: space-between;
 
-	width: 21em;
-	height: 21em;
+	max-width: 21em;
+	max-height: 21em;
+
 
 	background: var(--ui-color-dark-shade);
-	/* background: var(--ui-gradient-widget); */
+	background: var(--ui-gradient-widget);
 	border: 3px solid var(--ui-color-dark);
 	border-radius: 2em;
 	font-size: 1.6em;
@@ -16,8 +17,16 @@
 	margin: 1.2em;
 
 	box-shadow: 2px 0px 4px 4px rgba(110, 110, 120, 0.1),
-		-2px 0px 4px 4px rgba(110, 110, 120, 0.1);
+		-2px 0px 4px 4px rgba(110, 110, 120, 0.1),
+		0px 0px 8px 6px rgba(0,0,0,0.5);
 	box-sizing: border-box;
+
+	backdrop-filter: blur(5px);
+}
+
+.widget-medium {
+	grid-column: span 2;
+	max-width: unset;
 }
 
 .widget h3 {
@@ -121,7 +130,8 @@
 }
 
 @media (max-width: 768px) {
-	#history {
-		display: none;
+	.widget-medium, .widget-large{
+		grid-column: unset;
+		max-width: 21em;
 	}
 }

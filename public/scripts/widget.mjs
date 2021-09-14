@@ -29,9 +29,9 @@ class Widget {
 
 		const string = `
 			<div
-				class="widget"
+				class="widget ${this._getGridSize(this._widgetSize)}"
 				id="${this.widgetId}"
-				${this._getGridSize(this._widgetSize)}
+				
 			>
 				<div class="widget-text">
 					<h3 class="widget-title">${title}<span style="font-size: 0.7em; color: var(--ui-color-light-shade)"> ${detail.join(
@@ -49,11 +49,11 @@ class Widget {
 	_getGridSize(widgetSize) {
 		switch (widgetSize) {
 			case 'small':
-				return ``;
+				return `widget-small`;
 			case 'medium':
-				return `style="grid-column: span 2; width: unset;"`;
+				return `widget-medium`;
 			case 'large':
-				return `style="grid-column: span 3; width: unset;"`;
+				return `widget-large`;
 			default:
 				return ``;
 		}
@@ -239,6 +239,10 @@ class HistoryWidget extends Widget {
 
 		this.data = data;
 		this.canvasId = '_7daytrend';
+
+		window.addEventListener('resize', (ev) => {
+			this._constructLineGraph();
+		});
 	}
 
 	render() {
@@ -256,6 +260,11 @@ class HistoryWidget extends Widget {
 	_constructLineGraph() {
 		const canvas = document.querySelector(`#${this.canvasId}`);
 		const ctx = canvas.getContext('2d');
+
+		// reset all the canvas sizes
+
+		canvas.style = '';
+		canvas.width = canvas.height = 0;
 
 		/*
 
@@ -299,6 +308,10 @@ class HistoryWidget extends Widget {
 
 		// figuring out how many pixels convert to a case
 		const canvasHeight = (canvas.height - padding * 2) / 600;
+
+		// clear the context
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		const drawAxis = (dates) => {
 			ctx.beginPath();
@@ -379,10 +392,10 @@ class HistoryWidget extends Widget {
 		drawAxis(dates);
 
 		/*
-
-			Construct the linegraph
-
-		*/
+	
+				Construct the linegraph
+	
+			*/
 
 		const drawLinegraph = (points, color) => {
 			ctx.beginPath();
