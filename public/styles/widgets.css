@@ -7,7 +7,7 @@
 	height: 21em;
 
 	background: var(--ui-color-dark-shade);
-	background: var(--ui-gradient-widget);
+	/* background: var(--ui-gradient-widget); */
 	border: 3px solid var(--ui-color-dark);
 	border-radius: 2em;
 	font-size: 1.6em;
@@ -118,4 +118,10 @@
 
 	font-size: 0.9em;
 	margin-left: 1em; 
+}
+
+@media (max-width: 768px) {
+	#history {
+		display: none;
+	}
 }

@@ -109,20 +109,14 @@ const extractData = (nodeData, nodeTime, lastDataSet) => {
 
 	/**
 
-		@todo: Figure out a better way to get the concurrency timestamp. This will likely break when the website is updated.
+		@todo: Figure out a better way to get the concurrency timestamp. This will likely break when the website is updated. - observe if fix holds this time
 
 	*/
-
-	// const dataCurrentAsOf = dataRaw
-	// 	.replace('3) Stand:', '')
-	// 	.replace('Uhr. https://www.intensivregister.de', '');
 
 	const dataCurrentAsOf = dataRaw
 		.match(/Stand[0-9., :]*Uhr/gim)[0]
 		.replace('Stand:', '')
 		.replace('Uhr', '');
-
-	console.log(dataCurrentAsOf);
 
 	// check which historyObject to use
 

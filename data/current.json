@@ -1,6 +1,6 @@
 {
 	"meta": {
-		"timeStamp": 1631622366062,
+		"timeStamp": 1631633627574,
 		"dataCurrentAsOf": "2021-09-14T10:15:00.000Z"
 	},
 	"incidence": {
@@ -38,8 +38,8 @@
 		"threshold": 1200,
 		"value": 306,
 		"currentValue": 306,
-		"lastValue": 299,
-		"newCases": 7,
+		"lastValue": 297,
+		"newCases": 9,
 		"trend": 1
 	},
 	"icuOccupancy": {
@@ -58,8 +58,8 @@
 		"threshold": 600,
 		"value": 244,
 		"currentValue": 244,
-		"lastValue": 237,
-		"newCases": 7,
+		"lastValue": 238,
+		"newCases": 6,
 		"trend": 1
 	},
 	"vaccination": {
@@ -74,8 +74,8 @@
 		},
 		"value": 60.3,
 		"currentValue": 60.3,
-		"lastValue": 59.9,
-		"newCases": 0.3999999999999986,
+		"lastValue": 60.2,
+		"newCases": 0.09999999999999432,
 		"trend": 1
 	}
 }
