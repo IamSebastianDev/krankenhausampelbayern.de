@@ -9,11 +9,11 @@
 
 	background: var(--ui-color-dark-shade);
 	background: var(--ui-gradient-widget);
-	border: 3px solid var(--ui-color-dark);
+	/* border: 3px solid var(--ui-color-dark); */
 	border-radius: 2em;
 	font-size: 1.6em;
 
-	padding: 1.3em 2em;
+	padding: 1.6em 2em;
 	margin: 1.2em;
 
 	box-shadow: 2px 0px 4px 4px rgba(110, 110, 120, 0.1),
@@ -43,6 +43,7 @@
 	padding: 0.2em 0;
 	font-size: 0.8em;
 }
+
 
 
 .widget-values {

@@ -230,9 +230,8 @@ class TrafficLightWidget extends Widget {
 class HistoryWidget extends Widget {
 	constructor(data) {
 		super({
-			widgetTitle: 'Intensivbelegung (ltz. 7 Tage)',
-			widgetDescription:
-				'Anzahl der Patienten die aufgrund Covid-19 auf der Intensivstation liegen im täglichen Verlauf.',
+			widgetTitle: `Krankenhauskapazität (ltz. ${data.length} Tage)`,
+			widgetDescription: `Anzahl der Patienten die mit Covid-19 Hospitalisiert & auf der Intensivstation liegen im ${data.length} Tages Verlauf.`,
 			widgetSize: 'medium',
 			widgetId: 'history',
 		});
@@ -252,7 +251,7 @@ class HistoryWidget extends Widget {
 		const content = `<canvas id="${this.canvasId}" ></canvas>`;
 		this.wContent = widget.querySelector('.widget-content');
 		this.wContent.style =
-			'display: inline-block; height: -webkit-fill-available';
+			'display: inline-block; height: -webkit-fill-available; margin-top: 0.5em;';
 
 		this.wContent.innerHTML = content;
 		return widget;
@@ -301,13 +300,25 @@ class HistoryWidget extends Widget {
 
 		*/
 
+		const caseNumbers = 1200;
+
 		const valuesICU = this.parseData(this.data, 'icuOccupancy');
 		const pointsICU = valuesICU.map((value, index) => {
 			return { value, column: index * columnWidth + padding };
 		});
 
+		const valuesHospitalization = this.parseData(
+			this.data,
+			'hospitalization'
+		);
+		const pointsHospitalization = valuesHospitalization.map(
+			(value, index) => {
+				return { value, column: index * columnWidth + padding };
+			}
+		);
+
 		// figuring out how many pixels convert to a case
-		const canvasHeight = (canvas.height - padding * 2) / 600;
+		const canvasHeight = (canvas.height - padding * 2) / caseNumbers;
 
 		// clear the context
 
@@ -362,17 +373,20 @@ class HistoryWidget extends Widget {
 			ctx.lineTo(0 + padding, 0 + padding);
 			ctx.stroke();
 
-			for (let i = 1; i <= 6; i++) {
-				ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+			for (let i = 0; i <= caseNumbers; i = i + 200) {
+				ctx.beginPath();
+				i == 600
+					? (ctx.strokeStyle = 'rgba(255,0,0,0.5)')
+					: (ctx.strokeStyle = 'rgba(255,255,255,0.2)');
 				ctx.setLineDash([2, 20]);
 
 				ctx.moveTo(
 					0 + padding,
-					canvas.height - padding - canvasHeight * i * 100
+					canvas.height - padding - canvasHeight * i
 				);
 				ctx.lineTo(
 					canvas.width - padding,
-					canvas.height - padding - canvasHeight * i * 100
+					canvas.height - padding - canvasHeight * i
 				);
 
 				// draw y axis labels
@@ -380,13 +394,13 @@ class HistoryWidget extends Widget {
 				ctx.font = '20px sans-serif';
 				ctx.textAlign = 'left';
 				ctx.fillText(
-					i * 100,
+					i,
 					0 + padding + 10,
-					canvas.height - padding - canvasHeight * i * 100 - 12
+					canvas.height - padding - canvasHeight * i - 12
 				);
-			}
 
-			ctx.stroke();
+				ctx.stroke();
+			}
 		};
 
 		drawAxis(dates);
@@ -417,6 +431,39 @@ class HistoryWidget extends Widget {
 		};
 
 		drawLinegraph(pointsICU, 'rgba(255, 90, 95, 1)');
+		drawLinegraph(pointsHospitalization, 'rgba(57, 160, 237, 1)');
+
+		const drawLegend = (color, text, y) => {
+			const rect = {
+				width: 20,
+				height: 20,
+				get x() {
+					return canvas.width - padding - this.width - 250;
+				},
+			};
+
+			ctx.clearRect(rect.x - 15, y - 10, 300, 40);
+
+			ctx.fillStyle = color;
+			ctx.fillRect(rect.x, y, rect.width, rect.height);
+
+			ctx.fillStyle = 'rgba(255,255,255,0.8)';
+			ctx.font = '28px sans-serif';
+			ctx.textBaseline = 'middle';
+			ctx.fillText(
+				text,
+				rect.x + rect.width + 15,
+				y + rect.height / 2,
+				250
+			);
+		};
+
+		drawLegend('rgba(255, 90, 95, 1)', 'Intensivbelegung', 0 + padding);
+		drawLegend(
+			'rgba(57, 160, 237, 1)',
+			'Hospitalisierungen',
+			0 + padding + 40
+		);
 	}
 	parseData(data, key) {
 		return data.map((entry) => (entry != null ? entry[key].value : 0));

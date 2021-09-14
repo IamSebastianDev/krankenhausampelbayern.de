@@ -112,7 +112,7 @@ const fetchDataFromSource = async () => {
 		dataLayer.appendChild(new ValueWidget(data.hospitalization).render());
 		dataLayer.appendChild(new ValueWidget(data.icuOccupancy).render());
 
-		const his = await fetch('/api/history');
+		const his = await fetch('/api/history?timeframe=7');
 		const hisData = await his.json();
 
 		const history = new HistoryWidget(hisData);
