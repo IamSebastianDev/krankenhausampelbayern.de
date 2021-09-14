@@ -113,9 +113,16 @@ const extractData = (nodeData, nodeTime, lastDataSet) => {
 
 	*/
 
+	// const dataCurrentAsOf = dataRaw
+	// 	.replace('3) Stand:', '')
+	// 	.replace('Uhr. https://www.intensivregister.de', '');
+
 	const dataCurrentAsOf = dataRaw
-		.replace('3) Stand:', '')
-		.replace('Uhr. https://www.intensivregister.de', '');
+		.match(/Stand[0-9., :]*Uhr/gim)[0]
+		.replace('Stand:', '')
+		.replace('Uhr', '');
+
+	console.log(dataCurrentAsOf);
 
 	// check which historyObject to use
 
@@ -306,13 +313,28 @@ const fetchDataFromSource = async ({ forcerefresh = 'false' } = {}) => {
 const fetchHistory = async ({ timeframe = 7 }) => {
 	// gather the history object
 
-	const history = await fs.readFile(Paths.history);
+	const { history } = JSON.parse(await fs.readFile(Paths.history));
 
 	/*
 
 		Shorten or Pad the retrieved array to it's supposed length. 
 
 	*/
+
+	const constructedArray = [];
+	constructedArray.length = timeframe;
+
+	/* 
+
+		Itterate over the new array and fill it with the corresponding data from the end of the history array
+
+	*/
+
+	for (let i = 0; i < timeframe; i++) {
+		constructedArray[i] = history[history.length - timeframe + i];
+	}
+
+	return constructedArray;
 };
 
 export { fetchDataFromSource, fetchHistory };

@@ -15,7 +15,7 @@ const getHistory = async (req, res) => {
 
     */
 
-	const { timeframe } = req.params;
+	const { timeframe } = req.query;
 
 	try {
 		const history = await fetchHistory({ timeframe });
