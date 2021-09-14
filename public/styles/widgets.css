@@ -1,3 +1,5 @@
+/** @format */
+
 .widget {
 	display: flex;
 	flex-direction: column;
@@ -5,7 +7,6 @@
 
 	max-width: 21em;
 	max-height: 21em;
-
 
 	background: var(--ui-color-dark-shade);
 	background: var(--ui-gradient-widget);
@@ -18,7 +19,7 @@
 
 	box-shadow: 2px 0px 4px 4px rgba(110, 110, 120, 0.1),
 		-2px 0px 4px 4px rgba(110, 110, 120, 0.1),
-		0px 0px 8px 6px rgba(0,0,0,0.5);
+		0px 0px 8px 6px rgba(0, 0, 0, 0.8), inset 1px 1px 2px rgba(0, 0, 0, 0.3);
 	box-sizing: border-box;
 
 	backdrop-filter: blur(5px);
@@ -29,11 +30,18 @@
 	max-width: unset;
 }
 
+.widget-large {
+	grid-column: span 3;
+	max-width: unset;
+}
+
 .widget h3 {
 	margin: 0.3em 0;
 	font-size: 1.2em;
 	font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
 		Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .widget p {
@@ -44,19 +52,17 @@
 	font-size: 0.8em;
 }
 
-
-
 .widget-values {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: space-between;
 
 	margin: 1em 0;
 }
 
 .widget-cases {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 
@@ -72,17 +78,22 @@
 	justify-content: center;
 	align-items: center;
 
+	width: 40%;
 }
 
 .widget-trend svg {
-	transform: scale(5);
+	transform: scale(4.5);
 }
 
 .widget-details {
-	display: grid;
+	/* display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	align-content: center;
-	justify-items: center;
+	justify-items: center; */
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 
 	padding: 0 0.5em;
 	margin: 0.5em 0;
@@ -93,7 +104,7 @@
 
 .widget-link {
 	color: var(--ui-color-light-shade);
-    text-decoration: underline;
+	text-decoration: underline;
 
 	padding: 0 0.5em;
 	margin: 0.5em 0;
@@ -103,7 +114,7 @@
 }
 
 .widget-link:hover {
-    color: var(--ui-color-light); 
+	color: var(--ui-color-light);
 }
 
 .widget-trafficLight {
@@ -114,24 +125,27 @@
 
 	border-radius: 50%;
 	background: var(--color-tl);
-	border: 5px solid var(--ui-color-light);
-	box-shadow: 0px 0px 0px 5px var(--color-tl);
+	border: 5px solid var(--ui-color-dark-shade);
+	box-shadow: 0px 0px 2px 5px var(--color-tl),
+		2px 2px 4px 4px rgba(0, 0, 0, 0.5), -2px -2px 4px 4px rgba(0, 0, 0, 0.5);
 
 	flex-shrink: 0;
 }
 
 .widget-trafficText {
-	display: flex; 
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 
 	font-size: 0.9em;
-	margin-left: 1em; 
+	margin-left: 1em;
+	line-height: 1.5em;
 }
 
 @media (max-width: 768px) {
-	.widget-medium, .widget-large{
+	.widget-medium,
+	.widget-large {
 		grid-column: unset;
 		max-width: 21em;
 	}

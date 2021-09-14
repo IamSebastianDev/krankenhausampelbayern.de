@@ -34,7 +34,7 @@ class Widget {
 				
 			>
 				<div class="widget-text">
-					<h3 class="widget-title">${title}<span style="font-size: 0.7em; color: var(--ui-color-light-shade)"> ${detail.join(
+					<h3 class="widget-title">${title}<span style="font-size: 0.6em; color: var(--ui-color-light-shade); text-transform: uppercase;"> ${detail.join(
 			' '
 		)}</span></h3>
 					<hr />
@@ -133,8 +133,88 @@ class ValueWidget extends Widget {
 													? `+${this.data.newCases}`
 													: this.data.newCases
 										  }`
-										: this.data.newCases.toFixed(2)
+										: `+${this.data.newCases.toFixed(2)}`
 							  }`
+							: ''
+					}
+				</span>
+			</div>
+		`;
+
+		widget.querySelector('.widget-content').innerHTML = content;
+		return widget;
+	}
+
+	_calculatePercentage(value, threshold) {
+		return `(${((100 * value) / threshold).toFixed(2)}%)`;
+	}
+
+	_calculateTrend() {
+		return this.data.trend > 0
+			? Pangolicons.icons.arrowRightUp.toString({ 'stroke-width': 2 })
+			: this.data.trend == 0
+			? Pangolicons.icons.arrowRight.toString({
+					'stroke-width': 2,
+			  })
+			: Pangolicons.icons.arrowRightDown.toString({
+					'stroke-width': 2,
+			  });
+	}
+}
+
+class VaccWidget extends Widget {
+	constructor(data) {
+		super({
+			widgetTitle: data.title.german.full,
+			widgetDescription: data.description.german,
+			widgetSize: 'small',
+			widgetId: data.id,
+		});
+
+		this.data = data;
+	}
+
+	render() {
+		const shell = this.renderShell();
+		const widget = shell.querySelector('.widget');
+
+		const content = `
+			<div class="widget-values">
+				<span
+					class="widget-trend"
+					${
+						this.data.trend > 0
+							? `style="color: var(--ui-color-accent-blue)";`
+							: this.data.trend == 0
+							? ''
+							: `style="color: var(--ui-color-accent-contrast)";`
+					}
+					>${this._calculateTrend()}</span
+				>
+				<span class="widget-cases"
+					>${this.data.value}</span
+				>
+			</div>
+			<div class="widget-details">
+				<span
+					class="widget-value-newCases"
+					${
+						this.data.newCases > 0
+							? `style="color: var(--ui-color-accent-blue); margin-left: auto;"`
+							: `style="color: var(--ui-color-accent-contrast; margin-left: auto;"`
+					}
+				>
+					${
+						this.data.newCases != undefined
+							? `${
+									Number.isInteger(this.data.newCases)
+										? `${
+												this.data.newCases >= 0
+													? `+${this.data.newCases}`
+													: this.data.newCases
+										  }`
+										: `+${this.data.newCases.toFixed(2)}`
+							  }%`
 							: ''
 					}
 				</span>
@@ -409,7 +489,7 @@ class HistoryWidget extends Widget {
 	
 				Construct the linegraph
 	
-			*/
+		*/
 
 		const drawLinegraph = (points, color) => {
 			ctx.beginPath();
@@ -476,4 +556,4 @@ class HistoryWidget extends Widget {
 	}
 }
 
-export { ValueWidget, TrafficLightWidget, HistoryWidget };
+export { ValueWidget, TrafficLightWidget, HistoryWidget, VaccWidget };

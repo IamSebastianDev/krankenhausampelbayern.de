@@ -154,7 +154,8 @@ main {
 	position: relative;
 
 	min-height: 50vh;
-	margin: 10em auto;
+	margin: 0 auto 10em auto;
+	padding-top: 10em;
 
 	width: 90vw;
 	max-width: 1366px;

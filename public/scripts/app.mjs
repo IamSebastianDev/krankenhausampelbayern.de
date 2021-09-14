@@ -84,7 +84,12 @@ const RenderError = (error, target) => {
 	target.appendChild(container);
 };
 
-import { ValueWidget, TrafficLightWidget, HistoryWidget } from './widget.mjs';
+import {
+	ValueWidget,
+	TrafficLightWidget,
+	HistoryWidget,
+	VaccWidget,
+} from './widget.mjs';
 /*
 
     Fetch the Data from the backend
@@ -103,7 +108,7 @@ const fetchDataFromSource = async () => {
 
 		/*
 
-			Create the 3 main display widgets
+			Create the 4 main display widgets
 
 		*/
 
@@ -119,7 +124,7 @@ const fetchDataFromSource = async () => {
 		dataLayer.appendChild(history.render());
 		history._constructLineGraph();
 
-		// dataLayer.appendChild(new ValueWidget(data.vaccination).render());
+		dataLayer.appendChild(new VaccWidget(data.vaccination).render());
 
 		/*
 

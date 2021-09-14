@@ -109,8 +109,8 @@ class Schema {
 				},
 			},
 			description: {
-				german: 'Anteil der vollständig geimpften Personen.',
-				english: 'Amount of fully vaccinated citizens.',
+				german: 'Anteil der vollständig geimpften Personen (2. Impfung) im Freistaat Bayern.',
+				english: 'Amount of fully vaccinated citizens within bavaria.',
 			},
 			value: vaccinationCurrentValue,
 			currentValue: vaccinationCurrentValue,
