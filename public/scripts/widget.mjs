@@ -231,15 +231,14 @@ class HistoryWidget extends Widget {
 	constructor(data) {
 		super({
 			widgetTitle: 'Intensivbelegung (ltz. 7 Tage)',
-			widgetDescription: '',
+			widgetDescription:
+				'Anzahl der Patienten die aufgrund Covid-19 auf der Intensivstation liegen im täglichen Verlauf.',
 			widgetSize: 'medium',
 			widgetId: 'history',
 		});
 
 		this.data = data;
 		this.canvasId = '_7daytrend';
-
-		console.log(data);
 	}
 
 	render() {
@@ -272,6 +271,10 @@ class HistoryWidget extends Widget {
 		canvas.style.width = width + 'px';
 		canvas.style.height = height + 'px';
 
+		const dates = this.data.map((entry) =>
+			entry != null ? entry.meta.dataCurrentAsOf : 0
+		);
+
 		/*
 
 			Create useful constants
@@ -279,10 +282,9 @@ class HistoryWidget extends Widget {
 		*/
 
 		const padding = 40;
-		const columnWidth = parseInt((canvas.width - padding * 2) / 6);
-
-		// figuring out how many pixels convert to a case
-		const canvasHeight = (canvas.height - padding * 2) / 600;
+		const columnWidth = parseInt(
+			(canvas.width - padding * 2) / (dates.length - 1)
+		);
 
 		/*
 
@@ -295,9 +297,8 @@ class HistoryWidget extends Widget {
 			return { value, column: index * columnWidth + padding };
 		});
 
-		const dates = this.data.map((entry) =>
-			entry != null ? entry.meta.dataCurrentAsOf : 0
-		);
+		// figuring out how many pixels convert to a case
+		const canvasHeight = (canvas.height - padding * 2) / 600;
 
 		const drawAxis = (dates) => {
 			ctx.beginPath();
@@ -324,9 +325,9 @@ class HistoryWidget extends Widget {
 
 				const weekDay = new Date(date).getDay();
 				if (weekDay == 0 || weekDay == 6) {
-					ctx.fillStyle = 'rgba(255,255,255,1)';
-				} else {
 					ctx.fillStyle = 'rgba(255,255,255,0.6)';
+				} else {
+					ctx.fillStyle = 'rgba(255,255,255,0.3)';
 				}
 
 				ctx.fillText(
@@ -342,27 +343,33 @@ class HistoryWidget extends Widget {
 
 			// draw y axis
 
+			ctx.strokeStyle = 'rgba(255,255,255,1)';
+
 			ctx.moveTo(0 + padding, canvas.height - padding);
 			ctx.lineTo(0 + padding, 0 + padding);
+			ctx.stroke();
 
-			for (let i = 0; i < 3; i++) {
+			for (let i = 1; i <= 6; i++) {
+				ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+				ctx.setLineDash([2, 20]);
+
 				ctx.moveTo(
 					0 + padding,
-					canvas.height - padding - canvasHeight * i * 200
+					canvas.height - padding - canvasHeight * i * 100
 				);
 				ctx.lineTo(
 					canvas.width - padding,
-					canvas.height - padding - canvasHeight * i * 200
+					canvas.height - padding - canvasHeight * i * 100
 				);
 
 				// draw y axis labels
-				ctx.fillStyle = 'rgba(255,255,255,0.5)';
+				ctx.fillStyle = 'rgba(255,255,255,0.3)';
 				ctx.font = '20px sans-serif';
 				ctx.textAlign = 'left';
 				ctx.fillText(
-					i * 200,
+					i * 100,
 					0 + padding + 10,
-					canvas.height - padding - canvasHeight * i * 200 - 12
+					canvas.height - padding - canvasHeight * i * 100 - 12
 				);
 			}
 
@@ -380,6 +387,7 @@ class HistoryWidget extends Widget {
 		const drawLinegraph = (points, color) => {
 			ctx.beginPath();
 			ctx.lineWidth = 5;
+			ctx.setLineDash([]);
 			ctx.lineCap = 'round';
 			ctx.lineJoin = 'round';
 			ctx.strokeStyle = color;
