@@ -273,8 +273,8 @@ class HistoryWidget extends Widget {
 
 		const { width, height } = this.wContent.getBoundingClientRect();
 
-		canvas.width = width * 2;
-		canvas.height = height * 2;
+		canvas.width = width * 2 * window.devicePixelRatio;
+		canvas.height = height * 2 * window.devicePixelRatio;
 
 		canvas.style.width = width + 'px';
 		canvas.style.height = height + 'px';
@@ -289,7 +289,7 @@ class HistoryWidget extends Widget {
 
 		*/
 
-		const padding = 40;
+		const padding = 40 * window.devicePixelRatio;
 		const columnWidth = parseInt(
 			(canvas.width - padding * 2) / (dates.length - 1)
 		);
@@ -339,7 +339,7 @@ class HistoryWidget extends Widget {
 
 			// style the text
 
-			ctx.font = `18px sans-serif`;
+			ctx.font = `42px sans-serif`;
 			ctx.textAlign = 'center';
 
 			dates.forEach((date, index) => {
@@ -375,10 +375,10 @@ class HistoryWidget extends Widget {
 
 			for (let i = 0; i <= caseNumbers; i = i + 200) {
 				ctx.beginPath();
-				i == 600
-					? (ctx.strokeStyle = 'rgba(255,0,0,0.5)')
-					: (ctx.strokeStyle = 'rgba(255,255,255,0.2)');
-				ctx.setLineDash([2, 20]);
+				ctx.strokeStyle =
+					i == 600 ? 'rgba(255,0,0,0.5)' : 'rgba(255,255,255,0.2)';
+
+				ctx.setLineDash([5, 20]);
 
 				ctx.moveTo(
 					0 + padding,
@@ -391,12 +391,12 @@ class HistoryWidget extends Widget {
 
 				// draw y axis labels
 				ctx.fillStyle = 'rgba(255,255,255,0.3)';
-				ctx.font = '20px sans-serif';
+				ctx.font = '46px sans-serif';
 				ctx.textAlign = 'left';
 				ctx.fillText(
 					i,
-					0 + padding + 10,
-					canvas.height - padding - canvasHeight * i - 12
+					0 + padding + 35,
+					canvas.height - padding - canvasHeight * i - 30
 				);
 
 				ctx.stroke();
@@ -435,35 +435,41 @@ class HistoryWidget extends Widget {
 
 		const drawLegend = (color, text, y) => {
 			const rect = {
-				width: 20,
-				height: 20,
+				width: 20 * window.devicePixelRatio,
+				height: 20 * window.devicePixelRatio,
 				get x() {
-					return canvas.width - padding - this.width - 250;
+					return (
+						canvas.width -
+						padding -
+						this.width -
+						220 * window.devicePixelRatio
+					);
 				},
 			};
 
-			ctx.clearRect(rect.x - 15, y - 10, 300, 40);
+			ctx.clearRect(
+				rect.x - 20,
+				y - 15,
+				300 * window.devicePixelRatio,
+				40 * window.devicePixelRatio
+			);
 
 			ctx.fillStyle = color;
 			ctx.fillRect(rect.x, y, rect.width, rect.height);
 
 			ctx.fillStyle = 'rgba(255,255,255,0.8)';
-			ctx.font = '28px sans-serif';
+			ctx.font = '46px sans-serif';
 			ctx.textBaseline = 'middle';
 			ctx.fillText(
 				text,
 				rect.x + rect.width + 15,
 				y + rect.height / 2,
-				250
+				250 * window.devicePixelRatio
 			);
 		};
 
-		drawLegend('rgba(255, 90, 95, 1)', 'Intensivbelegung', 0 + padding);
-		drawLegend(
-			'rgba(57, 160, 237, 1)',
-			'Hospitalisierungen',
-			0 + padding + 40
-		);
+		drawLegend('rgba(255, 90, 95, 1)', 'Intensivbelegung', 50);
+		drawLegend('rgba(57, 160, 237, 1)', 'Hospitalisierungen', 120);
 	}
 	parseData(data, key) {
 		return data.map((entry) => (entry != null ? entry[key].value : 0));
