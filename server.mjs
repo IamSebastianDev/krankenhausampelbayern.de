@@ -18,13 +18,15 @@ const App = Express();
 
 App.enable('trust proxy');
 
-App.use(function (req, res, next) {
-	if (req.secure) {
-		next();
-	} else {
-		res.redirect('https://' + req.headers.host + req.url);
-	}
-});
+if (process.env.production) {
+	App.use(function (req, res, next) {
+		if (req.secure) {
+			next();
+		} else {
+			res.redirect('https://' + req.headers.host + req.url);
+		}
+	});
+}
 
 /*
 
