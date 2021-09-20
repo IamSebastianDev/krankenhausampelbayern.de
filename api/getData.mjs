@@ -6,7 +6,7 @@
 
 */
 
-import { fetchDataFromSource } from '../service/fetchData.mjs';
+import { fetchDataFromSource } from '../service/crawlData.mjs';
 
 const getData = async (req, res) => {
 	/*
@@ -15,11 +15,14 @@ const getData = async (req, res) => {
 
     */
 
-	const { forcerefresh } = req.query;
+	const { forcerefresh, timeframe, requesthistory } = req.query;
 
 	try {
 		const sourceData = await fetchDataFromSource({
-			forcerefresh,
+			forceRefresh: forcerefresh,
+			timeframe,
+			requestHistory: requesthistory,
+			requestTimestamp: Date.now(),
 		});
 
 		/*

@@ -98,32 +98,34 @@ import {
 
 const fetchDataFromSource = async () => {
 	try {
-		const res = await fetch('/api/data');
-		const data = await res.json();
-		const his = await fetch('/api/history?timeframe=7');
-		const hisData = await his.json();
+		const res = await fetch('/api/data?timeframe=7&requesthistory=true');
+		const { history } = await res.json();
 
-		console.log(data);
+		const currentData = history[history.length - 1];
 
 		const dataDisplay = document.querySelector('#data-display');
 		const dataLayer = document.querySelector('#data-widgets');
 
-		/*
+		// Create the 4 main display widgets
 
-			Create the 4 main display widgets
+		dataLayer.appendChild(new TrafficLightWidget(currentData).render());
+		dataLayer.appendChild(new ValueWidget(currentData.incidence).render());
+		dataLayer.appendChild(
+			new ValueWidget(currentData.hospitalization).render()
+		);
+		dataLayer.appendChild(
+			new ValueWidget(currentData.icuOccupancy).render()
+		);
 
-		*/
+		// create the linegraph widget
 
-		dataLayer.appendChild(new TrafficLightWidget(data).render());
-		dataLayer.appendChild(new ValueWidget(data.incidence).render());
-		dataLayer.appendChild(new ValueWidget(data.hospitalization).render());
-		dataLayer.appendChild(new ValueWidget(data.icuOccupancy).render());
+		const widgetHistory = new HistoryWidget(history);
+		dataLayer.appendChild(widgetHistory.render());
+		widgetHistory._constructLineGraph();
 
-		const history = new HistoryWidget(hisData);
-		dataLayer.appendChild(history.render());
-		history._constructLineGraph();
+		// create the vaccination status widget
 
-		dataLayer.appendChild(new VaccWidget(data.vaccination).render());
+		dataLayer.appendChild(new VaccWidget(currentData.vaccination).render());
 
 		/*
 
@@ -131,9 +133,9 @@ const fetchDataFromSource = async () => {
 
 		*/
 
-		const timeStamp = new Date(data.meta.dataCurrentAsOf).toLocaleString(
-			window.navigator.language
-		);
+		const timeStamp = new Date(
+			currentData.meta.dataCurrentAsOf
+		).toLocaleString(window.navigator.language);
 
 		const linkContainer = document.createElement('span');
 		linkContainer.className = 'data-display-timestamp';

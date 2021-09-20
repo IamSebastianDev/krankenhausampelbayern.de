@@ -177,6 +177,7 @@ main {
 	padding: 0.5em;
 	margin: 4em 0 -4em;
 	color: var(--ui-color-light-shade);
+	text-align: center;
 }
 
 .data-display-timestamp a {

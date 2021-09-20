@@ -502,11 +502,18 @@ class HistoryWidget extends Widget {
 			ctx.strokeStyle = color;
 			ctx.moveTo(0 + padding, canvas.height - padding);
 
-			points.forEach((point) => {
-				ctx.lineTo(
-					point.column,
-					canvas.height - canvasHeight * point.value - padding
-				);
+			points.forEach((point, i) => {
+				if (i == 0) {
+					ctx.moveTo(
+						point.column,
+						canvas.height - canvasHeight * point.value - padding
+					);
+				} else {
+					ctx.lineTo(
+						point.column,
+						canvas.height - canvasHeight * point.value - padding
+					);
+				}
 			});
 
 			ctx.stroke();
