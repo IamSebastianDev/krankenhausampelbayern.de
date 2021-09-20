@@ -43,8 +43,10 @@ App.use(Express.static('./public'));
 */
 
 import { getData } from './api/getData.mjs';
+import { getHistory } from './api/getHistory.mjs';
 
 App.get('/api/data', getData);
+App.get('/api/history', getHistory);
 
 /*
 
