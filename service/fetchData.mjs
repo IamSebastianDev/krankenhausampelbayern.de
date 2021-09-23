@@ -1,334 +1,207 @@
 /** @format */
 
-/* 
-
-    Import dependencies
-
-*/
-
-import fs from 'fs/promises';
-import puppeteer from 'puppeteer';
-import { Schema } from './schema.mjs';
-import { ParseHTMLForNode } from './htmlParser.mjs';
-
 /*
 
-    The URL the data should be crawled for
+	This file and it's methods are used to handle the retrieval and storage of information relating to the different api endpoints
 
 */
 
-const dataSourceUrl =
+// import dependencies
+
+import { ParseHTMLForNode } from './htmlParser.mjs';
+import { Cache } from './cache.mjs';
+import { crawlSource } from './crawler.mjs';
+import { accessDB } from '../config/mongo.config.mjs';
+import { convertParsedData } from './converter.mjs';
+import { Entry } from './entry.mjs';
+
+// declare endpoints
+const endpoint =
 	'https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm';
 
 /*
 
-    The paths used to determine data storge locations
+	Create a new cache for storing the data. The timeToExpire is set to 1 hour or 3600000ms
 
 */
 
-const Paths = {
-	current: './data/current.json',
-	history: './data/history.json',
-};
+const timeToExpire = 3600000;
+// const timeToExpire = 100;
+
+const cache = new Cache({ timeToExpire });
 
 /*
 
-    The value that will be used as a refresh time
-    - this value is by default 1 hour or 3600000ms
+	Two helper Methods to store and retrieve data from and into the DB.
 
 */
 
-const timeToRefresh = 3600000;
+const getHistory = async () =>
+	await accessDB('data', (col) => col.find().toArray());
 
 /*
 
-	@description method to check if the history object should be updated. This is done by comparing the newly created data set's timestamp against the timestamp of the last object in the history. 
-
-	@param { Object } newData - the newly created data object
-	@param { Object } lastData - the last dataSet contained in the history object
-
-	@returns { Boolean } indicates true if update is needed
+	Helper method to create a to day date object out of a string
 
 */
 
-const checkForHistoryRefresh = (newData, lastData) => {
-	// create a new Date out of the provideed lastData object
+const parseDate = (string) => {
+	const [day, month, year] = string.split(',')[0].split('.');
 
-	const oldDateRaw = lastData?.meta?.dataCurrentAsOf || 0;
-	const oldDate = new Date(oldDateRaw).toLocaleDateString();
-
-	const newDate = newData.meta.dataCurrentAsOf.toLocaleDateString();
-
-	// if the dates do not match, a refresh is needed, return true
-
-	return oldDate != newDate ? true : false;
+	return new Date(year, month - 1, day);
 };
 
 /**
 
-	@description method to extract the data from the provided htmlnodes using a hardcoded set of rules. -> stinks
+	@description method to process the dataSet into a entry object and return a up to date history array
 
-	@param { HTMLCollection } nodeData - the nodes that contain the data
-	@param { HTMLCollection } nodeTime - the nodes that should contain the time stamps for the data
-	@param { Object } lastDataSet - the lastDataSet created
+	@param { {} } param1 - the object passed to the method containging a dataSet property
 
-	@returns { Object } containing the newly parsed and cleaned up data
+	@returns { [] } an array of all object currently saved in the db which make up the complete history of crawled data
 
 */
 
-const extractData = (nodeData, nodeTime, lastDataSet) => {
+const processHistory = async ({ dataSet }) => {
 	/*
 
-		Extract the table data as well as the concurrency info from the provided node object. This really sucks big time, seeing as the data has to be hardcoded and will likely break everytime the website is updated
+		Get all entry's from the history and find the last entry. This should always be the entry inserted last into the db, and therefore the most current.
 
 	*/
 
-	// for (let i = 0; i < nodeData.length; i++) {
-	// 	const content = nodeData[i].textContent;
+	const history = await getHistory();
+	const lastEntry = history[history.length - 1] || {};
 
-	// 	console.log({ content, i });
-	// }
+	// failsafe in case the last entry is undefined or is missing the created
 
-	const incidenceCurrentValue = parseFloat(
-		nodeData[3].textContent.replace(',', '.')
-	);
-	const hospitalizationCurrentValue = parseInt(nodeData[1].textContent);
-	const icuCurrentValue = parseInt(nodeData[13].textContent);
-	const vaccinationCurrentValue = parseFloat(
-		nodeData[27].textContent.replace(',', '.').replace('%', '')
-	);
+	if (!lastEntry?.meta?.created) {
+		try {
+			// insert the object straight into the db
 
-	/*
+			const ent = new Entry(dataSet);
 
-		The refresh time is extracted from the last node containing the "datum" class and checked for it's text content
+			await accessDB('data', (col) => col.insertOne(ent.export()));
+		} catch (e) {
+			console.log(e);
+		}
 
-	*/
+		return await accessDB('data', (col) => col.find().toArray());
+	}
 
-	const dataRaw =
-		nodeTime[2].textContent || nodeTime[2].childNodes[0].textcontent;
+	// parse the timestamps out of the dataSet
 
-	/**
+	const currentHospitalized = parseDate(dataSet.src.hospitalized);
+	const currentIcu = parseDate(dataSet.src.icuOccupation);
 
-		@todo: Figure out a better way to get the concurrency timestamp. This will likely break when the website is updated. - observe if fix holds this time
+	// the dataSet is updated only when both timestamps are outdated by at least one day
 
-	*/
+	const curHosDate = currentHospitalized.getDate();
+	const curIcuDate = currentIcu.getDate();
 
-	const dataCurrentAsOf = dataRaw
-		.match(/Stand[0-9., :]*Uhr/gim)[0]
-		.replace('Stand:', '')
-		.replace('Uhr', '');
-
-	// check which historyObject to use
-
-	const newDate = new Date(dataCurrentAsOf).getDay();
-	const oldDate = new Date(
-		lastDataSet.history[lastDataSet.history.length - 1].meta.dataCurrentAsOf
-	).getDay();
-
-	let mod = newDate == oldDate ? 1 : 2;
+	const lastHosDate = lastEntry.meta.currentAsOf.hospitalized.getDate();
+	const lastIcuDate = lastEntry.meta.currentAsOf.icuOccupation.getDate();
 
 	/*
 
-		Gather thee last Values and provide a fallback to zero if data is missing or corrupted 
+		If both timestamps differ, a new entry should be pushed to the db. For that, a new entry is created and then pushed to the dataBase
 
 	*/
 
-	const incidenceLastValue =
-		lastDataSet.history[lastDataSet.history.length - mod]?.incidence
-			?.value || 0;
-	const hospitalizationLastValue =
-		lastDataSet.history[lastDataSet.history.length - mod]?.hospitalization
-			?.value || 0;
-	const icuLastValue =
-		lastDataSet.history[lastDataSet.history.length - mod]?.icuOccupancy
-			?.value || 0;
-	const vaccinationLastValue =
-		lastDataSet.history[lastDataSet.history.length - mod]?.vaccination
-			?.value || 0;
+	if (curHosDate > lastHosDate && curIcuDate > lastIcuDate) {
+		for (const row in dataSet.data) {
+			if (Object.hasOwnProperty.call(dataSet.data, row)) {
+				let accessorString = `${row}__oldValue`;
+
+				dataSet.data[accessorString] =
+					lastEntry[row].value != null ? lastEntry[row].value : 0;
+			}
+		}
+
+		try {
+			const ent = new Entry(dataSet);
+
+			await accessDB('data', (col) => col.insertOne(ent.export()));
+		} catch (e) {
+			console.log(e);
+		}
+	}
 
 	/*
 
-		Create a new DataSet
+		Return the most current history snapshot
 
 	*/
 
-	const newDataSet = new Schema({
-		dataCurrentAsOf,
-		incidenceCurrentValue,
-		incidenceLastValue,
-		hospitalizationCurrentValue,
-		hospitalizationLastValue,
-		icuCurrentValue,
-		icuLastValue,
-		vaccinationCurrentValue,
-		vaccinationLastValue,
-	});
-
-	/*
-
-		Return the export value from the schema
-
-	*/
-
-	return newDataSet.export();
+	return await accessDB('data', (col) => col.find().toArray());
 };
 
 /**
-
-    @description method to crawl the dataSource for data and process it
-
-	@param { Object } param1 - a Object containing properties is provided to the method to control execution
-	@param { String } param1.forcerefresh - a string extracted from the req.body to check if a refresh should be forced
-
-	@returns { Object } a object containg the requested data
+ * 
+	@description main method to retrive and parse the source for the requiered data via puppeteer
 
 */
 
-const fetchDataFromSource = async ({ forcerefresh = 'false' } = {}) => {
+const fetchDataFromSource = async ({ forceRefresh = false } = {}) => {
 	/*
 
-       	Retrieve and parse the stored current and history JSON data
+		Check if the cache is populated and if it is recent enough to not be updated or expired.
 
-    */
+	*/
 
-	const lastDataSetRaw = await fs.readFile(Paths.current);
-	const lastDataSet = JSON.parse(lastDataSetRaw);
-
-	const historyRaw = await fs.readFile(Paths.history);
-	const history = JSON.parse(historyRaw);
+	const cachedData = cache.cachedData;
+	const expired = cachedData != null ? cache.testForExpiration() : true;
 
 	/*
 
-        Create a new requestTimestamp to compare the lastUpdated timestamp against
+		If the cache is not expired, return the cached data
 
-    */
+	*/
 
-	const requestTimestamp = Date.now();
+	if (!expired && !forceRefresh) return await getHistory();
 
 	/*
 
-        Compare the timestamps against each other and if forceRefresh is false && the timestamp is younger then the timeToRefresh value, return the lastDataSet without parsing further
+		Else, crawl the source for the data and initiate the parsing process
 
-    */
+	*/
 
-	if (
-		forcerefresh != 'true' &&
-		requestTimestamp - timeToRefresh < lastDataSet?.meta?.timeStamp
-	) {
-		return lastDataSet;
+	try {
+		const src = await crawlSource({ endpoint });
+		const [data, sources] = await ParseHTMLForNode(
+			src,
+			'.block_overview tr > td',
+			'.quellen p'
+		);
+
+		/*
+
+			Pass the parsed data to the converter to insert it into the schema
+
+		*/
+
+		const dataSet = convertParsedData({ data, sources });
+		// console.log(dataSet);
+
+		/*
+
+			Check if the currently chached data is equal to the data parsed. If it is, simply update the cache timestamp and return the history. 
+
+			If the data is not equal, the data needs to be checked for differences and conditionally inserted into the db or update the DB post depending on the values changed
+
+		*/
+
+		if (cache.testForEquality(dataSet)) return await getHistory();
+
+		// update the cache
+
+		cache.update(dataSet);
+
+		// process the dataSet and return it's result
+
+		return await processHistory({ dataSet });
+	} catch (error) {
+		if (error) throw new Error(error);
+		return { error };
 	}
-
-	/*
-
-        Create a new puppeteer instance and navigate to the page specified in the dataSourceURL
-
-    */
-
-	const browser = await puppeteer.launch({
-		args: ['--no-sandbox', '--disable-setuid-sandbox'],
-	});
-	const page = await browser.newPage();
-	await page.goto(dataSourceUrl);
-
-	/*
-
-    	Retrieve the Body and parse it into queryable DOMNodes
-
-    */
-
-	const dataBody = await page.content();
-	const [nodeData, nodeTime] = ParseHTMLForNode(
-		dataBody,
-		'#wKennzahlen .blockelement tr > td',
-		'#wKennzahlen .quellen p'
-	);
-
-	/*
-
-		Close the browser instance
-
-	*/
-
-	await browser.close();
-
-	/*
-
-		create a new DataSet
-
-	*/
-
-	const newData = extractData(nodeData, nodeTime, history);
-
-	// console.log(newDataSet);
-
-	/*
-
-		Check if the history should be updated, by comparing the concurency of the newDataSet and the last Histoy object
-
-	*/
-
-	const refreshNeeded = checkForHistoryRefresh(
-		newData,
-		history.history[history.history.length - 1]
-	);
-
-	/*
-
-		If a refresh is needed, update the history object and write it to the json file
-
-	*/
-
-	if (refreshNeeded) {
-		const newHistory = {
-			lastUpdated: Date.now(),
-			history: [...history.history, newData],
-		};
-
-		await fs.writeFile(Paths.history, JSON.stringify(newHistory));
-	}
-
-	/*
-
-		Write the most current data to the json file
-
-	*/
-
-	await fs.writeFile(Paths.current, JSON.stringify(newData));
-
-	/*
-
-		Return the newData
-
-	*/
-
-	return newData;
 };
 
-const fetchHistory = async ({ timeframe = 7 }) => {
-	// gather the history object
-
-	const { history } = JSON.parse(await fs.readFile(Paths.history));
-
-	/*
-
-		Shorten or Pad the retrieved array to it's supposed length. 
-
-	*/
-
-	const constructedArray = [];
-	constructedArray.length = timeframe;
-
-	/* 
-
-		Itterate over the new array and fill it with the corresponding data from the end of the history array
-
-	*/
-
-	for (let i = 0; i < timeframe; i++) {
-		constructedArray[i] = history[history.length - timeframe + i];
-	}
-
-	return constructedArray;
-};
-
-export { fetchDataFromSource, fetchHistory };
+export { fetchDataFromSource };

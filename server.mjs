@@ -10,21 +10,23 @@ import Express from 'express';
 
 const App = Express();
 
-/*
+/* 
 
-    Create a automatic redirect to https
+    Create a automatic redirect to https only active in production
 
 */
 
 App.enable('trust proxy');
 
-App.use(function (req, res, next) {
-	if (req.secure) {
-		next();
-	} else {
-		res.redirect('https://' + req.headers.host + req.url);
-	}
-});
+if (process.env.production) {
+	App.use(function (req, res, next) {
+		if (req.secure) {
+			next();
+		} else {
+			res.redirect('https://' + req.headers.host + req.url);
+		}
+	});
+}
 
 /*
 
@@ -43,10 +45,8 @@ App.use(Express.static('./public'));
 */
 
 import { getData } from './api/getData.mjs';
-import { getHistory } from './api/getHistory.mjs';
 
 App.get('/api/data', getData);
-App.get('/api/history', getHistory);
 
 /*
 

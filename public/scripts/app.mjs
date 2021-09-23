@@ -90,6 +90,7 @@ import {
 	HistoryWidget,
 	VaccWidget,
 } from './widget.mjs';
+
 /*
 
     Fetch the Data from the backend
@@ -98,11 +99,18 @@ import {
 
 const fetchDataFromSource = async () => {
 	try {
-		const res = await fetch('/api/data');
-		const data = await res.json();
-		const his = await fetch('/api/history?timeframe=7');
-		const hisData = await his.json();
+		/*
 
+			Fetch the history from the backend
+
+		*/
+
+		const res = await fetch('/api/data');
+		const { history } = await res.json();
+
+		// extract the most recent entry
+
+		const data = history[history.length - 1];
 		console.log(data);
 
 		const dataDisplay = document.querySelector('#data-display');
@@ -115,13 +123,15 @@ const fetchDataFromSource = async () => {
 		*/
 
 		dataLayer.appendChild(new TrafficLightWidget(data).render());
-		dataLayer.appendChild(new ValueWidget(data.incidence).render());
-		dataLayer.appendChild(new ValueWidget(data.hospitalization).render());
-		dataLayer.appendChild(new ValueWidget(data.icuOccupancy).render());
+		dataLayer.appendChild(
+			new ValueWidget(data.hospitalizedIncidence).render()
+		);
+		dataLayer.appendChild(new ValueWidget(data.hospitalized7Days).render());
+		dataLayer.appendChild(new ValueWidget(data.icuOccupation).render());
 
-		const history = new HistoryWidget(hisData);
-		dataLayer.appendChild(history.render());
-		history._constructLineGraph();
+		const linegraph = new HistoryWidget(history);
+		dataLayer.appendChild(linegraph.render());
+		linegraph._constructLineGraph();
 
 		dataLayer.appendChild(new VaccWidget(data.vaccination).render());
 
@@ -130,19 +140,6 @@ const fetchDataFromSource = async () => {
 			Add the timestamp and source to the container
 
 		*/
-
-		const timeStamp = new Date(data.meta.dataCurrentAsOf).toLocaleString(
-			window.navigator.language
-		);
-
-		const linkContainer = document.createElement('span');
-		linkContainer.className = 'data-display-timestamp';
-		linkContainer.innerHTML = `Daten aktuell: ${timeStamp}. Quelle: <a
-		href="https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm" rel="norefferer noopener"
-		target="_blank" >Bayrisches Landesamt für Gesundheit und
-		Lebensmittelsicherheit</a>`;
-
-		dataDisplay.appendChild(linkContainer);
 	} catch (e) {
 		RenderError(e, document.querySelector('#data-display'));
 	}

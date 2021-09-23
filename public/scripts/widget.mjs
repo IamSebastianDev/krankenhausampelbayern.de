@@ -1,5 +1,11 @@
 /** @format */
 
+/**
+
+	@todo: Refractor the widget code. 
+
+*/
+
 /*
 
 	Create a DOM Parser instance that the Widgets can use
@@ -58,15 +64,27 @@ class Widget {
 				return ``;
 		}
 	}
+
+	_calculateTrend(trend) {
+		return trend > 0
+			? Pangolicons.icons.arrowRightUp.toString({ 'stroke-width': 2 })
+			: trend == 0
+			? Pangolicons.icons.arrowRight.toString({
+					'stroke-width': 2,
+			  })
+			: Pangolicons.icons.arrowRightDown.toString({
+					'stroke-width': 2,
+			  });
+	}
 }
 
 class ValueWidget extends Widget {
 	constructor(data) {
 		super({
-			widgetTitle: data.title.german.full,
-			widgetDescription: data.description.german,
+			widgetTitle: data.title,
+			widgetDescription: data.description,
 			widgetSize: 'small',
-			widgetId: data.id,
+			widgetId: undefined,
 		});
 
 		this.data = data;
@@ -76,15 +94,20 @@ class ValueWidget extends Widget {
 		const shell = this.renderShell();
 		const widget = shell.querySelector('.widget');
 
+		const oldValue = this.data.oldValue != null ? this.data.oldValue : 0;
+		const newCases = this.data.value - oldValue;
+
+		const trend = newCases > 0 ? 1 : newCases == 0 ? 0 : -1;
+
 		const content = `
 			<div class="widget-values">
 				<span class="widget-trend" ${
-					this.data.trend > 0
+					trend > 0
 						? `style="color: var(--ui-color-accent-contrast)";`
-						: this.data.trend == 0
+						: trend == 0
 						? ''
 						: `style="color: var(--ui-color-accent-teal)";`
-				} >${this._calculateTrend()}</span>
+				} >${this._calculateTrend(trend)}</span>
 				<span class="widget-cases" ${
 					this.data.threshold != undefined
 						? this.data.value > this.data.threshold
@@ -120,20 +143,20 @@ class ValueWidget extends Widget {
 					}
 				</span>
 				<span class="widget-value-newCases" ${
-					this.data.newCases > 0
+					newCases > 0
 						? `style="color: var(--ui-color-accent-contrast)";`
 						: `style="color: var(--ui-color-accent-blue"; `
 				}>
 					${
-						this.data.newCases != undefined
+						newCases != undefined
 							? `${
-									Number.isInteger(this.data.newCases)
+									Number.isInteger(newCases)
 										? `${
-												this.data.newCases >= 0
-													? `+${this.data.newCases}`
-													: this.data.newCases
+												newCases >= 0
+													? `+${newCases}`
+													: newCases
 										  }`
-										: `+${this.data.newCases.toFixed(2)}`
+										: `+${newCases.toFixed(2)}`
 							  }`
 							: ''
 					}
@@ -148,25 +171,13 @@ class ValueWidget extends Widget {
 	_calculatePercentage(value, threshold) {
 		return `(${((100 * value) / threshold).toFixed(2)}%)`;
 	}
-
-	_calculateTrend() {
-		return this.data.trend > 0
-			? Pangolicons.icons.arrowRightUp.toString({ 'stroke-width': 2 })
-			: this.data.trend == 0
-			? Pangolicons.icons.arrowRight.toString({
-					'stroke-width': 2,
-			  })
-			: Pangolicons.icons.arrowRightDown.toString({
-					'stroke-width': 2,
-			  });
-	}
 }
 
 class VaccWidget extends Widget {
 	constructor(data) {
 		super({
-			widgetTitle: data.title.german.full,
-			widgetDescription: data.description.german,
+			widgetTitle: data.title,
+			widgetDescription: data.description,
 			widgetSize: 'small',
 			widgetId: data.id,
 		});
@@ -178,18 +189,23 @@ class VaccWidget extends Widget {
 		const shell = this.renderShell();
 		const widget = shell.querySelector('.widget');
 
+		const oldValue = this.data.oldValue != null ? this.data.oldValue : 0;
+		const newCases = this.data.value - oldValue;
+
+		const trend = newCases > 0 ? 1 : newCases == 0 ? 0 : -1;
+
 		const content = `
 			<div class="widget-values">
 				<span
 					class="widget-trend"
 					${
-						this.data.trend > 0
+						trend > 0
 							? `style="color: var(--ui-color-accent-blue)";`
-							: this.data.trend == 0
+							: trend == 0
 							? ''
 							: `style="color: var(--ui-color-accent-contrast)";`
 					}
-					>${this._calculateTrend()}</span
+					>${this._calculateTrend(trend)}</span
 				>
 				<span class="widget-cases" style="display: block;"
 					>${this.data.value.toString().split('.')[0]}<span style="font-size: 0.3em;">.${
@@ -201,21 +217,21 @@ class VaccWidget extends Widget {
 				<span
 					class="widget-value-newCases"
 					${
-						this.data.newCases > 0
+						newCases > 0
 							? `style="color: var(--ui-color-accent-blue); margin-left: auto;"`
 							: `style="color: var(--ui-color-accent-contrast; margin-left: auto;"`
 					}
 				>
 					${
-						this.data.newCases != undefined
+						newCases != undefined
 							? `${
-									Number.isInteger(this.data.newCases)
+									Number.isInteger(newCases)
 										? `${
-												this.data.newCases >= 0
-													? `+${this.data.newCases}`
-													: this.data.newCases
+												newCases >= 0
+													? `+${newCases}`
+													: newCases
 										  }`
-										: `+${this.data.newCases.toFixed(2)}`
+										: `+${newCases.toFixed(2)}`
 							  }%`
 							: ''
 					}
@@ -229,18 +245,6 @@ class VaccWidget extends Widget {
 
 	_calculatePercentage(value, threshold) {
 		return `(${((100 * value) / threshold).toFixed(2)}%)`;
-	}
-
-	_calculateTrend() {
-		return this.data.trend > 0
-			? Pangolicons.icons.arrowRightUp.toString({ 'stroke-width': 2 })
-			: this.data.trend == 0
-			? Pangolicons.icons.arrowRight.toString({
-					'stroke-width': 2,
-			  })
-			: Pangolicons.icons.arrowRightDown.toString({
-					'stroke-width': 2,
-			  });
 	}
 }
 
@@ -297,10 +301,10 @@ class TrafficLightWidget extends Widget {
 	}
 
 	_calculateCurrentStage(data) {
-		if (data.icuOccupancy.value > data.icuOccupancy.threshold) {
+		if (data.icuOccupation.value > data.icuOccupation.threshold) {
 			return 2;
 		} else if (
-			data.hospitalization.value > data.hospitalization.threshold
+			data.hospitalized7Days.value > data.hospitalized7Days.threshold
 		) {
 			return 1;
 		} else {
@@ -384,14 +388,14 @@ class HistoryWidget extends Widget {
 
 		const caseNumbers = 1200;
 
-		const valuesICU = this.parseData(this.data, 'icuOccupancy');
+		const valuesICU = this.parseData(this.data, 'icuOccupation');
 		const pointsICU = valuesICU.map((value, index) => {
 			return { value, column: index * columnWidth + padding };
 		});
 
 		const valuesHospitalization = this.parseData(
 			this.data,
-			'hospitalization'
+			'hospitalized7Days'
 		);
 		const pointsHospitalization = valuesHospitalization.map(
 			(value, index) => {

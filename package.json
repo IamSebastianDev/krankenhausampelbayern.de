@@ -14,7 +14,9 @@
     "nodemon": "^2.0.12"
   },
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "mongodb": "^4.1.2",
     "node-html-parser": "^4.1.4",
     "puppeteer": "^10.2.0"
   }

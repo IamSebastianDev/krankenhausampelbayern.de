@@ -15,12 +15,21 @@ const getData = async (req, res) => {
 
     */
 
-	const { forcerefresh } = req.query;
+	const { forcerefresh, timeframe } = req.query;
 
 	try {
 		const sourceData = await fetchDataFromSource({
-			forcerefresh,
+			forceRefresh: forcerefresh,
+			timeFrame: timeframe,
 		});
+
+		/*
+
+			Prune the history to the desired timeframe
+
+		*/
+
+		const history = timeframe ? sourceData.slice(-timeframe) : sourceData;
 
 		/*
 
@@ -28,8 +37,18 @@ const getData = async (req, res) => {
 
 	    */
 
-		res.json(sourceData);
+		res.json({
+			timeStamp: Date.now(),
+			numberOfDataSets: history.length,
+			history,
+		});
 	} catch (e) {
+		/*
+
+			If an error occurs, log and return the error
+
+		*/
+
 		console.log(e);
 		res.sendStatus(500).send(e);
 	}
