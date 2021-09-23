@@ -26,6 +26,10 @@
 	text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.05);
 }
 
+.widget-small {
+	width: 100%;
+}
+
 .widget-medium {
 	grid-column: span 2;
 	max-width: unset;

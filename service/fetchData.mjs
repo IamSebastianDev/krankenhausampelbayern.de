@@ -118,6 +118,7 @@ const processHistory = async ({ dataSet }) => {
 
 		try {
 			const ent = new Entry(dataSet);
+			console.log(ent);
 
 			await accessDB('data', (col) => col.insertOne(ent.export()));
 		} catch (e) {

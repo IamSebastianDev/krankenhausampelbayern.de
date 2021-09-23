@@ -1,5 +1,11 @@
 /** @format */
 
+/**
+
+	@todo: This file is a placeholder file to make the systems temporarily working. This file needs major refractoring once the featureset is complete.
+
+*/
+
 const mobileNav = {
 	nav: document.querySelector('nav ul'),
 	state: false,
@@ -178,3 +184,5 @@ const fetchDataFromSource = async () => {
 };
 
 fetchDataFromSource();
+
+

@@ -22,9 +22,9 @@ class Entry {
 				'Gesamte Anzahl an Hospitalisierungen aufgrund Covid-19.',
 			threshold: undefined,
 			unit: 'Fälle',
-			value: parseInt(data.hospitalized.replace('.', '')),
-			cases: parseInt(data.hospitalized.replace('.', '')),
-			lastValue: data.hospitalized__OldValue,
+			value: parseInt(data.hospitalized.replace('.', '')) || 0,
+			cases: parseInt(data.hospitalized.replace('.', '')) || 0,
+			lastValue: data.hospitalized__oldValue,
 		};
 
 		this.hospitalized7Days = {
@@ -33,9 +33,9 @@ class Entry {
 				'Gesamte Anzahl an Hospitalisierungen aufgrund Covid-19 in den letzten 7 Tagen.',
 			threshold: 1200,
 			unit: 'Fälle',
-			value: parseInt(data.hospitalized7Days.replace('.', '')),
-			cases: parseInt(data.hospitalized7Days.replace('.', '')),
-			lastValue: data.hospitalized7Days__OldValue,
+			value: parseInt(data.hospitalized7Days.replace('.', '')) || 0,
+			cases: parseInt(data.hospitalized7Days.replace('.', '')) || 0,
+			lastValue: data.hospitalized7Days__oldValue,
 		};
 
 		this.hospitalizedIncidence = {
@@ -44,9 +44,13 @@ class Entry {
 				'Gesamte Anzahl an Hospitalisierungen aufgrund Covid-19 in den letzten 7 Tagen per 100.000 Einwohner.',
 			threshold: undefined,
 			unit: undefined,
-			value: parseFloat(data.hospitalizedIncidence.replace(',', '.')),
-			cases: parseFloat(data.hospitalizedIncidence.replace(',', '.')),
-			lastValue: data.hospitalizedIncidence__OldValue,
+			value: parseFloat(
+				data.hospitalizedIncidence.replace(',', '.') || 0
+			),
+			cases: parseFloat(
+				data.hospitalizedIncidence.replace(',', '.') || 0
+			),
+			lastValue: data.hospitalizedIncidence__oldValue,
 		};
 
 		this.deaths7Days = {
@@ -55,8 +59,8 @@ class Entry {
 				'Anzahl der an Covid-19 verstorbenen der letzten 7 Tage.',
 			threshold: undefined,
 			unit: 'Fälle',
-			value: parseInt(data.deaths7Days.replace('.', '')),
-			cases: parseInt(data.deaths7Days.replace('.', '')),
+			value: parseInt(data.deaths7Days.replace('.', '')) || 0,
+			cases: parseInt(data.deaths7Days.replace('.', '')) || 0,
 			lastValue: data.deaths7Days__oldValue,
 		};
 
@@ -66,8 +70,8 @@ class Entry {
 				'Anzahl der Patienten die mit Covid-19 intensivmedizinisch behandelt werden müssen.',
 			threshold: 600,
 			unit: 'Fälle',
-			value: parseInt(data.icuOccupation.replace('.', '')),
-			cases: parseInt(data.icuOccupation.replace('.', '')),
+			value: parseInt(data.icuOccupation) || 0,
+			cases: parseInt(data.icuOccupation) || 0,
 			lastValue: data.icuOccupation__oldValue,
 		};
 
@@ -77,8 +81,8 @@ class Entry {
 				'Anzahl der gemeldenten Covid-19 Fälle in den letzten 7 Tagen.',
 			threshold: undefined,
 			unit: 'Fälle',
-			value: parseInt(data.cases7Days.replace('.', '')),
-			cases: parseInt(data.cases7Days.replace('.', '')),
+			value: parseInt(data.cases7Days.replace('.', '')) || 0,
+			cases: parseInt(data.cases7Days.replace('.', '')) || 0,
 			lastValue: data.cases7Days__oldValue,
 		};
 
@@ -88,9 +92,9 @@ class Entry {
 				'Anzahl der gemeldenten Covid-19 Fälle in den letzten 7 Tagen per 100.000 Einwohner.',
 			threshold: undefined,
 			unit: undefined,
-			value: parseFloat(data.incidence7Days),
-			cases: parseFloat(data.incidence7Days),
-			lastValue: data.cases7Days__oldValue,
+			value: parseFloat(data.incidence7Days) || 0,
+			cases: parseFloat(data.incidence7Days) || 0,
+			lastValue: data.incidence7Days__oldValue,
 		};
 
 		this.rvalue = {
@@ -98,8 +102,8 @@ class Entry {
 			description: 'Die Momentan ermittelte Reproduktionszahl (R-wert). ',
 			threshold: undefined,
 			unit: undefined,
-			value: parseFloat(data.rvalue.replace(',', '.')),
-			cases: parseFloat(data.rvalue.replace(',', '.')),
+			value: parseFloat(data.rvalue.replace(',', '.')) || 0,
+			cases: parseFloat(data.rvalue.replace(',', '.')) || 0,
 			lastValue: data.rvalue__oldValue,
 		};
 
@@ -108,8 +112,8 @@ class Entry {
 			description: 'Die aktuelle Impfquote für Bayern.',
 			threshold: undefined,
 			unit: '%',
-			value: parseFloat(data.vaccination.replace(',', '.')),
-			cases: parseFloat(data.vaccination.replace(',', '.')),
+			value: parseFloat(data.vaccination.replace(',', '.')) || 0,
+			cases: parseFloat(data.vaccination.replace(',', '.')) || 0,
 			lastValue: data.vaccination__oldValue,
 		};
 	}
