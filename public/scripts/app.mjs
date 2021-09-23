@@ -184,5 +184,3 @@ const fetchDataFromSource = async () => {
 };
 
 fetchDataFromSource();
-
-

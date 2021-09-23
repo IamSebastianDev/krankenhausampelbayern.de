@@ -189,7 +189,7 @@ class VaccWidget extends Widget {
 		const shell = this.renderShell();
 		const widget = shell.querySelector('.widget');
 
-		const oldValue = this.data.lastValue != null ? this.data.lastValue : 0;
+		const oldValue = this.data.oldValue != null ? this.data.oldValue : 0;
 		const newCases = this.data.value - oldValue;
 
 		const trend = newCases > 0 ? 1 : newCases == 0 ? 0 : -1;

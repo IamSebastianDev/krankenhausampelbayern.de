@@ -51,6 +51,36 @@ const parseDate = (string) => {
 	return new Date(year, month - 1, day);
 };
 
+const checkForEquality = async ({ dataSet }) => {
+	// get the second to last entry
+
+	const history = await getHistory();
+	const currentEntry = history[history.length - 1];
+	const lastEntry = history[history.length - 2] || {};
+
+	if (!lastEntry?.meta?.created) {
+	}
+
+	for (const row in dataSet.data) {
+		if (Object.hasOwnProperty.call(dataSet.data, row)) {
+			let accessorString = `${row}__oldValue`;
+
+			dataSet.data[accessorString] =
+				lastEntry[row].value != null ? lastEntry[row].value : 0;
+		}
+	}
+
+	const ent = new Entry(dataSet);
+
+	// clear the meta entrys
+	ent.meta = null;
+	currentEntry.meta = null;
+
+	// compare both sets and return true if their equal,  false if not
+
+	return JSON.stringify(ent) === JSON.stringify(currentEntry) ? true : false;
+};
+
 /**
 
 	@description method to process the dataSet into a entry object and return a up to date history array
@@ -118,11 +148,33 @@ const processHistory = async ({ dataSet }) => {
 
 		try {
 			const ent = new Entry(dataSet);
-			console.log(ent);
 
 			await accessDB('data', (col) => col.insertOne(ent.export()));
 		} catch (e) {
 			console.log(e);
+		}
+	} else if (curHosDate == lastHosDate && curIcuDate == lastIcuDate) {
+		/*
+			
+			If both dates are the same, check both sets for equality
+		
+		*/
+		const equal = await checkForEquality({ dataSet });
+
+		// if the dataSets are not equal, replace the last element in the db with a newly created DataSet
+		console.log(equal);
+
+		if (!equal) {
+			console.log('updating');
+			const ent = new Entry(dataSet);
+
+			try {
+				await accessDB('data', async (col) => {
+					await col.replaceOne({ _id: lastEntry._id }, ent);
+				});
+			} catch (error) {
+				if (error) throw new Error(error);
+			}
 		}
 	}
 
