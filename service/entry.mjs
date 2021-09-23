@@ -104,7 +104,7 @@ class Entry {
 		};
 
 		this.vaccination = {
-			title: 'Impfquoute',
+			title: 'Impfquote',
 			description: 'Die aktuelle Impfquote für Bayern.',
 			threshold: undefined,
 			unit: '%',

@@ -337,7 +337,7 @@ class HistoryWidget extends Widget {
 		const content = `<canvas id="${this.canvasId}" ></canvas>`;
 		this.wContent = widget.querySelector('.widget-content');
 		this.wContent.style =
-			'display: inline-block; height: -webkit-fill-available; margin-top: 0.5em;';
+			'display: inline-block; height: 100%; height: -webkit-fill-available; margin-top: 0.5em;';
 
 		this.wContent.innerHTML = content;
 		return widget;

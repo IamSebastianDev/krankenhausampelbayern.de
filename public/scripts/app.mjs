@@ -91,6 +91,34 @@ import {
 	VaccWidget,
 } from './widget.mjs';
 
+const RenderSrcContainer = ({ meta }) => {
+	// extract the timestamps & create a new Date Object
+	const timeStampHospitalized = new Date(meta.currentAsOf.hospitalized);
+	const timeStampIcu = new Date(meta.currentAsOf.icuOccupation);
+
+	const src = document.createElement('div');
+	src.id = 'data-sources';
+	src.innerHTML = `
+		<p class="data-source-text">
+			Daten zur Hospitalisierung aktualisiert:
+			${timeStampHospitalized.toLocaleString(window.navigator.language)}
+		</p>
+		<p class="data-source-text">
+			Daten zur Intensivbelegung aktualisiert:
+			${timeStampIcu.toLocaleString(window.navigator.language)}
+		</p>
+		<p>Quelle: <a
+		href="https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm"
+		rel="norefferer noopener"
+		target="_blank"
+		>Bayrisches Landesamt für Gesundheit und
+		Lebensmittelsicherheit</a
+	></p>
+	`;
+
+	return src;
+};
+
 /*
 
     Fetch the Data from the backend
@@ -134,6 +162,8 @@ const fetchDataFromSource = async () => {
 		linegraph._constructLineGraph();
 
 		dataLayer.appendChild(new VaccWidget(data.vaccination).render());
+
+		dataDisplay.appendChild(RenderSrcContainer(data));
 
 		/*
 

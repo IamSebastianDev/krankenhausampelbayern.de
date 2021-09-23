@@ -172,6 +172,24 @@ main {
 	grid-auto-rows: 38em;
 }
 
+#data-sources {
+	padding: 4.5em 0;
+	margin: 0 0 -2em 0;
+	font-size: 1.2em;
+	text-align: center;
+}
+
+#data-sources p {
+	margin: 0;
+	padding: 0.2em 0;
+	color: var(--ui-color-light-shade);
+}
+
+#data-sources a {
+	color: var(--ui-color-light);
+	text-decoration: underline;
+}
+
 .data-display-timestamp {
 	font-size: 1.2em;
 	padding: 0.5em;
