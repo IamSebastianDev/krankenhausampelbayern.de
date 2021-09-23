@@ -51,6 +51,12 @@ const parseDate = (string) => {
 	return new Date(year, month - 1, day);
 };
 
+/*
+
+	Method to check two dataSets for their equality
+
+*/
+
 const checkForEquality = async ({ dataSet }) => {
 	// get the second to last entry
 
@@ -159,13 +165,12 @@ const processHistory = async ({ dataSet }) => {
 			If both dates are the same, check both sets for equality
 		
 		*/
+
 		const equal = await checkForEquality({ dataSet });
 
 		// if the dataSets are not equal, replace the last element in the db with a newly created DataSet
-		console.log(equal);
 
 		if (!equal) {
-			console.log('updating');
 			const ent = new Entry(dataSet);
 
 			try {

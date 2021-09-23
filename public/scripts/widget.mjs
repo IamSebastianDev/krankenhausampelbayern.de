@@ -189,7 +189,7 @@ class VaccWidget extends Widget {
 		const shell = this.renderShell();
 		const widget = shell.querySelector('.widget');
 
-		const oldValue = this.data.oldValue != null ? this.data.oldValue : 0;
+		const oldValue = this.data.lastValue != null ? this.data.lastValue : 0;
 		const newCases = this.data.value - oldValue;
 
 		const trend = newCases > 0 ? 1 : newCases == 0 ? 0 : -1;
@@ -366,7 +366,7 @@ class HistoryWidget extends Widget {
 		canvas.style.height = height + 'px';
 
 		const dates = this.data.map((entry) =>
-			entry != null ? entry.meta.dataCurrentAsOf : 0
+			entry != null ? entry.meta.currentAsOf.icuOccupation : 0
 		);
 
 		/*
