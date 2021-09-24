@@ -154,7 +154,7 @@ main {
 	position: relative;
 
 	min-height: 100vh;
-	margin: 0 auto 10em auto;
+	margin: 0 auto 0 auto;
 	padding-top: 10em;
 
 	width: 90vw;
@@ -202,17 +202,6 @@ main {
 	text-decoration: underline;
 }
 
-/*
-
-	widget
-
-*/
-
-#widget-display {
-	background: var(--ui-color-dark-shade);
-	min-height: 50vh;
-}
-
 /* section @footer */
 
 footer {
@@ -246,6 +235,29 @@ footer a {
 
 footer a:hover {
 	color: var(--ui-color-accent-contrast);
+}
+
+/* section @privacy */
+
+main.impressum {
+	background: var(--ui-color-dark-shade);
+
+	width: 90vw;
+	max-width: 768px;
+
+	padding: 2.4em 3.6em;
+	margin: 4.2em auto;
+
+	font-size: 1.4em;
+}
+
+main.impressum a {
+	color: var(--ui-color-light-shade);
+	text-decoration: underline;
+	padding: 1.2em 0;
+}
+main.impressum a:hover {
+	color: var(--ui-color-light);
 }
 
 /* section @loader */

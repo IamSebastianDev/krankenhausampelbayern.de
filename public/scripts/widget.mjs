@@ -156,7 +156,9 @@ class ValueWidget extends Widget {
 													? `+${newCases}`
 													: newCases
 										  }`
-										: `+${newCases.toFixed(2)}`
+										: newCases > 0
+										? `+${newCases.toFixed(2)}`
+										: newCases.toFixed(2)
 							  }`
 							: ''
 					}

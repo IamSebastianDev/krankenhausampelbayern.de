@@ -169,13 +169,13 @@ const fetchDataFromSource = async () => {
 
 		dataLayer.appendChild(new VaccWidget(data.vaccination).render());
 
-		dataDisplay.appendChild(RenderSrcContainer(data));
-
 		/*
 
 			Add the timestamp and source to the container
 
 		*/
+
+		dataDisplay.appendChild(RenderSrcContainer(data));
 	} catch (e) {
 		RenderError(e, document.querySelector('#data-display'));
 	}
