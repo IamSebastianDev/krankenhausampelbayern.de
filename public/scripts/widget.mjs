@@ -37,12 +37,15 @@ class Widget {
 			<div
 				class="widget ${this._getGridSize(this._widgetSize)}"
 				id="${this.widgetId}"
-				
 			>
 				<div class="widget-text">
-					<h3 class="widget-title">${title}<span style="font-size: 0.6em; color: var(--ui-color-light-shade); text-transform: uppercase;"> ${detail.join(
-			' '
-		)}</span></h3>
+					<h3 class="widget-title">
+						${title}<span
+							style="font-size: 0.6em; color: var(--ui-color-light-shade); text-transform: uppercase;"
+						>
+							${detail.join(' ')}</span
+						>
+					</h3>
 					<hr />
 					<p class="widget-description">${this.widgetDescription}</p>
 				</div>

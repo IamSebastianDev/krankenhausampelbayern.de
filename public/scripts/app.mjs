@@ -168,6 +168,8 @@ const fetchDataFromSource = async () => {
 		linegraph._constructLineGraph();
 
 		dataLayer.appendChild(new VaccWidget(data.vaccination).render());
+		dataLayer.appendChild(new ValueWidget(data.rvalue).render());
+		dataLayer.appendChild(new ValueWidget(data.deaths7Days).render());
 
 		/*
 
