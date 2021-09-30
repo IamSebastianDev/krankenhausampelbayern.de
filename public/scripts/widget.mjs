@@ -214,7 +214,7 @@ class VaccWidget extends Widget {
 				>
 				<span class="widget-cases" style="display: block;"
 					>${this.data.value.toString().split('.')[0]}<span style="font-size: 0.3em;">.${
-			this.data.value.toString().split('.')[1]
+			this.data.value.toString().split('.')[1] || 0
 		}%</span></span
 				>
 			</div>
@@ -509,7 +509,10 @@ class HistoryWidget extends Widget {
 			ctx.lineCap = 'round';
 			ctx.lineJoin = 'round';
 			ctx.strokeStyle = color;
-			ctx.moveTo(0 + padding, canvas.height - padding);
+			ctx.moveTo(
+				points[0].column,
+				canvas.height - canvasHeight * points[0].value - padding
+			);
 
 			points.forEach((point) => {
 				ctx.lineTo(
