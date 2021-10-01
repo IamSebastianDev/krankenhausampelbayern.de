@@ -47,8 +47,9 @@ const getHistory = async () =>
 
 const parseDate = (string) => {
 	const [day, month, year] = string.split(',')[0].split('.');
+	const [hour, minutes] = string.split(',')[1].split(':');
 
-	return new Date(year, month - 1, day);
+	return new Date(year, month - 1, day, hour, minutes);
 };
 
 /*
@@ -125,16 +126,11 @@ const processHistory = async ({ dataSet }) => {
 
 	// parse the timestamps out of the dataSet
 
-	const currentHospitalized = parseDate(dataSet.src.hospitalized);
-	const currentIcu = parseDate(dataSet.src.icuOccupation);
+	const curHosDate = parseDate(dataSet.src.hospitalized);
+	const curIcuDate = parseDate(dataSet.src.icuOccupation);
 
-	// the dataSet is updated only when both timestamps are outdated by at least one day
-
-	const curHosDate = currentHospitalized.getDate();
-	const curIcuDate = currentIcu.getDate();
-
-	const lastHosDate = lastEntry.meta.currentAsOf.hospitalized.getDate();
-	const lastIcuDate = lastEntry.meta.currentAsOf.icuOccupation.getDate();
+	const lastHosDate = lastEntry.meta.currentAsOf.hospitalized;
+	const lastIcuDate = lastEntry.meta.currentAsOf.icuOccupation;
 
 	/*
 
