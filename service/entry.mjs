@@ -122,7 +122,7 @@ class Entry {
 		const [day, month, year] = string.split(',')[0].split('.');
 		const [hour, minutes] = string.split(',')[1].split(':');
 
-		return new Date(year, month - 1, day, hour, minutes);
+		return new Date(Date.UTC(year, month - 1, day, hour, minutes));
 	}
 
 	export() {
