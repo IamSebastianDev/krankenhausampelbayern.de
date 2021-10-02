@@ -139,7 +139,7 @@ const fetchDataFromSource = async () => {
 
 		*/
 
-		const res = await fetch('/api/data');
+		const res = await fetch('/api/data?timeframe=14');
 		const { history } = await res.json();
 
 		// extract the most recent entry
