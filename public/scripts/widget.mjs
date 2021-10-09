@@ -364,8 +364,8 @@ class HistoryWidget extends Widget {
 
 		const { width, height } = this.wContent.getBoundingClientRect();
 
-		canvas.width = width * 2 * window.devicePixelRatio;
-		canvas.height = height * 2 * window.devicePixelRatio;
+		canvas.width = width * window.devicePixelRatio;
+		canvas.height = height * window.devicePixelRatio;
 
 		canvas.style.width = width + 'px';
 		canvas.style.height = height + 'px';
