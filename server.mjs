@@ -34,7 +34,11 @@ if (process.env.production) {
 
 */
 
-App.use(Express.static('./public'));
+App.use(
+	Express.static('./public', {
+		extensions: ['html'],
+	})
+);
 
 /*
 

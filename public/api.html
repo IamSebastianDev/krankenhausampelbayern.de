@@ -11,7 +11,7 @@
 			name="description"
 			content="Aktuelle Informationen zum Status der Krankenhausampel in Bayern sowie weitere Kennzahlen zur medizinischen Versorgungslage in einem übersichtlichen Dashboard."
 		/>
-		<title>🚦Covid 19 - Bayern</title>
+		<title>🚦Covid 19 - Bayern || API</title>
 		<link rel="stylesheet" href="./styles/style.css" />
 		<link rel="stylesheet" href="./styles/widget.css" />
 		<link rel="stylesheet" href="./styles/resets.css" />
@@ -30,31 +30,6 @@
 			</p>
 			<button class="privacy-modal__close">Ok.</button>
 		</div>
-		<div class="widget-modal">
-			<button class="widget-modal__close">
-				<i pangolicons="x" stroke-width="2"></i>
-			</button>
-			<div class="widget-modal__slider"></div>
-			<div class="widget-modal__controls-container">
-				<button class="widget-modal__controls-button" decrease>
-					<i pangolicons="chevronLeft" width="60px" height="60px"></i>
-				</button>
-				<div class="widget-modal__controls-description"></div>
-				<button class="widget-modal__controls-button" increase>
-					<i
-						pangolicons="chevronRight"
-						width="60px"
-						height="60px"
-					></i>
-				</button>
-			</div>
-		</div>
-		<canvas id="data-backdrop"></canvas>
-		<div id="spinner" class="loader">
-			<span></span>
-			<span></span>
-			<span></span>
-		</div>
 		<nav>
 			<span class="nav-link" style="margin-right: auto">
 				<a href="/">🚦Covid 19 - Bayern</a>
@@ -63,9 +38,9 @@
 				<li class="nav-link">
 					<a href="./#data-display">Dashboard</a>
 				</li>
-				<!-- <li class="nav-link">
+				<li class="nav-link">
 					<a href="./api">API</a>
-				</li> -->
+				</li>
 				<li class="nav-link">
 					<a
 						href="https://github.com/IamSebastianDev/Covid-19-Widget"
@@ -135,7 +110,6 @@
 				<a href="./impressum.html#privacy"> Privacy Policy</a>
 			</p>
 		</footer>
-		<script type="module" src="scripts/bundle.min.mjs"></script>
 		<script>
 			// get the Elements that make up the navigation
 

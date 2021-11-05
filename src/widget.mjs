@@ -22,6 +22,7 @@ const parseHTMLFromString = (string) =>
 
 
 */
+
 class Widget {
 	_widgetSize;
 	constructor({ widgetTitle, widgetDescription, widgetSize, widgetId }) {

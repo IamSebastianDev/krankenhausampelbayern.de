@@ -10,6 +10,15 @@
 		<title>Conrona Zahlen Dashboard | Impressum</title>
 	</head>
 	<body>
+		<div class="privacy-modal">
+			<p>
+				Diese Website benutzt Javascript und den Lokalen Speicher deines
+				Webbrowsers um zu funtkionieren. Erfahre mehr über deren
+				Funktion in der
+				<a href="./impressum.html#privacy">Privacy Policy</a>.
+			</p>
+			<button class="privacy-modal__close">Ok.</button>
+		</div>
 		<main class="impressum">
 			<section
 				id="impressum"
@@ -80,6 +89,58 @@
 				<a href="./impressum.html#privacy"> Privacy Policy</a>
 			</p>
 		</footer>
-		<script type="module" src="scripts/app.mjs"></script>
+		<script>
+			// get the Elements that make up the navigation
+
+			const navButton = document.querySelector('#nav-mobile-button');
+			const navList = document.querySelector('nav ul');
+
+			// the method to toggle the nav state
+
+			const toggleNavState = () => {
+				// get the current state of the nav menu
+				const currentState =
+					navList.getAttribute('state') === 'true' ? true : false;
+
+				const { burger, x } = Pangolicons.icons;
+
+				// replace the nav icon
+				currentState
+					? navButton.firstElementChild.replaceWith(
+							burger.toSvg({ 'stroke-width': '1' })
+					  )
+					: navButton.firstElementChild.replaceWith(
+							x.toSvg({ 'stroke-width': '1' })
+					  );
+
+				navList.setAttribute('state', !currentState);
+			};
+
+			// the event listeners listening for the nav events
+			window.addEventListener('click', (ev) => {
+				if (
+					ev.target.closest('#nav-mobile-button') ||
+					ev.target.closest('.nav-link')
+				) {
+					toggleNavState();
+				}
+			});
+		</script>
+		<script>
+			// privacy model
+
+			const privacyModal = document.querySelector('.privacy-modal');
+			const showModal =
+				!window.localStorage.getItem('privacy-modal-seen');
+
+			showModal && privacyModal.setAttribute('visible', '');
+
+			privacyModal.addEventListener('click', (ev) => {
+				if (ev.target.matches('.privacy-modal__close')) {
+					privacyModal.removeAttribute('visible');
+					localStorage.setItem('privacy-modal-seen', true);
+				}
+			});
+		</script>
 	</body>
 </html>

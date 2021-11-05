@@ -5,13 +5,15 @@
   "main": "server.mjs",
   "scripts": {
     "start": "node server.mjs",
-    "dev": "nodemon server.mjs",
-    "compile": "node ./service/compile.mjs"
+    "dev": "rollup --config rollup.config.js --watch",
+    "build": "rollup --config rollup.config.js"
   },
   "author": "Sebastian Heinz",
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "rollup": "^2.58.3",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
