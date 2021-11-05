@@ -5,6 +5,7 @@ import { RenderBackdrop } from './utilities/RenderBackdrop.mjs';
 import { ViewController } from './widgets/ViewController.mjs';
 import { Spinner } from './utilities/Spinner.mjs';
 import { WidgetModal } from './widgets/WidgetModal.mjs';
+import { RenderSource } from './RenderSource.mjs';
 
 // create the controller and the widget modal
 
@@ -49,6 +50,14 @@ const WidgetPresenter = new WidgetModal({
 
 	// create a new ViewController instance
 	Controller.injectData(history);
+
+	// create the source timestamps
+	const { meta } = history[history.length - 1];
+
+	RenderSource({
+		data: meta,
+		target: document.querySelector('#data-display'),
+	});
 
 	// remove the spinner
 	Spinner.complete();
