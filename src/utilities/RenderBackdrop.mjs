@@ -5,7 +5,7 @@ const RenderBackdrop = (dataSet) => {
 	const ctx = canvas.getContext('2d');
 
 	const width = window.innerWidth;
-	const height = window.innerHeight;
+	const height = window.innerHeight - 100;
 
 	canvas.width = width * 2 * window.devicePixelRatio;
 	canvas.height = height * 2 * window.devicePixelRatio;

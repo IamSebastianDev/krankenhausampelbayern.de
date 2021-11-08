@@ -5,7 +5,6 @@ import { WidgetCore } from './WidgetCore.mjs';
 class TrafficLight extends WidgetCore {
 	constructor(dataSet) {
 		super();
-
 		this.dataSet = dataSet;
 	}
 
@@ -62,7 +61,8 @@ class TrafficLight extends WidgetCore {
 	// method to get the color of the trafficlight
 
 	getStage() {
-		const { icuOccupation, hospitalized7Days } = this.dataSet;
+		const { icuOccupation, hospitalized7Days } =
+			this.dataSet[this.dataSet.length - 1];
 
 		switch (true) {
 			case icuOccupation.value > icuOccupation.threshold:

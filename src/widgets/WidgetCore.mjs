@@ -25,7 +25,7 @@ class WidgetCore {
 
 		// hacky fix for the introduced threshold value of 450 in the icuOccupation value.
 
-		if (threshold === 600 && value > 450) {
+		if (threshold === 600 && value > 450 && value < 600) {
 			color = 'var(--widget-color-yellow)';
 		}
 
@@ -41,7 +41,7 @@ class WidgetCore {
 		</h3>`;
 	}
 
-	getScheme(inverted) {
+	invertScheme(inverted) {
 		return inverted
 			? ['var(--widget-color-blue)', 'var(--widget-color-red)']
 			: ['var(--widget-color-red)', 'var(--widget-color-blue)'];
@@ -54,8 +54,8 @@ class WidgetCore {
 		const iconConfig = { 'stroke-width': 2, width: '8em', height: '8em' };
 		const colourScheme =
 			this.widgetName === 'vaccination'
-				? this.getScheme(true)
-				: this.getScheme(false);
+				? this.invertScheme(true)
+				: this.invertScheme(false);
 
 		const icon =
 			value > lastValue
@@ -119,8 +119,8 @@ class WidgetCore {
 
 		const colourScheme =
 			this.widgetName === 'vaccination'
-				? this.getScheme(true)
-				: this.getScheme(false);
+				? this.invertScheme(true)
+				: this.invertScheme(false);
 
 		const color =
 			value > lastValue

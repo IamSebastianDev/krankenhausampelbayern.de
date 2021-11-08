@@ -140,7 +140,7 @@ class ViewController {
 
 		// itterate over the layout and render the widgetInstances to the target
 		[
-			new TrafficLight(this._lastData),
+			new TrafficLight(this._dataSet),
 			...this._view,
 			new CreateWidget(),
 		].forEach((widget) => {
