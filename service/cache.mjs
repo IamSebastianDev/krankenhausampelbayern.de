@@ -120,7 +120,7 @@ class Cache {
 			return true;
 		}
 
-		this.cachedData.timeStamp = Date.now();
+		this.cachedData.timestamp = Date.now();
 
 		return false;
 	}
