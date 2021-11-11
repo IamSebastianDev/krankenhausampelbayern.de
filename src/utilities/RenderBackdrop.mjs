@@ -5,7 +5,7 @@ const RenderBackdrop = (dataSet) => {
 	const ctx = canvas.getContext('2d');
 
 	const width = window.innerWidth;
-	const height = window.innerHeight - 100;
+	const height = window.innerHeight - 62;
 
 	canvas.width = width * 2 * window.devicePixelRatio;
 	canvas.height = height * 2 * window.devicePixelRatio;
@@ -28,7 +28,7 @@ const RenderBackdrop = (dataSet) => {
 
 		const numberOfValues = values.length - 1;
 		const columnWidth = canvas.width / numberOfValues;
-		const rowHeight = canvas.height / max;
+		const rowHeight = canvas.height / max / 2;
 
 		// create the path and then itterate over the points to create the graph
 		ctx.beginPath();

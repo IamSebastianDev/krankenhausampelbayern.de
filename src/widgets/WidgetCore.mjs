@@ -10,6 +10,8 @@ class WidgetCore {
 		this._selector = `.widget[widget-id='${this.id}']`;
 	}
 
+	hasRendered() {}
+
 	renderValue(value, threshold, unit) {
 		const html = this.html;
 

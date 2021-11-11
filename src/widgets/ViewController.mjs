@@ -3,6 +3,7 @@
 import { ValueWidget } from './ValueWidget.mjs';
 import { TrafficLight } from './TrafficLight.mjs';
 import { CreateWidget } from './CreateWidget.mjs';
+import { LinegraphWidget } from './LinegraphWidget.mjs';
 
 /**
  * @description The ViewController class is used to control the widget section of the Webpage. It contains methods
@@ -86,6 +87,16 @@ class ViewController {
 			}
 		}
 
+		// add the linegraph widget to the list manually
+
+		this.widgetList.push({
+			title: 'Krankenhauskapazitätsgraph',
+			description: 'Graphischer verlauf der Inzidenzzahlen',
+			data: this._dataSet,
+			widgetName: 'linegraph',
+			widgetType: LinegraphWidget,
+		});
+
 		// @todo sort the created list alphabetically
 	}
 
@@ -130,7 +141,8 @@ class ViewController {
 	renderLayout() {
 		/**
 		 * @todo: Change the layout reset to a morph, by itterating over the elements, and replacing them if
-		 * the instance id is not equal, and removing or adding elements if the length has changed.
+		 * the instance id is not equal, and removing or adding elements if the length has changed. This also means
+		 * changing the "hasRendered" method of the widgets
 		 */
 
 		this._view === undefined && this.createView(this._layout);
@@ -145,6 +157,7 @@ class ViewController {
 			new CreateWidget(),
 		].forEach((widget) => {
 			this._targetElement.appendChild(widget.render());
+			widget.hasRendered();
 		});
 
 		this.saveLayout();

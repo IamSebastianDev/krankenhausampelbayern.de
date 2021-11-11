@@ -7,6 +7,7 @@
 */
 
 import Express from 'express';
+import { presentDetails } from 'dev-server-details';
 
 const App = Express();
 
@@ -60,6 +61,4 @@ App.get('/api/data', getData);
 
 const PORT = process.env.PORT || 5000;
 
-App.listen(PORT, () => {
-	console.log(`App up on Port: ${PORT}`);
-});
+App.listen(PORT, !process.env.production && presentDetails({ PORT }));

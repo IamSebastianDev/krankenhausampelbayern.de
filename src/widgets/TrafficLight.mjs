@@ -5,6 +5,7 @@ import { WidgetCore } from './WidgetCore.mjs';
 class TrafficLight extends WidgetCore {
 	constructor(dataSet) {
 		super();
+		console.log(dataSet);
 		this.dataSet = dataSet;
 	}
 
@@ -58,7 +59,7 @@ class TrafficLight extends WidgetCore {
 		`;
 	}
 
-	// method to get the color of the trafficlight
+	// method to get the stage of the trafficlight
 
 	getStage() {
 		const { icuOccupation, hospitalized7Days } =
@@ -74,6 +75,7 @@ class TrafficLight extends WidgetCore {
 				return 0;
 		}
 	}
+
 	getTrafficLightColor(stage) {
 		switch (stage) {
 			case 2:

@@ -100,6 +100,7 @@ class WidgetModal {
 			);
 			slideContainer.appendChild(createdWidget.render({ preview: true }));
 			this.slider.appendChild(slideContainer);
+			createdWidget.hasRendered();
 		});
 	}
 
@@ -135,7 +136,7 @@ class WidgetModal {
 	}
 
 	moveTo() {
-		// get the width of the first element inside the slider, this will in therory eenable responsiveness
+		// the following function will check all widths of elements and will return the most prevelant witdh of the elements
 
 		const mode = (myArray) =>
 			myArray.reduce(
