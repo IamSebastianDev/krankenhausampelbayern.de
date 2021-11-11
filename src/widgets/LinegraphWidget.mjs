@@ -124,7 +124,7 @@ class LinegraphWidget extends WidgetCore {
 		const drawLineGraph = (dataPoints, color) => {
 			ctx.beginPath();
 			ctx.strokeStyle = color;
-			ctx.lineWidth = 4;
+			ctx.lineWidth = 2;
 			ctx.lineCap = 'round';
 			ctx.lineJoin = 'round';
 
@@ -149,7 +149,7 @@ class LinegraphWidget extends WidgetCore {
 			// style the axis
 
 			ctx.strokeStyle = 'rgba(255,255,255,1)';
-			ctx.lineWidth = 2;
+			ctx.lineWidth = 1;
 
 			// draw the x axis
 			ctx.beginPath();
@@ -163,10 +163,12 @@ class LinegraphWidget extends WidgetCore {
 
 			ctx.beginPath();
 
-			ctx.moveTo(origin.x, origin.y);
+			ctx.moveTo(origin.x, origin.y - 10);
 			ctx.lineTo(origin.x, 0 + paddingTop);
 
 			ctx.stroke();
+
+			// set the text properties
 
 			ctx.font = '22px monospace';
 			ctx.fillStyle = 'rgba(255,255,255,0.6)';
@@ -203,8 +205,6 @@ class LinegraphWidget extends WidgetCore {
 
 			// reset the linedash
 			ctx.setLineDash([]);
-
-			// style the text for the dates
 
 			dates.forEach((date, index) => {
 				const dateString = new Date(date).toLocaleDateString();
