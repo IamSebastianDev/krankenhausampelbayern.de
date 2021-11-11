@@ -31,11 +31,11 @@ class WidgetCore {
 			color = 'var(--widget-color-yellow)';
 		}
 
-		const fontSize = valueStr.length > 3 ? '3.5em' : '5em';
+		const fontSize = Math.min(8 - valueStr.length, 5);
 
 		return html`<h3
 			class="widget-content__trend-value"
-			style="color: ${color};  margin-left: auto; font-size: ${fontSize};"
+			style="color: ${color};  margin-left: auto; font-size: ${fontSize}em;"
 		>
 			${valueStr}<span class="widget-content__trend-decimal"
 				>${decimal ? '.' + decimal : ''}${this.renderUnit(unit)}</span

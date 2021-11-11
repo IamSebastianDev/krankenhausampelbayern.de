@@ -17,7 +17,8 @@ class WidgetModal {
 			ev.target.closest(`.widget-modal__controls-button[decrease]`) &&
 				this.moveLeft();
 
-			if (ev.target.closest('.widget-preview__inFocus')) {
+			if (ev.target.closest('.widget-preview__inFocus .widget-preview')) {
+				console.log('hit');
 				const widgetName = ev.target
 					.closest('.widget-preview')
 					.getAttribute('widgetname');
