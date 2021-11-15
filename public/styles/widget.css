@@ -93,7 +93,7 @@
 	border-radius: 2em;
 }
 
-.widget-preview:hover::after {
+.widget-preview__inFocus .widget-preview:hover::after {
 	opacity: 1;
 }
 
@@ -224,7 +224,7 @@
 
 	font-size: 0.8em;
 	font-weight: 400;
-	letter-spacing: 0.1em;
+	letter-spacing: 0.15em;
 
 	padding: 0.5em 0;
 }
@@ -475,5 +475,9 @@
 	.widget-remove {
 		opacity: 1;
 		background: var(--widget-color-dark);
+	}
+
+	.widget-top {
+		margin-left: 2em;
 	}
 } ;

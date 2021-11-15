@@ -226,7 +226,7 @@ class LinegraphWidget extends WidgetCore {
 
 					ctx.beginPath();
 
-					ctx.strokeStyle = 'rgba(255,255,255,1)';
+					ctx.strokeStyle = 'rgba(230,230,230,1)';
 					ctx.moveTo(xPos - textPadding / 2, yPos + 20 - 10);
 					ctx.lineTo(xPos - textPadding / 2, yPos + 20 + 10);
 
@@ -234,10 +234,10 @@ class LinegraphWidget extends WidgetCore {
 
 					// return early if the text runs out of bound
 
-					if (xPos + width > canvasSafeWidth + padding) {
+					if (xPos - 5 + width > canvasSafeWidth + padding) {
 						return;
 					} else {
-						ctx.fillText(dateString, xPos, yPos);
+						ctx.fillText(dateString, xPos - 5, yPos);
 					}
 				}
 			});

@@ -1,6 +1,7 @@
 /** @format */
 
-// the Widget presenter is a Modal that is
+
+/** @todo: Clean up this code at the earliest convience */
 
 class WidgetModal {
 	constructor({ target, Controller }) {
@@ -161,6 +162,7 @@ class WidgetModal {
 
 		const [...childNodes] = this.slider.childNodes;
 		childNodes.forEach((node, index) => {
+			node.classList.remove('widget-preview__inFocus');
 			node.classList.add('widget-preview__outFocus');
 			index === this.index &&
 				node.classList.replace(

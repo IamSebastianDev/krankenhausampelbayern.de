@@ -4,17 +4,21 @@
 import { WidgetCore } from './WidgetCore.mjs';
 
 class CreateWidget extends WidgetCore {
-	constructor(listOfWidgets) {
+	constructor({ noWidgetsLeft }) {
 		super();
 
-		this.listOfWidgets = listOfWidgets;
+		this.showButton = !noWidgetsLeft;
 	}
 
 	render() {
 		const html = this.html;
 
 		return html`
-			<button class="widget-creator" widget-id="${this.id}">
+			<button
+				class="widget-creator"
+				widget-id="${this.id}"
+				${!this.showButton ? 'style="display: none"' : ''}
+			>
 				${Pangolicons.icons.plus.toString({
 					'stroke-width': '2',
 				})}

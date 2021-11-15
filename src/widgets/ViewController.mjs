@@ -10,6 +10,8 @@ import { LinegraphWidget } from './LinegraphWidget.mjs';
  * to store & retrieve the layout of the view, as well as create new widgets or remove them.
  */
 
+/** @todo: Clean up this code at the earliest convience */
+
 class ViewController {
 	constructor({ targetElement }) {
 		// the target element is the element the widgets will be rendered to.
@@ -151,13 +153,16 @@ class ViewController {
 		[...this._targetElement.childNodes].forEach((node) => node.remove());
 
 		// itterate over the layout and render the widgetInstances to the target
+		const noWidgetsLeft = this._view.length === this.widgetList.length;
+
 		[
 			new TrafficLight(this._dataSet),
 			...this._view,
-			new CreateWidget(),
+			new CreateWidget({ noWidgetsLeft }),
 		].forEach((widget) => {
-			this._targetElement.appendChild(widget.render());
-			widget.hasRendered();
+			widget !== null &&
+				this._targetElement.appendChild(widget.render()) &&
+				widget.hasRendered();
 		});
 
 		this.saveLayout();
