@@ -1,12 +1,13 @@
 /** @format */
 
 import { WidgetCore } from './WidgetCore.mjs';
+import { padZero } from '../utilities/padZero.mjs';
 
 class LinegraphWidget extends WidgetCore {
 	constructor(dataSet, widgetName) {
 		super();
 
-		this.dataSet = dataSet;
+		this.dataSet = dataSet.slice(-29, -1);
 		this.widgetName = widgetName;
 
 		window.addEventListener('resize', (ev) => {
@@ -66,7 +67,7 @@ class LinegraphWidget extends WidgetCore {
 	}
 
 	resetCanvas(canvas) {
-		canvas.width = canvas.height = 0;
+		canvas.width = canvas.height = undefined;
 		canvas.style = '';
 	}
 
@@ -87,8 +88,8 @@ class LinegraphWidget extends WidgetCore {
 			`.widget[widget-id="${this.id}"] .widget-top`
 		);
 
-		canvas.width = width * window.devicePixelRatio;
-		canvas.height = height * window.devicePixelRatio;
+		canvas.width = width * 2;
+		canvas.height = height * 2;
 
 		canvas.style.width = width + 'px';
 		canvas.style.height = height + 'px';
@@ -207,9 +208,11 @@ class LinegraphWidget extends WidgetCore {
 			ctx.setLineDash([]);
 
 			dates.forEach((date, index) => {
-				const dateString = new Date(date).toLocaleDateString();
+				const dateString = padZero(
+					new Date(date).toLocaleDateString('de-DE')
+				);
 				const { width } = ctx.measureText(dateString);
-				const textPadding = 30;
+				const textPadding = 40;
 
 				// the number of dates to display is equal to the canvasSafeWidth / width + textPadding
 
@@ -234,10 +237,14 @@ class LinegraphWidget extends WidgetCore {
 
 					// return early if the text runs out of bound
 
-					if (xPos - 5 + width > canvasSafeWidth + padding) {
+					if (
+						xPos + width - textPadding / 2 >
+						canvasSafeWidth + padding
+					) {
 						return;
 					} else {
-						ctx.fillText(dateString, xPos - 5, yPos);
+						ctx.textAlign = 'left';
+						ctx.fillText(dateString, xPos, yPos);
 					}
 				}
 			});

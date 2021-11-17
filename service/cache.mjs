@@ -95,9 +95,9 @@ class Cache {
     */
 
 	testForExpiration(data = this.cachedData) {
-		const timestamp = data?.timestamp ? data?.timestamp : Date.now();
+		const timestamp = data?.timestamp || Date.now();
 
-		return this.#checkIsExpired(timestamp) ? true : false;
+		return this.#checkIsExpired(timestamp);
 	}
 
 	/**

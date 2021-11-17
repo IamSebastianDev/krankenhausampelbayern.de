@@ -477,7 +477,7 @@
 		background: var(--widget-color-dark);
 	}
 
-	.widget-top {
-		margin-left: 2em;
+	.widget-top h3 {
+		margin-right: 2em;
 	}
 } ;
