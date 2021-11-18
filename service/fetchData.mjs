@@ -253,8 +253,10 @@ const fetchDataFromSource = async ({ forceRefresh = false } = {}) => {
 
 		return await processHistory({ dataSet });
 	} catch (error) {
-		if (error) throw new Error(error);
-		return { error };
+		// if an error occurs, return the last dbEntry and log the error
+		console.error({ error });
+
+		return await getHistory();
 	}
 };
 

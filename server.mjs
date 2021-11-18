@@ -61,4 +61,11 @@ App.get('/api/data', getData);
 
 const PORT = process.env.PORT || 5000;
 
-App.listen(PORT, !process.env.production && presentDetails({ PORT }));
+App.listen(
+	PORT,
+	!process.env.production &&
+		presentDetails({
+			PORT,
+			userText: { heading: 'Krankenhausampelbayern.de' },
+		})
+);

@@ -1,13 +1,17 @@
 /** @format */
 
 const padZero = (dateString) => {
-	const day = dateString.split('.')[0];
+	let [day, month, year] = dateString.split('.');
 
 	if (day.length === 1) {
-		return '0' + dateString;
+		day = '0' + day;
 	}
 
-	return dateString;
+	if (month.length === 1) {
+		month = '0' + month;
+	}
+
+	return [day, month, year].join('.');
 };
 
 export { padZero };

@@ -7,7 +7,7 @@ class LinegraphWidget extends WidgetCore {
 	constructor(dataSet, widgetName) {
 		super();
 
-		this.dataSet = dataSet.slice(-29, -1);
+		this.dataSet = dataSet;
 		this.widgetName = widgetName;
 
 		window.addEventListener('resize', (ev) => {
@@ -150,7 +150,7 @@ class LinegraphWidget extends WidgetCore {
 			// style the axis
 
 			ctx.strokeStyle = 'rgba(255,255,255,1)';
-			ctx.lineWidth = 1;
+			ctx.lineWidth = 2;
 
 			// draw the x axis
 			ctx.beginPath();
@@ -212,39 +212,51 @@ class LinegraphWidget extends WidgetCore {
 					new Date(date).toLocaleDateString('de-DE')
 				);
 				const { width } = ctx.measureText(dateString);
-				const textPadding = 40;
+				const textPadding = 15;
 
-				// the number of dates to display is equal to the canvasSafeWidth / width + textPadding
-
-				const numberOfDatesToDisplay = Math.floor(
-					(this.dataSet.length - 1) /
-						Math.round(canvasSafeWidth / (width + textPadding))
-				);
-
-				const xPos = padding + index * columnWidth + textPadding / 2;
+				const xPos = padding + index * columnWidth;
 				const yPos = paddingTop + canvasSafeHeight - 20;
 
-				if (index % numberOfDatesToDisplay === 0) {
+				// stroke the day markers
+
+				ctx.beginPath();
+
+				ctx.strokeStyle = 'rgba(155,155,155,1)';
+				ctx.moveTo(xPos, yPos + 20 - 10);
+				ctx.lineTo(xPos, yPos + 20 + 10);
+
+				ctx.stroke();
+
+				// calculate the amount of dates that fit the axis
+
+				const datesToShow = Math.floor(
+					canvasSafeWidth / (width + textPadding)
+				);
+				const nthDate = Math.floor(
+					(this.dataSet.length - 1) / datesToShow
+				);
+
+				if (index % nthDate === 0) {
 					// draw the markers
 
 					ctx.beginPath();
 
-					ctx.strokeStyle = 'rgba(230,230,230,1)';
-					ctx.moveTo(xPos - textPadding / 2, yPos + 20 - 10);
-					ctx.lineTo(xPos - textPadding / 2, yPos + 20 + 10);
+					ctx.strokeStyle = 'rgba(255,255,255,1)';
+					ctx.moveTo(xPos, yPos + 20 - 10);
+					ctx.lineTo(xPos, yPos + 20 + 10);
 
 					ctx.stroke();
 
 					// return early if the text runs out of bound
 
 					if (
-						xPos + width - textPadding / 2 >
+						xPos + width + textPadding >
 						canvasSafeWidth + padding
 					) {
 						return;
 					} else {
 						ctx.textAlign = 'left';
-						ctx.fillText(dateString, xPos, yPos);
+						ctx.fillText(dateString, xPos + textPadding / 2, yPos);
 					}
 				}
 			});
