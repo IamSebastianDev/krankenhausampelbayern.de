@@ -5,6 +5,7 @@
     The entry class is used to create and provide a schema for the db entrys
 
 */
+import { extractDatefromString } from './extractDateFromString.mjs';
 
 class Entry {
 	constructor({ src, data }) {
@@ -122,10 +123,10 @@ class Entry {
 		};
 	}
 
-	#parseDateString(string) {
+	#parseDateString(dateString) {
+		const string = extractDatefromString(dateString);
 		const [day, month, year] = string.split(',')[0].split('.');
 		// const [hour, minutes] = string.split(',')[1].split(':');
-
 		return new Date(Date.UTC(year, month - 1, day));
 	}
 

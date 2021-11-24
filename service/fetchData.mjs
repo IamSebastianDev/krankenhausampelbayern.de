@@ -11,6 +11,7 @@
 import { Cache } from './cache.mjs';
 import { crawlSource } from './crawler.mjs';
 import { accessDB } from '../config/mongo.config.mjs';
+import { extractDatefromString } from './extractDateFromString.mjs';
 
 import { Entry } from './entry.mjs';
 
@@ -44,15 +45,8 @@ const getHistory = async () =>
 
 */
 
-const parseDate = (string) => {
-	const extractDatefromString = (string) => {
-		return string
-			.match(/Stand[0-9., :]*/gim)[0]
-			.replace('Stand:', '')
-			.trim();
-	};
-	string = extractDatefromString(string);
-
+const parseDate = (dateString) => {
+	const string = extractDatefromString(dateString);
 	const [day, month, year] = string.split(',')[0].split('.');
 	// Note: the LGL no longer has timestamps added to their sources, just dates. this is likey to change.
 	// const [hour, minutes] = string.split(',')[1].split(':');
