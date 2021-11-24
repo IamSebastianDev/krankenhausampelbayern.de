@@ -8,11 +8,10 @@
 
 // import dependencies
 
-import { ParseHTMLForNode } from './htmlParser.mjs';
 import { Cache } from './cache.mjs';
 import { crawlSource } from './crawler.mjs';
 import { accessDB } from '../config/mongo.config.mjs';
-import { convertParsedData } from './converter.mjs';
+
 import { Entry } from './entry.mjs';
 
 // declare endpoints
@@ -46,10 +45,19 @@ const getHistory = async () =>
 */
 
 const parseDate = (string) => {
-	const [day, month, year] = string.split(',')[0].split('.');
-	const [hour, minutes] = string.split(',')[1].split(':');
+	const extractDatefromString = (string) => {
+		return string
+			.match(/Stand[0-9., :]*/gim)[0]
+			.replace('Stand:', '')
+			.trim();
+	};
+	string = extractDatefromString(string);
 
-	return new Date(Date.UTC(year, month - 1, day, hour, minutes));
+	const [day, month, year] = string.split(',')[0].split('.');
+	// Note: the LGL no longer has timestamps added to their sources, just dates. this is likey to change.
+	// const [hour, minutes] = string.split(',')[1].split(':');
+
+	return new Date(Date.UTC(year, month - 1, day));
 };
 
 /*
@@ -219,20 +227,13 @@ const fetchDataFromSource = async ({ forceRefresh = false } = {}) => {
 	*/
 
 	try {
-		const src = await crawlSource({ endpoint });
-		const [data, sources] = await ParseHTMLForNode(
-			src,
-			'.block_overview tr > td',
-			'.quellen p'
-		);
-
 		/*
 
 			Pass the parsed data to the converter to insert it into the schema
 
 		*/
 
-		const dataSet = convertParsedData({ data, sources });
+		const dataSet = await crawlSource({ endpoint });
 		// console.log(dataSet);
 
 		/*

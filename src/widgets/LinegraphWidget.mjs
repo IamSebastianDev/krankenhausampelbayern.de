@@ -172,7 +172,7 @@ class LinegraphWidget extends WidgetCore {
 			// set the text properties
 
 			ctx.font = '22px monospace';
-			ctx.fillStyle = 'rgba(255,255,255,0.6)';
+			ctx.fillStyle = 'rgba(255,255,255,1)';
 			ctx.textAlign = 'left';
 
 			// draw the y axis markers
@@ -222,8 +222,8 @@ class LinegraphWidget extends WidgetCore {
 				ctx.beginPath();
 
 				ctx.strokeStyle = 'rgba(155,155,155,1)';
-				ctx.moveTo(xPos, yPos + 20 - 10);
-				ctx.lineTo(xPos, yPos + 20 + 10);
+				ctx.moveTo(xPos, yPos + 20 - 6);
+				ctx.lineTo(xPos, yPos + 20 + 6);
 
 				ctx.stroke();
 
@@ -256,7 +256,11 @@ class LinegraphWidget extends WidgetCore {
 						return;
 					} else {
 						ctx.textAlign = 'left';
-						ctx.fillText(dateString, xPos + textPadding / 2, yPos);
+						ctx.fillText(
+							dateString,
+							xPos + textPadding / 2,
+							yPos - 5
+						);
 					}
 				}
 			});

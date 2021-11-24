@@ -7,6 +7,7 @@
 */
 
 import Puppeteer from 'puppeteer';
+import { pageCrawler, workOrder } from './pageCrawler.mjs';
 
 /**
 
@@ -33,7 +34,7 @@ const crawlSource = async ({ endpoint }) => {
 
 	// get the page's content
 
-	const data = await page.content();
+	const data = await pageCrawler({ page, workOrder });
 
 	// close the browser
 

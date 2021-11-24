@@ -53,15 +53,19 @@ class Entry {
 			lastValue: data.hospitalizedIncidence__oldValue,
 		};
 
+		// Note: The LGL does no longer show deaths after 24/11/21, the datapoint is depreceated for now
+
 		this.deaths7Days = {
 			title: 'Sterbefälle (7 Tage)',
 			description:
 				'Anzahl der an Covid-19 verstorbenen der letzten 7 Tage.',
 			threshold: undefined,
 			unit: 'Fälle',
-			value: parseInt(data.deaths7Days.replace('.', '')) || 0,
-			cases: parseInt(data.deaths7Days.replace('.', '')) || 0,
-			lastValue: data.deaths7Days__oldValue,
+			value: 0,
+			cases: 0,
+			// value: parseInt(data.deaths7Days.replace('.', '')) || 0,
+			// cases: parseInt(data.deaths7Days.replace('.', '')) || 0,
+			// lastValue: data.deaths7Days__oldValue,
 		};
 
 		this.icuOccupation = {
@@ -120,9 +124,9 @@ class Entry {
 
 	#parseDateString(string) {
 		const [day, month, year] = string.split(',')[0].split('.');
-		const [hour, minutes] = string.split(',')[1].split(':');
+		// const [hour, minutes] = string.split(',')[1].split(':');
 
-		return new Date(Date.UTC(year, month - 1, day, hour, minutes));
+		return new Date(Date.UTC(year, month - 1, day));
 	}
 
 	export() {

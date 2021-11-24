@@ -443,8 +443,10 @@
 .widget-modal__controls-description {
 	width: 90vw;
 	max-width: 450px;
+	margin: auto;
 	text-align: center;
 	text-transform: uppercase;
+	letter-spacing: 1.5px;
 }
 
 /* media queries */
