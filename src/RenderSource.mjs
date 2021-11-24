@@ -8,18 +8,26 @@ const RenderSource = ({ data, target } = {}) => {
 	const markup = document.createElement('div');
 	markup.id = 'data-sources';
 	markup.innerHTML = `
-		<h3 class="source-heading">Daten zuletzt aktualisiert:</h3>
 		<p>
-			Intensivbelegung:
+			Die Daten der Intensivbelegung wurden zuletzt am 
 			<span class="source-date"
-				>${new Date(currentAsOf.icuOccupation).toLocaleString()}</span
-			>
+				>${new Date(currentAsOf.icuOccupation).toLocaleDateString()}</span
+			> aktualisiert.
 		</p>
 		<p>
-			Hospitalisierung:
+		Die Daten der amHospitalisierung wurden zuletzt am 
 			<span class="source-date"
-				>${new Date(currentAsOf.hospitalized).toLocaleString()}</span
-			>
+				>${new Date(currentAsOf.hospitalized).toLocaleDateString()}</span
+			> aktualisiert.
+		</p>
+		<p>
+		Quelle: <a
+		href="https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm"
+		rel="norefferer noopener"
+		target="_blank"
+		>Bayrisches Landesamt für Gesundheit und
+		Lebensmittelsicherheit</a
+	>
 		</p>
 	`;
 
