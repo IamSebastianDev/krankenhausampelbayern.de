@@ -15,7 +15,7 @@ const RenderSource = ({ data, target } = {}) => {
 			> aktualisiert.
 		</p>
 		<p>
-		Die Daten der amHospitalisierung wurden zuletzt am 
+		Die Daten der Hospitalisierung wurden zuletzt am 
 			<span class="source-date"
 				>${new Date(currentAsOf.hospitalized).toLocaleDateString()}</span
 			> aktualisiert.

@@ -249,10 +249,7 @@ class LinegraphWidget extends WidgetCore {
 
 					// return early if the text runs out of bound
 
-					if (
-						xPos + width + textPadding >
-						canvasSafeWidth + padding
-					) {
+					if (xPos + width > canvasSafeWidth + padding) {
 						return;
 					} else {
 						ctx.textAlign = 'left';
