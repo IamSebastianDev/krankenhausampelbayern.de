@@ -75,8 +75,8 @@ class Entry {
 				'Anzahl der Patienten die mit Covid-19 intensivmedizinisch behandelt werden müssen.',
 			threshold: 600,
 			unit: 'Fälle',
-			value: parseInt(data.icuOccupation) || 0,
-			cases: parseInt(data.icuOccupation) || 0,
+			value: parseInt(data.icuOccupation.replace('.', '')) || 0,
+			cases: parseInt(data.icuOccupation.replace('.', '')) || 0,
 			lastValue: data.icuOccupation__oldValue,
 		};
 

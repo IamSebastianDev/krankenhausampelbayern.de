@@ -46,8 +46,6 @@ const pageCrawler = async ({ page, workOrder }) => {
 	await itterate(data, parsedData.data);
 	await itterate(src, parsedData.src);
 
-	console.log({ parsedData });
-
 	return parsedData;
 };
 
