@@ -59,7 +59,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[1];
+				const elem = nodeList[2];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_zwei dd')[1]
@@ -83,7 +83,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[0];
+				const elem = nodeList[1];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_vier dd')[0]
@@ -107,7 +107,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[2];
+				const elem = nodeList[3];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_zwei dd')[1]
@@ -124,7 +124,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[2];
+				const elem = nodeList[3];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_vier dd')[0]
@@ -141,7 +141,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[2];
+				const elem = nodeList[3];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_zwei dd')[0]
@@ -158,7 +158,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[3];
+				const elem = nodeList[4];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_vier dd')[0]
