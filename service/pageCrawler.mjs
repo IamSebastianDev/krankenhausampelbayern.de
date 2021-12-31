@@ -46,6 +46,10 @@ const pageCrawler = async ({ page, workOrder }) => {
 	await itterate(data, parsedData.data);
 	await itterate(src, parsedData.src);
 
+	if (!process.env.production) {
+		console.log({ parsedData });
+	}
+
 	return parsedData;
 };
 
@@ -59,7 +63,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[2];
+				const elem = nodeList[3];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_zwei dd')[1]
@@ -83,7 +87,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[1];
+				const elem = nodeList[2];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_vier dd')[0]
@@ -107,7 +111,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[3];
+				const elem = nodeList[4];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_zwei dd')[1]
@@ -124,7 +128,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[3];
+				const elem = nodeList[4];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_vier dd')[0]
@@ -141,7 +145,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[3];
+				const elem = nodeList[4];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_zwei dd')[0]
@@ -158,7 +162,7 @@ const workOrder = {
 			callback: (nodeList) => {
 				// get the second jumbotron element
 
-				const elem = nodeList[4];
+				const elem = nodeList[5];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_vier dd')[0]
