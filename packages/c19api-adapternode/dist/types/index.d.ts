@@ -1,7 +1,7 @@
 export var __esModule: boolean;
-export function adaptData(t: any): {
+export function adaptData(e: any): {
     timeStamp: any;
-    numberOfDataSet: any;
+    numberOfDataSets: any;
     history: any;
     raw: any;
 };

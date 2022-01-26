@@ -1,7 +1,7 @@
 export { t as adaptData };
 declare function t(t: any): {
     timeStamp: any;
-    numberOfDataSet: any;
+    numberOfDataSets: any;
     history: any;
     raw: any;
 };

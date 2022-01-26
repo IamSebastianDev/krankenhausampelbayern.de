@@ -15,15 +15,12 @@
 const convertDataSet = (entry, lastEntry, index, metaData) => {
 	const convertedEntry = { index, meta: entry.meta };
 
+	delete entry._id;
+	delete entry.meta;
+
 	for (const dataPoint in entry) {
 		if (Object.hasOwnProperty.call(entry, dataPoint)) {
 			const data = entry[dataPoint];
-
-			// if the metaData entry is not an object, return without assigning a value
-
-			if (!(data instanceof Object)) {
-				return;
-			}
 
 			convertedEntry[dataPoint] = {
 				title: metaData[dataPoint].title,
@@ -32,7 +29,7 @@ const convertDataSet = (entry, lastEntry, index, metaData) => {
 				unit: metaData[dataPoint].unit,
 				value: data,
 				cases: data,
-				lastValue: lastEntry[dataPoint]?.value || 0,
+				lastValue: lastEntry ? lastEntry[dataPoint]?.value : 0,
 			};
 		}
 	}
@@ -73,7 +70,7 @@ export const adaptData = (data) => {
 
 	return {
 		timeStamp: metaData.requestTimeStamp,
-		numberOfDataSet: metaData.numberOfDataSet,
+		numberOfDataSets: metaData.numberOfDataSets,
 		history: parsedData,
 		raw: data,
 	};
