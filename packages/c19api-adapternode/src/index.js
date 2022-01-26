@@ -19,6 +19,12 @@ const convertDataSet = (entry, lastEntry, index, metaData) => {
 		if (Object.hasOwnProperty.call(entry, dataPoint)) {
 			const data = entry[dataPoint];
 
+			// if the metaData entry is not an object, return without assigning a value
+
+			if (!(data instanceof Object)) {
+				return;
+			}
+
 			convertedEntry[dataPoint] = {
 				title: metaData[dataPoint].title,
 				description: metaData[dataPoint].description,
