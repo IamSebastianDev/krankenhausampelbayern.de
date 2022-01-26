@@ -1,5 +1,16 @@
 /** @format */
 
+const convertMeta = (meta) => {
+	const { created, currentAsOf } = meta;
+	return {
+		created,
+		currentAsOf: {
+			icuOccupation: new Date(currentAsOf.icuOccupation),
+			hospitalized: new Date(currentAsOf.hospitalized),
+		},
+	};
+};
+
 /**
  *
  *  A utility method to convert a dataSet in the history
@@ -13,7 +24,7 @@
  */
 
 const convertDataSet = (entry, lastEntry, index, metaData) => {
-	const convertedEntry = { index, meta: entry.meta };
+	const convertedEntry = { index, meta: convertMeta(entry.meta) };
 
 	delete entry._id;
 	delete entry.meta;
