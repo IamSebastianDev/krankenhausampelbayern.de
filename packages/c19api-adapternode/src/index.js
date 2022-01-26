@@ -29,7 +29,7 @@ const convertDataSet = (entry, lastEntry, index, metaData) => {
 				unit: metaData[dataPoint].unit,
 				value: data,
 				cases: data,
-				lastValue: lastEntry ? lastEntry[dataPoint]?.value : 0,
+				lastValue: lastEntry ? lastEntry[dataPoint] : 0,
 			};
 		}
 	}

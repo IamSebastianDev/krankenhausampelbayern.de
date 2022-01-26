@@ -1,6 +1,6 @@
 {
 	"name": "c19api-adapternode",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "A adapter for the c19api dashboard ",
 	"main": "./dist/index.js",
 	"module": "./dist/index.esm.mjs",
