@@ -1,17 +1,37 @@
 /** @format */
 
-import { useData } from './hooks/useData.hook';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+// global contexts
+import { ThemeContext } from './store/theme.context';
+import { DataContext } from './store/data.context';
 
-const App = ({ children }) => {
-	const { data, currentEntry } = useData();
-	console.log({ data, currentEntry });
+// layouts
+import { Navigation } from './components/Navigation/Navigation';
+
+// routes
+import { Dashboard } from './components/Dashboard/Dashboard';
+import { Interface } from './components/Interface/Interface';
+
+const App = () => {
 	return (
-		<section
-			className="dark:bg-zinc-900 bg-zinc-200 min-h-screen w-full"
-			id="dashboard">
-			{children}
-		</section>
+		<ThemeContext>
+			<DataContext>
+				<Router>
+					<Navigation />
+					<main>
+						<Routes>
+							<Route exact path="/" element={<Dashboard />} />
+							<Route
+								exact
+								path="/interface"
+								element={<Interface />}
+							/>
+						</Routes>
+					</main>
+				</Router>
+			</DataContext>
+		</ThemeContext>
 	);
 };
 
