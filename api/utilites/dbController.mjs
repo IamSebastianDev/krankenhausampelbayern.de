@@ -59,7 +59,7 @@ export class Schema {
 		 */
 
 		this.meta = {
-			createdAt: Date.now(),
+			created: Date.now(),
 			currentAsOf: {
 				hospitalized: this.#parseDateString(src.hospitalized),
 				icuOccupation: this.#parseDateString(src.icuOccupation),
