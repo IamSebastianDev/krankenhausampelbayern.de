@@ -8,6 +8,9 @@ module.exports = {
 			fontFamily: {
 				nunito: ['nunito', 'system-ui', 'sans-serif'],
 			},
+			transitionProperty: {
+				transopaque: 'opacity, transform',
+			},
 		},
 	},
 	plugins: [],
