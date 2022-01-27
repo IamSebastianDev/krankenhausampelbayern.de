@@ -5,17 +5,11 @@ import ReactDOM from 'react-dom';
 import './resets.css';
 import './index.css';
 
-import { ThemeContext, ThemeCtx } from './store/theme.context';
-
-import App from './App.js';
-import { Navigation } from './components/Navigation/Navigation';
+import App from './App';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<ThemeContext>
-			<Navigation />
-			<App />
-		</ThemeContext>
+		<App />
 	</React.StrictMode>,
 	document.getElementById('root')
 );
