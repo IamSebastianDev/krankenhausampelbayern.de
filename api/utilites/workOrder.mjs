@@ -18,7 +18,7 @@ export const workOrder = {
 		hospitalized: {
 			selector: '.jumbotron',
 			callback: (nodeList) => {
-				const elem = nodeList[3];
+				const elem = nodeList[4];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_zwei dd')[1]
@@ -38,10 +38,10 @@ export const workOrder = {
 		hospitalizedIncidence: {
 			selector: '.jumbotron',
 			callback: (nodeList) => {
-				const elem = nodeList[2];
+				const elem = nodeList[3];
 
 				const dataPoint = elem
-					.querySelectorAll('.horizontal_vier dd')[0]
+					.querySelectorAll('.horizontal_zwei dd')[0]
 					.textContent.trim()
 					.split(/\n/gim)[0]
 					.trim();
@@ -58,7 +58,7 @@ export const workOrder = {
 		cases7Days: {
 			selector: '.jumbotron',
 			callback: (nodeList) => {
-				const elem = nodeList[4];
+				const elem = nodeList[5];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_zwei dd')[1]
@@ -72,10 +72,10 @@ export const workOrder = {
 		incidence7Days: {
 			selector: '.jumbotron',
 			callback: (nodeList) => {
-				const elem = nodeList[4];
+				const elem = nodeList[5];
 
 				const dataPoint = elem
-					.querySelectorAll('.horizontal_vier dd')[0]
+					.querySelectorAll('.horizontal_zwei dd')[2]
 					.textContent.trim()
 					.split(/\n/gim)[0]
 					.trim();
@@ -86,7 +86,7 @@ export const workOrder = {
 		rvalue: {
 			selector: '.jumbotron',
 			callback: (nodeList) => {
-				const elem = nodeList[4];
+				const elem = nodeList[5];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_zwei dd')[0]
@@ -100,7 +100,7 @@ export const workOrder = {
 		vaccinated: {
 			selector: '.jumbotron',
 			callback: (nodeList) => {
-				const elem = nodeList[5];
+				const elem = nodeList[6];
 
 				const dataPoint = elem
 					.querySelectorAll('.horizontal_vier dd')[0]
