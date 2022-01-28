@@ -106,9 +106,11 @@ export class Schema {
 
 		/**
 		 * The current 7 days incidence (reported cases per 100k citizens over the last 7 days)
+		 * @type { number }
 		 */
 
-		this.incidence7Days = parseFloat(incidence7Days) || 0;
+		this.incidence7Days =
+			parseFloat(incidence7Days.replace('.', '').replace(',', '.')) || 0;
 
 		/**
 		 * The current measured rValue
