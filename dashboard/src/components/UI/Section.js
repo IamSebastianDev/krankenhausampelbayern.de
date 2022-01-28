@@ -7,7 +7,8 @@ export const Section = ({ id, className, children }) => {
 		<section
 			id={id}
 			className={cls(
-				'dark:bg-zinc-900 bg-zinc-200 min-h-screen py-16',
+				'dark:bg-zinc-900 bg-zinc-100 min-h-screen py-16',
+				'dark:bg-gradient-to-tl dark:from-black dark:to-zinc-900 ',
 				className
 			)}>
 			{children}

@@ -21,7 +21,7 @@ export const Navigation = () => {
 	];
 
 	return (
-		<nav className="fixed top-0 w-screen bg-zinc-200 dark:bg-zinc-900 shadow border-b border-b-zinc-300 dark:border-b-zinc-700 dark:text-zinc-100  text-zinc-700 font-nunito text-lg tracking-wide z-50 font-bold">
+		<nav className="fixed top-0 w-screen bg-zinc-100 dark:bg-zinc-900 shadow border-b border-b-zinc-300 dark:border-b-zinc-700 dark:text-zinc-100  text-zinc-700 font-nunito text-lg tracking-wide z-50 font-bold">
 			<ul className="relative w-full max-w-screen-xl flex flex-row px-2 xl:px-0 py-4 mx-auto z-20">
 				<InternalLink className="mr-auto" to="/">
 					🚦 Covid-19 Bayern
