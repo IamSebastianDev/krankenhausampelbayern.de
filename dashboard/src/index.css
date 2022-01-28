@@ -5,9 +5,9 @@
 @tailwind utilities;
 
 body {
-	@apply bg-zinc-200;
+	@apply bg-zinc-100;
 }
 
 body.dark {
-	@apply bg-zinc-900;
+	@apply to-zinc-900;
 }
