@@ -14,7 +14,7 @@ const Spinner = ({ className }) => {
 	);
 };
 
-export const Loader = ({ loading }) => {
+export const Loader = ({ loading, id, className }) => {
 	const [visible, setVisible] = useState(loading);
 	const [animate, setAnimate] = useState(false);
 
@@ -29,10 +29,12 @@ export const Loader = ({ loading }) => {
 
 	return (
 		<div
+			id={id}
 			className={cls(
-				'w-screen h-screen fixed top-0 left-0 flex-col justify-center items-center bg-zinc-200 dark:bg-zinc-900 transition-transopaque duration-1000 transform z-40',
+				'w-full h-full absolute top-0 left-0 flex-col justify-center items-center bg-zinc-200 dark:bg-zinc-900 transition-transopaque duration-1000 transform z-40',
 				visible ? 'flex' : 'hidden',
-				animate ? ' scale-150 opacity-0' : 'scale-100 opacity-100'
+				animate ? ' scale-150 opacity-0' : 'scale-100 opacity-100',
+				className
 			)}>
 			<Spinner className="border-r-4 border-r-blue-500" />
 			<Spinner className="border-t-4 border-t-sky-500" />
