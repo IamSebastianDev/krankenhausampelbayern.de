@@ -70,7 +70,7 @@ const pageCrawler = async ({ page, workOrder }) => {
  * callback will be data point added to the results object.
  */
 
- export const workOrder = {
+const workOrder = {
 	data: {
 		hospitalized: {
 			selector: '.jumbotron',
@@ -184,6 +184,5 @@ const pageCrawler = async ({ page, workOrder }) => {
 		},
 	},
 };
-
 
 export { pageCrawler, workOrder };
