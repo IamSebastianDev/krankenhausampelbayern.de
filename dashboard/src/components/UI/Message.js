@@ -22,7 +22,7 @@ export const Message = ({ children }) => {
 				onClick={() => {
 					setIsVisible(false);
 				}}>
-				<X />
+				<X size={16} />
 			</button>
 		</div>
 	);
