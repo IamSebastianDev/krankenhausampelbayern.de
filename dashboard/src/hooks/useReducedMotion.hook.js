@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useReducedMotion = (defaultValue = true) => {
 	const [reduceMotion, setReduceMotion] = useState(defaultValue);
