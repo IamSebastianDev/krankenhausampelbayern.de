@@ -12,6 +12,7 @@ export const handleApiRequest = async (req, res) => {
 	let metaData = null;
 	let jsonData;
 	let history;
+	let error = null;
 
 	/**
 	 * Fetch the data from the source according to the query parameters and return the result of the fetch.
@@ -21,8 +22,9 @@ export const handleApiRequest = async (req, res) => {
 	try {
 		history = await fetchData({ timeFrame });
 		jsonData = await fs.readFile('./api/metaData.json', 'utf-8');
-	} catch (error) {
-		console.error(error);
+	} catch (e) {
+		error = e;
+		console.log(e);
 		res.sendStatus(500);
 	}
 
@@ -37,5 +39,5 @@ export const handleApiRequest = async (req, res) => {
 		};
 	}
 
-	res.json({ history, metaData });
+	res.json({ history, metaData, error });
 };
