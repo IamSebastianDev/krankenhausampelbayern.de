@@ -10,9 +10,11 @@ export const useData = () => {
 	const fetchData = useCallback(async () => {
 		const res = await fetch('/api');
 		const parsed = await res.json();
+		console.log({ parsed });
 
 		if (parsed.error) {
 			setError(parsed.setError);
+			return;
 		}
 
 		setData(adaptData(parsed));
