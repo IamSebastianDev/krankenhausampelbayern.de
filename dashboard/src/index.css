@@ -1,0 +1,13 @@
+/** @format */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply bg-zinc-100;
+}
+
+body.dark {
+	@apply bg-zinc-900 bg-gradient-to-tl from-black to-zinc-900;
+}

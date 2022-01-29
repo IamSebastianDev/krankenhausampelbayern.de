@@ -1,0 +1,50 @@
+{
+	"hospitalized": {
+		"title": "Hospitalisierungen",
+		"description": "Gesamte Anzahl an Hospitalisierungen aufgrund Covid-19.",
+		"threshold": null,
+		"unit": "Fälle"
+	},
+	"hospitalized7Days": {
+		"title": "Hospitalisierungen (7 Tage)",
+		"description": "Gesamte Anzahl an Hospitalisierungen aufgrund Covid-19 in den letzten 7 Tagen.",
+		"threshold": 1200,
+		"unit": "Fälle"
+	},
+	"hospitalizedIncidence": {
+		"title": "Hospitalisierungen (Inzidenz)",
+		"description": "Gesamte Anzahl an Hospitalisierungen aufgrund Covid-19 in den letzten 7 Tagen per 100.000 Einwohner.",
+		"threshold": null,
+		"unit": null
+	},
+	"icuOccupation": {
+		"title": "Intensivbelegung",
+		"description": "Anzahl der Patienten die mit Covid-19 intensivmedizinisch behandelt werden müssen.",
+		"threshold": 600,
+		"unit": "Fälle"
+	},
+	"cases7Days": {
+		"title": "Covid-19 Fälle (7 Tage)",
+		"description": "Anzahl der gemeldenten Covid-19 Fälle in den letzten 7 Tagen.",
+		"threshold": null,
+		"unit": "Fälle"
+	},
+	"incidence7Days": {
+		"title": "Inzidenz (7 Tage)",
+		"description": "Anzahl der gemeldenten Covid-19 Fälle in den letzten 7 Tagen per 100.000 Einwohner.",
+		"threshold": null,
+		"unit": null
+	},
+	"rvalue": {
+		"title": "Reproduktionszahl",
+		"description": "Die Momentan ermittelte Reproduktionszahl (R-wert). ",
+		"threshold": null,
+		"unit": null
+	},
+	"vaccinated": {
+		"title": "Impfquote",
+		"description": "Die aktuelle Impfquote (Gesamtzahl) der Grundimmunisierung für Bayern. ",
+		"threshold": null,
+		"unit": "%"
+	}
+}

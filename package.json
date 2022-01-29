@@ -1,0 +1,22 @@
+{
+	"name": "krankenhausampelbayern.de",
+	"version": "1.0.0",
+	"description": "This is the monorepo for the API, Widget & Dashboard providing metrics on the bavarian healthcaresystem in relation to the Covid-19 Pandemic",
+	"main": "main.mjs",
+	"scripts": {
+		"start": "node main.mjs",
+		"dev": "nodemon main.mjs"
+	},
+	"author": "Sebastian Heinz",
+	"license": "MIT",
+	"dependencies": {
+		"dotenv": "^14.2.0",
+		"express": "^4.17.2",
+		"mongodb": "^4.3.1",
+		"puppeteer": "^13.1.1"
+	},
+	"devDependencies": {
+		"dev-server-details": "^1.1.0",
+		"nodemon": "^2.0.15"
+	}
+}
