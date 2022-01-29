@@ -1,7 +1,7 @@
 /** @format */
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
-import { SunBig, MoonStylized, Display } from 'react-pangolicons';
+import { SunBig, MoonStylized } from 'react-pangolicons';
 import { ThemeModal } from './ThemeModal';
 import { ThemeCtx } from '../../store/theme.context';
 

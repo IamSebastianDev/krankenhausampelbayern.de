@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useContext, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside.hook';
 import { ThemeCtx } from '../../store/theme.context';
 
@@ -46,7 +46,7 @@ export const ThemeModal = ({ toggleModal }) => {
 	return (
 		<ul
 			ref={themeModalRef}
-			className="absolute  right-2 border border-zinc-300 dark:border-zinc-700 overflow-hidden bg-zinc-100 dark:bg-zinc-900 dark:text-zinc-100 text-zinc-700 rounded-md flex flex-col shadow tracking-wide mt-48">
+			className="absolute top-16 mt-2 right-2 border border-zinc-300 dark:border-zinc-700 overflow-hidden bg-zinc-100 dark:bg-zinc-900 dark:text-zinc-100 text-zinc-700 rounded-md flex flex-col shadow tracking-wide">
 			{selectors.map(({ onClick, name, title, icon }, index) => (
 				<li key={index}>
 					<button
