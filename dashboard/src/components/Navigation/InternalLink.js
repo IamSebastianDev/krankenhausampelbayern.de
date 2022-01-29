@@ -7,19 +7,17 @@ import { NavLink } from 'react-router-dom';
 export const InternalLink = forwardRef(
 	({ to, title, className, children }, ref) => {
 		return (
-			<li
+			<NavLink
+				ref={ref}
+				title={title}
+				rel="noreferrer noopener"
+				to={to}
 				className={cls(
-					'hover:text-blue-500  px-1 mx-2 flex flex-row justify-center items-center',
+					'dark:hover:text-blue-500  hover:text-blue-500',
 					className
 				)}>
-				<NavLink
-					ref={ref}
-					title={title}
-					rel="noreferrer noopener"
-					to={to}>
-					{children}
-				</NavLink>
-			</li>
+				{children}
+			</NavLink>
 		);
 	}
 );

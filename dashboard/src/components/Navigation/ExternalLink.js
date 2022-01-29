@@ -6,20 +6,18 @@ import { joinClassNames as cls } from '../../scripts/joinClassNames.util';
 export const ExternalLink = forwardRef(
 	({ href, title, target = '_blank', className, children }, ref) => {
 		return (
-			<li
+			<a
+				ref={ref}
+				href={href}
+				title={title}
+				rel="noreferrer noopener"
+				target={target}
 				className={cls(
-					'hover:text-blue-500  px-1 mx-2 flex flex-row justify-center items-center',
+					'dark:hover:text-blue-500 hover:text-blue-500',
 					className
 				)}>
-				<a
-					ref={ref}
-					href={href}
-					title={title}
-					rel="noreferrer noopener"
-					target={target}>
-					{children}
-				</a>
-			</li>
+				{children}
+			</a>
 		);
 	}
 );
