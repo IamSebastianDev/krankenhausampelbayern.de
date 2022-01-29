@@ -1,4 +1,5 @@
 node_modules
+widget
 .env
 
 *.zip
