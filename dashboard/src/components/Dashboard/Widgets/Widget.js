@@ -6,13 +6,13 @@ import { WidgetTitle } from './WidgetTitle';
 import { WidgetDetails } from './WidgetDetails';
 
 import { joinClassNames as cls } from '../../../scripts/joinClassNames.util';
+import { textSizes } from '../../../scripts/textsizes.util.js';
 
 const calcTrend = (cur, last) => (cur !== last ? (cur < last ? 0 : 2) : 1);
 
-export const Widget = ({ data, children }) => {
+export const Widget = ({ data, onClick }) => {
 	const trend = calcTrend(data.value, data.lastValue);
 	const [value, decimal] = data.value.toString().split('.');
-	console.log({ value: data.value });
 
 	const colours = [
 		data.theme.negative,
@@ -26,22 +26,17 @@ export const Widget = ({ data, children }) => {
 		<ArrowRightUp {...attrs} />,
 	];
 
-	const textSizes = {
-		0: 'text-7xl',
-		1: 'text-7xl',
-		2: 'text-7xl',
-		3: 'text-6xl',
-		4: 'text-6xl',
-		5: 'text-5xl',
-		6: 'text-4xl',
-		7: 'text-4xl',
-	};
-
 	return (
-		<Card className="relative flex flex-col justify-between font-nunito font-bold max-w-sm min-h-[300px] group">
-			<button className="absolute top-0 right-0 p-4 md:invisible group-hover:visible hover:bg-red-500 hover:text-white hover:shadow-md rounded-tr-2xl rounded-bl-2xl">
-				<X size={16} strokeWidth={3} />
-			</button>
+		<Card className="relative flex flex-col justify-between font-nunito font-bold max-w-sm min-h-[300px] group aspect-square text-left">
+			{onClick && (
+				<button
+					onClick={() =>
+						onClick({ type: 'delete', payload: data.name })
+					}
+					className="absolute top-0 right-0 p-4 md:invisible group-hover:visible hover:bg-red-500 hover:text-white hover:shadow-md rounded-tr-2xl rounded-bl-2xl">
+					<X size={16} strokeWidth={3} />
+				</button>
+			)}
 			<WidgetTitle title={data.title} description={data.description} />
 			<div className="flex flex-row h-32 pl-4 mt-auto mb-2 justify-between items-center">
 				<span className="shrink-0 mr-4">{icons[trend]}</span>
