@@ -1,6 +1,7 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
+import { useScrollLock } from '../../hooks/useScrollLock.hook';
 import { joinClassNames as cls } from '../../scripts/joinClassNames.util';
 
 const Spinner = ({ className }) => {
@@ -18,12 +19,19 @@ export const Loader = ({ loading, id, className }) => {
 	const [visible, setVisible] = useState(loading);
 	const [animate, setAnimate] = useState(false);
 
+	const [setScrollLock] = useScrollLock();
+
 	useEffect(() => {
+		if (loading) {
+			setScrollLock(true);
+		}
+
 		if (!loading) {
 			setAnimate(true);
 			window.setTimeout(() => {
 				setVisible(false);
 			}, 1000);
+			setScrollLock(false);
 		}
 	}, [loading]);
 
@@ -31,7 +39,7 @@ export const Loader = ({ loading, id, className }) => {
 		<div
 			id={id}
 			className={cls(
-				'w-full h-full absolute top-0 left-0 flex-col justify-center items-center bg-zinc-200 dark:bg-zinc-900 transition-transopaque duration-1000 transform z-40',
+				'w-full h-full fixed top-0 left-0 flex-col justify-center items-center bg-zinc-200 dark:bg-zinc-900 transition-transopaque duration-1000 transform z-40',
 				visible ? 'flex' : 'hidden',
 				animate ? ' scale-150 opacity-0' : 'scale-100 opacity-100',
 				className
