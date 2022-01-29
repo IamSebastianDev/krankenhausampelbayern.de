@@ -8,10 +8,11 @@ import { DataContext } from './store/data.context';
 
 // layouts
 import { Navigation } from './components/Navigation/Navigation';
+import { Footer } from './components/UI/Footer';
 
 // routes
 import { Dashboard } from './components/Dashboard/Dashboard';
-import { Interface } from './components/Interface/Interface';
+import { Legal } from './components/Legal/Legal';
 
 const App = () => {
 	return (
@@ -22,13 +23,10 @@ const App = () => {
 					<main>
 						<Routes>
 							<Route exact path="/" element={<Dashboard />} />
-							<Route
-								exact
-								path="/interface"
-								element={<Interface />}
-							/>
+							<Route exact path="/legal" element={<Legal />} />
 						</Routes>
 					</main>
+					<Footer />
 				</Router>
 			</DataContext>
 		</ThemeContext>
