@@ -43,7 +43,7 @@
 	},
 	"vaccinated": {
 		"title": "Impfquote",
-		"description": "Die aktuelle Impfquote für Bayern.",
+		"description": "Die aktuelle Impfquote (Gesamtzahl) der Grundimmunisierung für Bayern. ",
 		"threshold": null,
 		"unit": "%"
 	}
