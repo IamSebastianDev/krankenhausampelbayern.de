@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { usePrefersColourScheme } from './usePrefersColourScheme.hook';
 
 const storageIdentifier = 'user-colour-theme';
@@ -35,7 +35,7 @@ export const useColourTheme = ({ target }) => {
 		}
 
 		target.classList.toggle('dark', theme === 'dark');
-	});
+	}, [systemTheme, target.classList, theme]);
 
 	return [theme, changeTheme, systemDefault];
 };
