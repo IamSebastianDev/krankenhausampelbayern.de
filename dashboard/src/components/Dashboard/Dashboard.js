@@ -46,6 +46,7 @@ export const Dashboard = () => {
 	const numberOfWidgets =
 		dataForWidgets && Object.keys(dataForWidgets).length;
 	const loading = dataForWidgets === undefined;
+	console.log({ loading, dataForWidgets });
 
 	/**
 	 * The layout of the data widgets
