@@ -46,7 +46,6 @@ export const Dashboard = () => {
 	const numberOfWidgets =
 		dataForWidgets && Object.keys(dataForWidgets).length;
 	const loading = dataForWidgets === undefined;
-	console.log({ loading, dataForWidgets });
 
 	/**
 	 * The layout of the data widgets
@@ -102,13 +101,16 @@ export const Dashboard = () => {
 					<div className="mx-auto max-w-sm md:max-w-screen-md lg:max-w-screen-lg w-full">
 						<div className=" grid grid-cols-1 md:grid-cols-2 auto-rows-fr lg:grid-cols-3  my-4 mx-6 md:mx-16 lg:mx-4 gap-6 dark:text-zinc-100 text-zinc-700">
 							<WidgetIndicator data={data} />
-							{layout.map((name, index) => (
-								<Widget
-									data={dataForWidgets[name]}
-									key={index}
-									onClick={dispatchLayout}
-								/>
-							))}
+							{layout.map(
+								(name, index) =>
+									dataForWidgets[name] && (
+										<Widget
+											data={dataForWidgets[name]}
+											key={index}
+											onClick={dispatchLayout}
+										/>
+									)
+							)}
 							{layout.length < numberOfWidgets && (
 								<button
 									onClick={toggleWidgetModal}
