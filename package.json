@@ -5,7 +5,8 @@
 	"main": "main.mjs",
 	"scripts": {
 		"start": "node main.mjs",
-		"dev": "nodemon main.mjs"
+		"dev": "nodemon main.mjs",
+		"build": "cd ./dashboard && npm i && npm run build"
 	},
 	"author": "Sebastian Heinz",
 	"license": "MIT",
