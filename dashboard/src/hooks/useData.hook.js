@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { adaptData } from 'c19api-adapternode';
 
 export const useData = () => {
@@ -10,7 +10,6 @@ export const useData = () => {
 	const fetchData = useCallback(async () => {
 		const res = await fetch('/api');
 		const parsed = await res.json();
-		console.log({ parsed });
 
 		if (parsed.error) {
 			setError(parsed.setError);
