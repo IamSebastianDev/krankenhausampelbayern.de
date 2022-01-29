@@ -43,7 +43,7 @@ const res = await fetch('/api&omitmetadata=true|false');
 
 Das Schema der API-Response ist folgendes:
 
-```json
+```js
 {
     // 'history' enthölt alle returnierten Datensätze
     "history": <Array>[
