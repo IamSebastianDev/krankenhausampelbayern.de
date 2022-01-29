@@ -1,9 +1,25 @@
 /** @format */
 
-import Puppeteer from 'puppeteer';
+import { usePuppeteer } from '../../config/puppeteer.config.mjs';
 import { workOrder } from './workOrder.mjs';
 import { fetchHistory, insertHistory, Schema } from './dbController.mjs';
 import { areDatesEqual } from './dateUtilities.mjs';
+
+/**
+ * Stores the current ms since utc-0. Will reset when the server restarts.
+ * The number gets updated when a request is made. This is a very crude caching implementation.
+ * A more robust solution might be necessary.
+ * @type { number }
+ */
+
+let lastUpdated = 0;
+
+/**
+ * Constant drescribing the time after which the page will be crawled again.
+ * @type { number }
+ */
+
+const TIMETOCACHE = 30 * 60 * 1000;
 
 /**
  * The endpoint to crawl
@@ -25,15 +41,25 @@ const FORCEUPDATEAFTER = 28 * 60 * 60 * 1000;
  * the most current one.
  *
  * @param { object } param0 - the object passed to the method
- * @param { object } param0.entry - the data created by the pageCrawler that needs to be conformed to the api schema
+ * @param { object | null } param0.entry - the data created by the pageCrawler that needs to be conformed to the api
+ * schema
  *
  * @returns { Promise<object[]> } - the complete history array
  */
 
 export const processHistory = async ({ entry }) => {
-	// Get the current history array and extract the last dataSet from it
+	// Get the current history array from the db
 
 	const currentHistory = await fetchHistory();
+
+	// if entry is null, return the current history directly. Entry will only be null if a cache operation is executed
+
+	if (entry === null) {
+		return currentHistory;
+	}
+
+	// extract the last data set to compare against
+
 	const lastDataSet = currentHistory[currentHistory.length - 1];
 
 	// extract the data and src properties from the the passed entry and create a new Schema
@@ -150,29 +176,30 @@ const pageCrawler = async ({ page, workOrder }) => {
 	return parsedData;
 };
 
-const crawlSource = async ({ endpoint }) => {
-	// create a new puppeteer instance
+const crawlSource = async ({ endpoint, shouldUpdate }) => {
+	// If should update is false, the method returns early without creating a puppeteer instance.
+	// This will hopefully cutting down on memory usage.
 
-	const browser = await Puppeteer.launch({
-		args: ['--no-sandbox', '--disable-setuid-sandbox'],
+	if (!shouldUpdate) {
+		if (!process.env.production) {
+			console.log(`Cache current: Getting cached data.`);
+		}
+
+		return null;
+	}
+
+	if (!process.env.production) {
+		console.log(`Cache elapsed: Getting new data.`);
+	}
+
+	// Set the last updated timeflag
+
+	lastUpdated = Date.now();
+
+	return await usePuppeteer(async ({ page }) => {
+		await page.goto(endpoint);
+		return await pageCrawler({ page, workOrder });
 	});
-
-	// navigate to the endpoint and retrieve the data
-
-	const page = await browser.newPage();
-	await page.goto(endpoint);
-
-	// get the page's content
-
-	const data = await pageCrawler({ page, workOrder });
-
-	// close the browser
-
-	await browser.close();
-
-	// return the data
-
-	return data;
 };
 
 /**
@@ -183,11 +210,18 @@ const crawlSource = async ({ endpoint }) => {
 
 export const fetchData = async ({ timeFrame }) => {
 	/**
+	 * Check if it has been at least one hour since the last crawl to limit crawls.
+	 */
+
+	const now = Date.now();
+	const shouldUpdate = now > lastUpdated + TIMETOCACHE;
+
+	/**
 	 * Fetch the data from the provided Endpoint using the crawlSource method, which will crawl the source and extract
 	 * the needed data
 	 */
 
-	const data = await crawlSource({ endpoint: ENDPOINT });
+	const data = await crawlSource({ endpoint: ENDPOINT, shouldUpdate });
 
 	/**
 	 * Process the data by creating a new history object if necessary and store/retrieve the most current version of
