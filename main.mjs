@@ -24,8 +24,9 @@ if (process.env.production) {
 	);
 }
 
-import { handleApiRequest } from './api/index.mjs';
+import { handleApiRequest, handleAdaptedRequest } from './api/index.mjs';
 App.get('/api', handleApiRequest);
+App.get('/api/data', handleAdaptedRequest);
 
 App.use(Express.static(path.resolve(process.cwd(), './dashboard/build')));
 
