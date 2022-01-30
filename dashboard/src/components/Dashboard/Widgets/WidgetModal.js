@@ -1,6 +1,7 @@
 /** @format */
 
 import { useState, useEffect, useContext, useReducer } from 'react';
+import { useReducedMotion } from '../../../hooks/useReducedMotion.hook';
 import { DataCtx } from '../../../store/data.context';
 
 import { Widget } from './Widget';
@@ -14,6 +15,7 @@ export const WidgetModal = ({
 	dispatchLayout,
 	layout,
 }) => {
+	const reduceMotion = useReducedMotion();
 	const { dataForWidgets } = useContext(DataCtx);
 	// derive the remaining widgets from the current layout
 	const [remainingWidgets, setRemainingWidgets] = useState();
@@ -53,14 +55,15 @@ export const WidgetModal = ({
 			id="widget-modal"
 			className={cls(
 				'fixed top-0 left-0 h-screen w-screen dark:bg-zinc-900 dark:bg-opacity-50 bg-zinc-100 bg-opacity-50 z-20 transform transition-transopaque duration-300 backdrop-blur dark:backdrop-blur-md shadow-md text-zinc-700 dark:text-zinc-300',
-				isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
+				isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-0',
+				reduceMotion ? '' : 'transition-transopaque duration-100'
 			)}>
 			<button
 				className="absolute top-0 right-0 mt-20 mr-4"
 				onClick={toggleModal}>
 				<X />
 			</button>
-			<div className="flex flex-row justify-between items-center w-full h-full">
+			<div className="flex flex-row justify-between items-center w-full h-full max-w-screen-lg mx-auto">
 				<button className="p-4" onClick={lastWidget}>
 					<ChevronLeft size={32} />
 				</button>
