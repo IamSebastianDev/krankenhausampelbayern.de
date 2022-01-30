@@ -78,7 +78,9 @@ export const handleAdaptedRequest = async (req, res) => {
 			if (Object.hasOwnProperty.call(entry, dataPoint)) {
 				const data = entry[dataPoint];
 
-				convertedEntry[dataPoint] = {
+				convertedEntry[
+					dataPoint === 'vaccinated' ? 'vaccination' : dataPoint
+				] = {
 					title: metaData[dataPoint].title,
 					description: metaData[dataPoint].description,
 					threshold: metaData[dataPoint].threshold,
