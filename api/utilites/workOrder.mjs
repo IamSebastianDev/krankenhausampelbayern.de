@@ -30,7 +30,7 @@ export const workOrder = {
 			},
 		},
 		hospitalized7Days: {
-			selector: '#kennzahlen2 .card strong',
+			selector: '#kennzahlen2 .card-text strong',
 			callback: (nodeList) => {
 				return nodeList[0].textContent.trim().split(/\n/gim)[0].trim();
 			},
@@ -50,7 +50,7 @@ export const workOrder = {
 			},
 		},
 		icuOccupation: {
-			selector: '#kennzahlen2 .card strong',
+			selector: '#kennzahlen2 .card-text strong',
 			callback: (nodeList) => {
 				return nodeList[1].textContent.trim().split(/\n/gim)[0].trim();
 			},
