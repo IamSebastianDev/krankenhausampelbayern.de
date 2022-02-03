@@ -12,6 +12,7 @@ import { Plus, X, InfoCircle } from 'react-pangolicons';
 
 import { Widget } from './Widgets/Widget';
 import { WidgetIndicator } from './Widgets/WidgetIndicator';
+import { WidgetLinegraph } from './Widgets/WidgetLinegraph';
 import { WidgetModal } from './Widgets/WidgetModal';
 import { Messages } from './Messages';
 
@@ -99,8 +100,9 @@ export const Dashboard = () => {
 						toggleModal={toggleWidgetModal}
 					/>
 					<div className="mx-auto max-w-sm md:max-w-screen-md lg:max-w-screen-lg w-full">
-						<div className=" grid grid-cols-1 md:grid-cols-2 auto-rows-fr lg:grid-cols-3  my-4 mx-6 md:mx-16 lg:mx-4 gap-6 dark:text-zinc-100 text-zinc-700">
+						<div className=" grid grid-cols-1 md:grid-cols-2 auto-rows-fr lg:grid-cols-3  my-4 mx-6 md:mx-16 lg:mx-4 gap-6 dark:text-zinc-100 text-zinc-700 md:grid-flow-row-dense">
 							<WidgetIndicator data={data} />
+							<WidgetLinegraph history={data.history} />
 							{layout.map(
 								(name, index) =>
 									dataForWidgets[name] && (
