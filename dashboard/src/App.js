@@ -9,6 +9,7 @@ import { DataContext } from './store/data.context';
 // layouts
 import { Navigation } from './components/Navigation/Navigation';
 import { Footer } from './components/UI/Footer';
+import { PrivacyModal } from './components/UI/Privacy';
 
 // routes
 import { Dashboard } from './components/Dashboard/Dashboard';
@@ -27,6 +28,7 @@ const App = () => {
 						</Routes>
 					</main>
 					<Footer />
+					<PrivacyModal />
 				</Router>
 			</DataContext>
 		</ThemeContext>
