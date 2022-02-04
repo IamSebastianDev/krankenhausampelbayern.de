@@ -67,44 +67,6 @@ export const WidgetLinegraph = ({ history }) => {
 		},
 	};
 
-	const Linegraph = ({ data }) => (
-		<ResponsiveLine
-			theme={themes[theme]}
-			margin={{ bottom: 20, left: 35, top: 10 }}
-			data={data}
-			colors={data.map(({ color }) => color)}
-			colorBy="index"
-			legends={[
-				{
-					anchor: 'bottom-right',
-					direction: 'row',
-					itemWidth: 125,
-					itemHeight: 25,
-				},
-			]}
-			xScale={{
-				type: 'time',
-				format: '%d/%m/%Y',
-				useUTC: false,
-				precision: 'day',
-			}}
-			xFormat="time:%Y-%m-%d"
-			yScale={{
-				type: 'linear',
-			}}
-			axisLeft={{
-				legend: 'Fälle',
-				legendOffset: 10,
-			}}
-			axisBottom={{
-				format: '%b %d',
-				tickValues: 'every 14 days',
-			}}
-			enablePoints={false}
-			useMesh={true}
-		/>
-	);
-
 	return (
 		<Card className="relative hidden md:flex flex-col justify-between font-nunito font-bold min-h-[300px] group md:col-span-2 w-full">
 			<WidgetTitle
@@ -112,7 +74,40 @@ export const WidgetLinegraph = ({ history }) => {
 				description={`Anzahl der Patienten die mit Covid-19 Hospitalisiert & auf der Intensivstation liegen im ${timeframe} Tages Verlauf.`}
 			/>
 			<div className="flex flex-row h-full mt-auto justify-between items-center">
-				<Linegraph data={data} />
+				<ResponsiveLine
+					theme={themes[theme]}
+					margin={{ bottom: 24, left: 35, top: 10, right: 20 }}
+					data={data}
+					colors={data.map(({ color }) => color)}
+					colorBy="index"
+					legends={[
+						{
+							anchor: 'bottom-right',
+							direction: 'row',
+							itemWidth: 120,
+							itemHeight: 25,
+						},
+					]}
+					xScale={{
+						type: 'time',
+						format: '%d/%m/%Y',
+						precision: 'day',
+					}}
+					xFormat="time:%Y-%m-%d"
+					yScale={{
+						type: 'linear',
+					}}
+					axisLeft={{
+						legend: 'Fälle',
+						legendOffset: 10,
+					}}
+					axisBottom={{
+						format: '%b %d',
+						tickValues: 'every 14 days',
+					}}
+					enablePoints={false}
+					useMesh={true}
+				/>
 			</div>
 		</Card>
 	);
