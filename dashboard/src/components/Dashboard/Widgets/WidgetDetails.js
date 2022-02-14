@@ -18,7 +18,7 @@ export const WidgetDetails = ({ value, lastValue, threshold, unit, theme }) => {
 	const difference = calcDifference(value, lastValue, unit);
 
 	return (
-		<div className="flex flex-row justify-between items-center text-sm font-bold font-nunito tracking-wider">
+		<div className="font-nunito flex flex-row items-center justify-between text-sm font-bold tracking-wider">
 			<span
 				className={cls(
 					percentage > 100 ? theme.positive : theme.neutral

@@ -22,7 +22,7 @@ export const MobileNav = ({ toggleNav, showNav }) => {
 	return (
 		<nav
 			className={cls(
-				'fixed top-0 left-0 w-screen h-screen dark:bg-zinc-900 bg-zinc-200 flex flex-col justify-center items-center text-4xl transform  -z-10 md:hidden duration-700 ease-in-out',
+				'fixed top-0 left-0 -z-10 flex h-screen w-screen transform flex-col items-center justify-center bg-zinc-200 text-4xl  duration-700 ease-in-out dark:bg-zinc-900 md:hidden',
 				showNav
 					? 'translate-y-0 opacity-100'
 					: '-translate-y-full opacity-0',
@@ -32,7 +32,7 @@ export const MobileNav = ({ toggleNav, showNav }) => {
 			)}>
 			<ul
 				ref={navRef}
-				className="flex flex-col justify-center items-center h-1/3">
+				className="flex h-1/3 flex-col items-center justify-center">
 				<NavItem>
 					<InternalLink className="py-8" to="/">
 						Dashboard
@@ -47,7 +47,7 @@ export const MobileNav = ({ toggleNav, showNav }) => {
 					<ExternalLink
 						className="py-8"
 						href="https://github.com/IamSebastianDev/Covid-19-Widget">
-						Widget <span className="text-xs self-end">für iOs</span>
+						Widget <span className="self-end text-xs">für iOs</span>
 					</ExternalLink>
 				</NavItem>
 			</ul>

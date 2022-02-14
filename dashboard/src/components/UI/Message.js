@@ -10,15 +10,15 @@ export const Message = ({ children }) => {
 	return (
 		<div
 			className={cls(
-				'relative dark:text-red-500 text-zinc-800 border border-red-500 p-4 m-2 md:m-4 flex flex-col sm:flex-row justify-center items-center overflow-hidden h-auto',
+				'relative m-2 flex h-auto flex-col items-center justify-center overflow-hidden border border-red-500 p-4 text-zinc-800 dark:text-red-500 sm:flex-row md:m-4',
 				isVisible
 					? 'max-h-max opacity-100'
-					: 'max-h-0 m-0 p-0 border-0 opacity-0'
+					: 'm-0 max-h-0 border-0 p-0 opacity-0'
 			)}>
-			<InfoCircle className="inline-block my-2 sm:mr-3 shrink-0" />
-			<p className="px-4 sm:border-l border-l-red-500">{children}</p>
+			<InfoCircle className="my-2 inline-block shrink-0 sm:mr-3" />
+			<p className="border-l-red-500 px-4 sm:border-l">{children}</p>
 			<button
-				className="sm:absolute top-0 right-0 m-4 sm:m-2  z-10"
+				className="top-0 right-0 z-10 m-4 sm:absolute  sm:m-2"
 				onClick={() => {
 					setIsVisible(false);
 				}}>

@@ -5,7 +5,7 @@ export const NavItem = ({ className, children }) => {
 	return (
 		<li
 			className={cls(
-				'px-1 mx-2 flex flex-row justify-center items-center',
+				'mx-2 flex flex-row items-center justify-center px-1',
 				className
 			)}>
 			{children}

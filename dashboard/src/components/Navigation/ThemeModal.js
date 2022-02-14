@@ -23,19 +23,19 @@ export const ThemeModal = ({ toggleModal }) => {
 			onClick: () => themeChangeHandler('dark'),
 			name: 'Dark',
 			title: 'Change the colour theme to dark.',
-			icon: <Moon size={16} className="dark:stroke-1 stroke-2 mr-2" />,
+			icon: <Moon size={16} className="mr-2 stroke-2 dark:stroke-1" />,
 		},
 		{
 			onClick: () => themeChangeHandler('light'),
 			name: 'Light',
 			title: 'Change the colour theme to light.',
-			icon: <SunBig size={16} className="dark:stroke-1 stroke-2 mr-2" />,
+			icon: <SunBig size={16} className="mr-2 stroke-2 dark:stroke-1" />,
 		},
 		{
 			onClick: () => themeChangeHandler('system'),
 			name: 'System',
 			title: 'Change the colour theme to the system default.',
-			icon: <Display size={16} className="dark:stroke-1 stroke-2 mr-2" />,
+			icon: <Display size={16} className="mr-2 stroke-2 dark:stroke-1" />,
 		},
 	];
 
@@ -46,14 +46,14 @@ export const ThemeModal = ({ toggleModal }) => {
 	return (
 		<ul
 			ref={themeModalRef}
-			className="absolute top-16 mt-2 right-2 border border-zinc-300 dark:border-zinc-700 overflow-hidden bg-zinc-100 dark:bg-zinc-900 dark:text-zinc-100 text-zinc-700 rounded-md flex flex-col shadow tracking-wide">
+			className="absolute top-16 right-2 mt-2 flex flex-col overflow-hidden rounded-md border border-zinc-300 bg-zinc-100 tracking-wide text-zinc-700 shadow dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
 			{selectors.map(({ onClick, name, title, icon }, index) => (
 				<li key={index}>
 					<button
 						onClick={onClick}
 						title={title}
 						className={cls(
-							'flex flex-row justify-start items-center  min-w-[10rem] px-3 py-1 hover:dark:bg-zinc-800 hover:bg-zinc-300 font-semibold select-none',
+							'flex min-w-[10rem] select-none flex-row  items-center justify-start px-3 py-1 font-semibold hover:bg-zinc-300 hover:dark:bg-zinc-800',
 							isActive({ name, systemDefault })
 								? 'text-blue-500'
 								: 'text-inherit'

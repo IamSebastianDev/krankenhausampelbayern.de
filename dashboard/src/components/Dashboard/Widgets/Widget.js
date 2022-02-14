@@ -27,19 +27,19 @@ export const Widget = ({ data, onClick }) => {
 	];
 
 	return (
-		<Card className="relative flex flex-col justify-between font-nunito font-bold max-w-sm min-h-[300px] group aspect-square text-left">
+		<Card className="font-nunito group relative flex aspect-square min-h-[300px] max-w-sm flex-col justify-between text-left font-bold">
 			{onClick && (
 				<button
 					onClick={() =>
 						onClick({ type: 'delete', payload: data.name })
 					}
-					className="absolute top-0 right-0 p-4 md:invisible group-hover:visible hover:bg-red-500 hover:text-white hover:shadow-md rounded-tr-2xl rounded-bl-2xl">
+					className="absolute top-0 right-0 rounded-tr-2xl rounded-bl-2xl p-4 hover:bg-red-500 hover:text-white hover:shadow-md group-hover:visible md:invisible">
 					<X size={16} strokeWidth={3} />
 				</button>
 			)}
 			<WidgetTitle title={data.title} description={data.description} />
-			<div className="flex flex-row h-32 pl-4 mt-auto mb-2 justify-between items-center">
-				<span className="shrink-0 mr-4">{icons[trend]}</span>
+			<div className="mt-auto mb-2 flex h-32 flex-row items-center justify-between pl-4">
+				<span className="mr-4 shrink-0">{icons[trend]}</span>
 				<div>
 					<span
 						className={cls(
@@ -53,7 +53,7 @@ export const Widget = ({ data, onClick }) => {
 						{value}
 					</span>
 					{decimal && (
-						<span className="text-lg px-1">.{decimal}</span>
+						<span className="px-1 text-lg">.{decimal}</span>
 					)}
 				</div>
 			</div>

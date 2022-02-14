@@ -68,12 +68,12 @@ export const WidgetLinegraph = ({ history }) => {
 	};
 
 	return (
-		<Card className="relative hidden md:flex flex-col justify-between font-nunito font-bold min-h-[300px] group md:col-span-2 w-full">
+		<Card className="font-nunito group relative hidden min-h-[300px] w-full flex-col justify-between font-bold md:col-span-2 md:flex">
 			<WidgetTitle
 				title={`Krankenhausauslastung der letzten ${timeframe} Tage.`}
 				description={`Anzahl der Patienten die mit Covid-19 Hospitalisiert & auf der Intensivstation liegen im ${timeframe} Tages Verlauf.`}
 			/>
-			<div className="flex flex-row h-full mt-auto justify-between items-center">
+			<div className="mt-auto flex h-full flex-row items-center justify-between">
 				<ResponsiveLine
 					theme={themes[theme]}
 					margin={{ bottom: 24, left: 35, top: 10, right: 20 }}

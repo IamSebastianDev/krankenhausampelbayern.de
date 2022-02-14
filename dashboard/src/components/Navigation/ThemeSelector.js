@@ -14,12 +14,12 @@ export const ThemeSelector = () => {
 	};
 
 	const icon = {
-		light: <SunBig size={20} className="dark:stroke-1 stroke-2" />,
-		dark: <MoonStylized size={20} className="dark:stroke-1 stroke-2" />,
+		light: <SunBig size={20} className="stroke-2 dark:stroke-1" />,
+		dark: <MoonStylized size={20} className="stroke-2 dark:stroke-1" />,
 	};
 
 	return (
-		<li className="realtive dark:hover:text-blue-500 px-1 mx-2 flex flex-row justify-center items-center">
+		<li className="realtive mx-2 flex flex-row items-center justify-center px-1 dark:hover:text-blue-500">
 			<button onClick={toggleThemeModal} title="Open theme menu">
 				{icon[theme]}
 			</button>

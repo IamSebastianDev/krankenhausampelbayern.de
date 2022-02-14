@@ -4,7 +4,7 @@ export const WidgetTitle = ({ title, description }) => {
 	const [prim, ...details] = title.split(' ');
 	return (
 		<div>
-			<h3 className="md:text-lg tracking-wide pr-4">
+			<h3 className="pr-4 tracking-wide md:text-lg">
 				{prim}{' '}
 				<span className="text-xs uppercase">{details.join(' ')}</span>
 			</h3>

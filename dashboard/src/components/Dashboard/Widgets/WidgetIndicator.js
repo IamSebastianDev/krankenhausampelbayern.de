@@ -51,15 +51,15 @@ export const WidgetIndicator = ({ data }) => {
 	const currentStage = getStage({ source });
 
 	return (
-		<Card className="relative flex flex-col justify-between font-nunito font-bold max-w-sm min-h-[300px] group">
+		<Card className="font-nunito group relative flex min-h-[300px] max-w-sm flex-col justify-between font-bold">
 			<WidgetTitle
 				title="Krankenhaus-Ampel Bayern"
 				description="Die Krankenhaus-Ampel gibt Auskunft über die momentane Auslastung des bayrischen Gesundheitssystem."
 			/>
-			<div className="flex flex-row h-32 mt-auto mb-2 justify-between items-center">
+			<div className="mt-auto mb-2 flex h-32 flex-row items-center justify-between">
 				<span
 					className={cls(
-						'shrink-0 mx-2 w-20 h-20 rounded-full shadow-tl border-4 dark:border-[6px] dark:border-zinc-900 border-zinc-200',
+						'shadow-tl mx-2 h-20 w-20 shrink-0 rounded-full border-4 border-zinc-200 dark:border-[6px] dark:border-zinc-900',
 						stages[currentStage].color
 					)}
 				/>
@@ -70,12 +70,12 @@ export const WidgetIndicator = ({ data }) => {
 					</p>
 				</div>
 			</div>
-			<div className="flex flex-row justify-between items-center text-sm font-bold font-nunito tracking-wider">
+			<div className="font-nunito flex flex-row items-center justify-between text-sm font-bold tracking-wider">
 				<a
 					href="https://www.stmgp.bayern.de/coronavirus/#kh-ampel"
 					target="_blank"
 					rel="noreferrer noopener"
-					className="flex flex-row justify-center items-center underline">
+					className="flex flex-row items-center justify-center underline">
 					<ArrowRight size={12} className="mr-2" /> Aktuell
 					geltendende Regelungen
 				</a>

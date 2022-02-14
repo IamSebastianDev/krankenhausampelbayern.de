@@ -8,7 +8,7 @@ const Spinner = ({ className }) => {
 	return (
 		<span
 			className={cls(
-				'absolute w-20 h-20 rounded-full animate-spin',
+				'absolute h-20 w-20 animate-spin rounded-full',
 				className
 			)}
 		/>
@@ -39,7 +39,7 @@ export const Loader = ({ loading, id, className }) => {
 		<div
 			id={id}
 			className={cls(
-				'w-full h-full fixed top-0 left-0 flex-col justify-center items-center bg-zinc-200 dark:bg-zinc-900 transition-transopaque duration-1000 transform z-40',
+				'transition-transopaque fixed top-0 left-0 z-40 h-full w-full transform flex-col items-center justify-center bg-zinc-200 duration-1000 dark:bg-zinc-900',
 				visible ? 'flex' : 'hidden',
 				animate ? ' scale-150 opacity-0' : 'scale-100 opacity-100',
 				className

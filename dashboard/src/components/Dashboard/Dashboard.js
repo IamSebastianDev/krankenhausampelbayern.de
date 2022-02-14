@@ -99,8 +99,8 @@ export const Dashboard = () => {
 						isVisible={showWidgetLister}
 						toggleModal={toggleWidgetModal}
 					/>
-					<div className="mx-auto max-w-sm md:max-w-screen-md lg:max-w-screen-lg w-full">
-						<div className=" grid grid-cols-1 md:grid-cols-2 auto-rows-fr lg:grid-cols-3  my-4 mx-6 md:mx-16 lg:mx-4 gap-6 dark:text-zinc-100 text-zinc-700 md:grid-flow-row-dense">
+					<div className="mx-auto w-full max-w-sm md:max-w-screen-md lg:max-w-screen-lg">
+						<div className=" my-4 mx-6 grid auto-rows-fr grid-cols-1  gap-6 text-zinc-700 dark:text-zinc-100 md:mx-16 md:grid-flow-row-dense md:grid-cols-2 lg:mx-4 lg:grid-cols-3">
 							<WidgetIndicator data={data} />
 							<WidgetLinegraph history={data.history} />
 							{layout.map(
@@ -124,12 +124,12 @@ export const Dashboard = () => {
 					</div>
 					<div
 						id="sources"
-						className="relative flex flex-col sm:flex-row justify-center items-center my-8 py-6 px-4 mx-6 sm:mx-auto text-zinc-500 dark:text-zinc-500 text-sm text-center sm:text-left border border-blue-500">
+						className="relative my-8 mx-6 flex flex-col items-center justify-center border border-blue-500 py-6 px-4 text-center text-sm text-zinc-500 dark:text-zinc-500 sm:mx-auto sm:flex-row sm:text-left">
 						<InfoCircle
 							size={24}
-							className="m-2 shrink-0 absolute top-0 left-0 sm:relative text-blue-500"
+							className="absolute top-0 left-0 m-2 shrink-0 text-blue-500 sm:relative"
 						/>
-						<div className="sm:ml-2 sm:pl-6 sm:border-l border-l-zinc-500">
+						<div className="border-l-zinc-500 sm:ml-2 sm:border-l sm:pl-6">
 							<p>
 								Hospitalisierungen: Stand:{' '}
 								{currentEntry.meta.currentAsOf.hospitalized.toLocaleDateString()}
@@ -141,7 +141,7 @@ export const Dashboard = () => {
 							<p>
 								Quelle:{' '}
 								<ExternalLink
-									className="underline text-zinc-800 dark:text-zinc-200 "
+									className="text-zinc-800 underline dark:text-zinc-200 "
 									href="https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm"
 									rel="noreferrer noopener"
 									target="_blank">

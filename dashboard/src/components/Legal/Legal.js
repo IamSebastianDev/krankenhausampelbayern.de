@@ -5,7 +5,7 @@ import { Section } from '../UI/Section';
 export const Legal = () => {
 	return (
 		<Section id="impressum">
-			<div className="text-zinc-800 dark:text-zinc-100 max-w-screen-sm px-6 mx-auto">
+			<div className="mx-auto max-w-screen-sm px-6 text-zinc-800 dark:text-zinc-100">
 				<div className="my-12">
 					<h1 className="py-2 text-2xl">Impressum</h1>
 					<h3 className="py-2 text-xl">Angaben gemäß § 5 TMG:</h3>

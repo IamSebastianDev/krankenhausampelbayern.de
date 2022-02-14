@@ -13,7 +13,7 @@ export const ExternalLink = forwardRef(
 				rel="noreferrer noopener"
 				target={target}
 				className={cls(
-					'dark:hover:text-blue-500 hover:text-blue-500',
+					'hover:text-blue-500 dark:hover:text-blue-500',
 					className
 				)}>
 				{children}

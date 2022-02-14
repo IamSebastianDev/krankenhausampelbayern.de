@@ -54,8 +54,8 @@ export const WidgetModal = ({
 		<section
 			id="widget-modal"
 			className={cls(
-				'fixed top-0 left-0 h-screen w-screen dark:bg-zinc-900 dark:bg-opacity-50 bg-zinc-100 bg-opacity-50 z-20 transform transition-transopaque duration-300 backdrop-blur dark:backdrop-blur-md shadow-md text-zinc-700 dark:text-zinc-300',
-				isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-0',
+				'transition-transopaque fixed top-0 left-0 z-20 h-screen w-screen transform bg-zinc-100 bg-opacity-50 text-zinc-700 shadow-md backdrop-blur duration-300 dark:bg-zinc-900 dark:bg-opacity-50 dark:text-zinc-300 dark:backdrop-blur-md',
+				isVisible ? 'scale-100 opacity-100' : 'scale-0 opacity-0',
 				reduceMotion ? '' : 'transition-transopaque duration-150'
 			)}>
 			<button
@@ -63,16 +63,16 @@ export const WidgetModal = ({
 				onClick={toggleModal}>
 				<X />
 			</button>
-			<div className="flex flex-row justify-between items-center w-full h-full max-w-screen-lg mx-auto">
+			<div className="mx-auto flex h-full w-full max-w-screen-lg flex-row items-center justify-between">
 				<button className="p-4" onClick={lastWidget}>
 					<ChevronLeft size={32} />
 				</button>
 				{currentWidget && (
-					<div className="grid grid-cols-1 place-items-center transform scale-75 sm:scale-100 font-semibold font-nunito dark:text-zinc-200 text-zinc-800">
-						<h3 className="text-3xl py-5">{currentWidget.title}</h3>
+					<div className="font-nunito grid scale-75 transform grid-cols-1 place-items-center font-semibold text-zinc-800 dark:text-zinc-200 sm:scale-100">
+						<h3 className="py-5 text-3xl">{currentWidget.title}</h3>
 
 						<button
-							className="border-4 rounded-2xl border-transparent hover:border-blue-500"
+							className="rounded-2xl border-4 border-transparent hover:border-blue-500"
 							onClick={handleAddWidget}>
 							<Widget data={currentWidget} />
 						</button>
@@ -83,7 +83,7 @@ export const WidgetModal = ({
 					</div>
 				)}
 				{remainingWidgets && remainingWidgets.length === 0 && (
-					<h3 className="text-xl md:text-3xl text-center">
+					<h3 className="text-center text-xl md:text-3xl">
 						Keine weiteren Widgets zum hinzufügen vorhanden.
 					</h3>
 				)}
