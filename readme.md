@@ -23,20 +23,20 @@ const data = await response.json();
 
 Die API respektiert zwei verschiedene Queryparameter.
 
-### `&timeframe=<number>`
+### `?timeframe=<number>`
 
 Der `timeframe` Queryparamter kann benutzt werden, um die Anzahl an Datensätzen zu begrenzen, die von der API zurückgegeben werden. Als standard werden alle vorhandenen Datensätze zurückgegeben. Der Parameter erwartet eine Nummer.
 
 ```js
-const res = await fetch('/api&timeframe=14');
+const res = await fetch('/api?timeframe=14');
 ```
 
-### `&omitmetadata=<boolean>`
+### `?omitmetadata=<boolean>`
 
 Der `omitmetadata` queryparameter kann benutzt werden, um die von der API mitgelieferten Metadaten zu ignorieren. Metadaten enthalten die Beschreibungen, Einheiten und andere Informationen die auch vom Consumer bestimmt werden können. Der Parameter erwartet einen boolean. (true oder false)
 
 ```js
-const res = await fetch('/api&omitmetadata=true|false');
+const res = await fetch('/api?omitmetadata=true|false');
 ```
 
 ## API - Response
