@@ -16,7 +16,7 @@ export const WidgetLinegraph = ({ history }) => {
 					return {
 						x: new Date(
 							meta.currentAsOf.icuOccupation
-						).toLocaleDateString(),
+						),
 						y: icuOccupation.value,
 					};
 				}),
@@ -28,7 +28,7 @@ export const WidgetLinegraph = ({ history }) => {
 					return {
 						x: new Date(
 							meta.currentAsOf.hospitalized
-						).toLocaleDateString(),
+						),
 						y: hospitalized7Days.value,
 					};
 				}),
