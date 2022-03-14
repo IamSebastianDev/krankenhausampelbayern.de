@@ -156,12 +156,26 @@ const pageCrawler = async ({ page, workOrder }) => {
 			if (Object.hasOwnProperty.call(object, name)) {
 				const order = object[name];
 
-				const res = await page.$$eval(
-					`${order.selector}`,
-					order.callback
-				);
+				try {
+					const res = await page.$$eval(
+						`${order.selector}`,
+						order.callback
+					);
+					category[name] = res;
+				} catch {
+					/**
+					 * In case an error happens on the itteration,
+					 * null is returned. This will in turn have the api
+					 * return the last valid data set, and prevent the
+					 * server from crashing. Unfortunatley that also means,
+					 * that their is no real way to indicate to the api call
+					 * that an error occured during the call. For this, the
+					 * architecture would need to be adapted.
+					 */
 
-				category[name] = res;
+					console.error(`Error itterating ${name}`);
+					return null;
+				}
 			}
 		}
 	};
