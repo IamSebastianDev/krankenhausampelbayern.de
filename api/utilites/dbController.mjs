@@ -138,6 +138,8 @@ export class Schema {
 	#parseDateString(dateString) {
 		const string = extractDateString(dateString);
 		const [day, month, year] = string.split(',')[0].split('.');
-		return new Date(Date.UTC(year, month - 1, day));
+		return new Date(
+			Date.UTC(year.length === 2 ? '20' + year : year, month - 1, day)
+		);
 	}
 }
