@@ -16,33 +16,43 @@
 export const workOrder = {
 	data: {
 		hospitalized: {
-			selector: '.jumbotron',
+			selector:
+				'#kennzahlen2 > div:nth-child(2) > div > div.card > div > p.card-text > strong',
 			callback: (nodeList) => {
-				const elem = nodeList[1];
+				const elem = nodeList[0];
 
-				const dataPoint = elem
-					.querySelectorAll('.horizontal_zwei dd')[1]
-					.textContent.trim()
+				const dataPoint = elem.textContent
+					.trim()
 					.split(/\n/gim)[0]
+					.trim();
+
+				const [value] = dataPoint.split(' ');
+
+				return value;
+			},
+		},
+		hospitalized7Days: {
+			selector:
+				'#kennzahlen2 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > p > strong',
+			callback: (nodeList) => {
+				const elem = nodeList[0];
+
+				const dataPoint = elem.textContent
+					.trim()
+					.split(/ /gim)[0]
 					.trim();
 
 				return dataPoint;
 			},
 		},
-		hospitalized7Days: {
-			selector: '#kennzahlen2 .card-text strong',
-			callback: (nodeList) => {
-				return nodeList[0].textContent.trim().split(/\n/gim)[0].trim();
-			},
-		},
 		hospitalizedIncidence: {
-			selector: '.jumbotron',
+			selector:
+				'#kennzahlen2 > div:nth-child(1) > div:nth-child(2) > div.card-body > p.card-text > strong',
 			callback: (nodeList) => {
 				const elem = nodeList[0];
 
-				const dataPoint = elem
-					.querySelectorAll('.horizontal_zwei dd')[0]
-					.textContent.trim()
+				const dataPoint = elem.textContent
+					.trim()
 					.split(/\n/gim)[0]
 					.trim();
 
@@ -50,19 +60,27 @@ export const workOrder = {
 			},
 		},
 		icuOccupation: {
-			selector: '#kennzahlen2 .card-text strong',
+			selector:
+				'#kennzahlen2 > div:nth-child(2) > div > div:nth-child(1) > p > strong',
 			callback: (nodeList) => {
-				return nodeList[1].textContent.trim().split(/\n/gim)[0].trim();
+				const elem = nodeList[0];
+
+				const dataPoint = elem.textContent
+					.trim()
+					.split(/\n/gim)[0]
+					.trim();
+
+				return dataPoint;
 			},
 		},
 		cases7Days: {
-			selector: '.jumbotron',
+			selector:
+				'#kennzahlen2 > div:nth-child(3) > div > dl > dd:nth-child(4)',
 			callback: (nodeList) => {
-				const elem = nodeList[2];
+				const elem = nodeList[0];
 
-				const dataPoint = elem
-					.querySelectorAll('.horizontal_zwei dd')[1]
-					.textContent.trim()
+				const dataPoint = elem.textContent
+					.trim()
 					.split(/\n/gim)[0]
 					.trim();
 
@@ -70,13 +88,12 @@ export const workOrder = {
 			},
 		},
 		incidence7Days: {
-			selector: '.jumbotron',
+			selector: '#kennzahlen2 > div:nth-child(3) > div > p.card-text',
 			callback: (nodeList) => {
-				const elem = nodeList[2];
+				const elem = nodeList[0];
 
-				const dataPoint = elem
-					.querySelectorAll('.horizontal_zwei dd')[2]
-					.textContent.trim()
+				const dataPoint = elem.textContent
+					.trim()
 					.split(/\n/gim)[0]
 					.trim();
 
@@ -84,13 +101,13 @@ export const workOrder = {
 			},
 		},
 		rvalue: {
-			selector: '.jumbotron',
+			selector:
+				'#kennzahlen2 > div:nth-child(3) > div > dl > dd:nth-child(2)',
 			callback: (nodeList) => {
-				const elem = nodeList[2];
+				const elem = nodeList[0];
 
-				const dataPoint = elem
-					.querySelectorAll('.horizontal_zwei dd')[0]
-					.textContent.trim()
+				const dataPoint = elem.textContent
+					.trim()
 					.split(/\n/gim)[0]
 					.trim();
 
@@ -98,13 +115,13 @@ export const workOrder = {
 			},
 		},
 		vaccinated: {
-			selector: '.jumbotron',
+			selector:
+				'#kennzahlen2 > div:nth-child(4) > div > dl > dd:nth-child(2)',
 			callback: (nodeList) => {
-				const elem = nodeList[3];
+				const elem = nodeList[0];
 
-				const dataPoint = elem
-					.querySelectorAll('.horizontal_vier dd')[0]
-					.textContent.trim()
+				const dataPoint = elem.textContent
+					.trim()
 					.split(/\n/gim)[0]
 					.trim();
 
@@ -114,15 +131,17 @@ export const workOrder = {
 	},
 	src: {
 		hospitalized: {
-			selector: '.card .bildunterschrift',
+			selector:
+				'#kennzahlen2 > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > p',
 			callback: (nodeList) => {
-				return nodeList[0].textContent.split(/\n/gim)[0].trim();
+				return nodeList[0].textContent.trim().split(/\n/)[0].trim();
 			},
 		},
 		icuOccupation: {
-			selector: '.card .bildunterschrift',
+			selector:
+				'#kennzahlen2 > div:nth-child(2) > div > div:nth-child(5) > p',
 			callback: (nodeList) => {
-				return nodeList[1].textContent.split(/\n/gim)[0].trim();
+				return nodeList[0].textContent.trim().split(/\n/)[1].trim();
 			},
 		},
 	},
