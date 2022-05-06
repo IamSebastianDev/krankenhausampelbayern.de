@@ -14,9 +14,7 @@ export const WidgetLinegraph = ({ history }) => {
 				color: 'rgb(37, 99, 235)',
 				data: history.map(({ meta, icuOccupation }) => {
 					return {
-						x: new Date(
-							meta.currentAsOf.icuOccupation
-						),
+						x: new Date(meta.currentAsOf.icuOccupation),
 						y: icuOccupation.value,
 					};
 				}),
@@ -26,9 +24,7 @@ export const WidgetLinegraph = ({ history }) => {
 				color: 'rgb(239, 68, 68)',
 				data: history.map(({ meta, hospitalized7Days }) => {
 					return {
-						x: new Date(
-							meta.currentAsOf.hospitalized
-						),
+						x: new Date(meta.currentAsOf.hospitalized),
 						y: hospitalized7Days.value,
 					};
 				}),
@@ -68,7 +64,7 @@ export const WidgetLinegraph = ({ history }) => {
 	};
 
 	return (
-		<Card className="font-nunito group relative hidden min-h-[300px] w-full flex-col justify-between font-bold md:col-span-2 md:flex">
+		<Card className="group relative hidden min-h-[300px] w-full flex-col justify-between font-nunito font-bold md:col-span-2 md:flex">
 			<WidgetTitle
 				title={`Krankenhausauslastung der letzten ${timeframe} Tage.`}
 				description={`Anzahl der Patienten die mit Covid-19 Hospitalisiert & auf der Intensivstation liegen im ${timeframe} Tages Verlauf.`}
@@ -103,7 +99,7 @@ export const WidgetLinegraph = ({ history }) => {
 					}}
 					axisBottom={{
 						format: '%b %d',
-						tickValues: 'every 14 days',
+						tickValues: 'every 28 days',
 					}}
 					enablePoints={false}
 					useMesh={true}
