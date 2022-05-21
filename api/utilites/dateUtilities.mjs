@@ -9,8 +9,8 @@
 
 export const extractDateString = (string) =>
 	string
-		.match(/Stand[0-9., :]*/gim)[0]
-		.replace('Stand:', '')
+		.match(/Datenstand[0-9., :]*/gim)[0]
+		.replace('Datenstand:', '')
 		.trim();
 
 /**
