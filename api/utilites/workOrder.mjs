@@ -132,9 +132,9 @@ export const workOrder = {
 	src: {
 		hospitalized: {
 			selector:
-				'#kennzahlen2 > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > p',
+				'#kennzahlen2 > div:nth-child(2) > div > div:nth-child(5) > p',
 			callback: (nodeList) => {
-				return nodeList[0].textContent.trim().split(/\n/)[0].trim();
+				return nodeList[0].textContent.trim().split(/\n/)[1].trim();
 			},
 		},
 		icuOccupation: {
