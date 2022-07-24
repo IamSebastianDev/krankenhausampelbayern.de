@@ -18,7 +18,9 @@ export const WidgetIndicator = ({ data }) => {
 	 */
 
 	const source = data.history[data.numberOfDataSets - 2];
+	const deactivated = true;
 	const getStage = ({ source }) => {
+		if (deactivated) return 3;
 		const { icuOccupation, hospitalized7Days } = source;
 
 		if (icuOccupation.value > icuOccupation.threshold) {
@@ -36,22 +38,27 @@ export const WidgetIndicator = ({ data }) => {
 	const stages = [
 		{
 			color: 'bg-green-500 shadow-green-500',
-			message: 'Grün.',
+			message: 'Die bayrische Krankenhaus-Ampel steht zur Zeit auf Grün.',
 		},
 		{
 			color: 'bg-yellow-300 shadow-yellow-300',
-			message: 'Gelb.',
+			message: 'Die bayrische Krankenhaus-Ampel steht zur Zeit auf Gelb.',
 		},
 		{
 			color: 'bg-red-500 shadow-red-500',
-			message: 'Rot.',
+			message: 'Die bayrische Krankenhaus-Ampel steht zur Zeit auf Rot.',
+		},
+		{
+			color: 'bg-stone-500 shadow-stone-500',
+			message:
+				'Die bayrische Krankenhaus-Ampel findet zur Zeit keine Anwendung.',
 		},
 	];
 
 	const currentStage = getStage({ source });
 
 	return (
-		<Card className="font-nunito group relative flex min-h-[300px] max-w-sm flex-col justify-between font-bold">
+		<Card className="group relative flex min-h-[300px] max-w-sm flex-col justify-between font-nunito font-bold">
 			<WidgetTitle
 				title="Krankenhaus-Ampel Bayern"
 				description="Die Krankenhaus-Ampel gibt Auskunft über die momentane Auslastung des bayrischen Gesundheitssystem."
@@ -59,18 +66,15 @@ export const WidgetIndicator = ({ data }) => {
 			<div className="mt-auto mb-2 flex h-32 flex-row items-center justify-between">
 				<span
 					className={cls(
-						'shadow-tl mx-2 h-20 w-20 shrink-0 rounded-full border-4 border-zinc-200 dark:border-[6px] dark:border-zinc-900',
+						'mx-2 h-20 w-20 shrink-0 rounded-full border-4 border-zinc-200 shadow-tl dark:border-[6px] dark:border-zinc-900',
 						stages[currentStage].color
 					)}
 				/>
 				<div className="ml-3 leading-tight">
-					<p>
-						Die bayrische Krankenhaus-Ampel steht zur Zeit auf{' '}
-						{stages[currentStage].message}
-					</p>
+					<p>{stages[currentStage].message}</p>
 				</div>
 			</div>
-			<div className="font-nunito flex flex-row items-center justify-between text-sm font-bold tracking-wider">
+			<div className="flex flex-row items-center justify-between font-nunito text-sm font-bold tracking-wider">
 				<a
 					href="https://www.stmgp.bayern.de/coronavirus/#kh-ampel"
 					target="_blank"
