@@ -131,15 +131,14 @@ export const workOrder = {
 	},
 	src: {
 		hospitalized: {
-			selector:
-				'#kennzahlen2 > div:nth-child(2) > div > div:nth-child(5) > p',
+			selector: 'p.bildunterschrift',
 			callback: (nodeList) => {
-				return nodeList[0].textContent.trim().split(/\n/)[1].trim();
+				return nodeList[0].textContent.trim();
 			},
 		},
 		icuOccupation: {
 			selector:
-				'#kennzahlen2 > div:nth-child(2) > div > div:nth-child(5) > p',
+				'#kennzahlen2 > div:nth-child(2) > div > div:nth-child(6) > p',
 			callback: (nodeList) => {
 				return nodeList[0].textContent.trim().split(/\n/)[1].trim();
 			},
