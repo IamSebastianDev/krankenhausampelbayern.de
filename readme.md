@@ -1,5 +1,7 @@
 <!-- @format -->
 
+! Please note: The API is no longer hosted, but can still be self hosted for own use. The LGL Bayern is changing it's website regularly, and I do not have the necessry time to adjust the crawler.
+
 # 🚦 Covid-19 Bayern
 
 Die Covid-19 Krankenhausampel Bayern verfolgt das Ziel, eine möglichst vollständige übersicht über die aktuelle und vergangene medizinische Versorgungslage (in relation zu der Covid-19 Pandemie) in Bayern zu bieten und diese als Schnittstelle für verschiedene Consumer bereitzustellen.
